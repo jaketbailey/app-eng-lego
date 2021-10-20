@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.hamburger {
+    display: none;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-right: 10px;
+}
+
+.nav-item {
+    margin-left: 30px;
+    height: auto;
+}
+
+.header {
+    text-align: center;
+    color:  white;
+    height: auto;
+}
+
+.content {
+    padding: 20px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    align-content: center;
+    background-color: whitesmoke;
+    height: 500px;
+}
+
+.footer {
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+.title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: black;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.titlebutton {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+.titlebutton_2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: red;
+}
+
+.titlebutton:hover {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: red;
+}
+
+.titlebutton_2:hover {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  
+li {
+    display: block;
+    float: left;
+    padding: 1rem;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    background-color: white;
+    width: 65%;
+}
+  
+ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    display: none;
+}
+
+ul li:hover > ul,
+ul li:focus-within > ul,
+ul li ul:hover,
+ul li ul:focus {
+    visibility: visible;
+    opacity: 1;
+    display: block
+
+}
+  
