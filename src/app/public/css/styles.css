@@ -42,7 +42,7 @@ body {
 
 .header {
     text-align: center;
-    color:  white;
+    color:  #5FBF9F;
     height: auto;
 }
 
@@ -60,7 +60,7 @@ body {
 .footer {
     padding: 10px;
     text-align: center;
-    color: white;
+    color: #5FBF9F;
 }
 
 .title {
@@ -83,14 +83,14 @@ body {
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
     font-weight: 600;
-    color: red;
+    color: black;
 }
 
 .titlebutton:hover {
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
     font-weight: 600;
-    color: red;
+    color: black;
 }
 
 .titlebutton_2:hover {
