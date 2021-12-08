@@ -61,7 +61,7 @@ body {
     background-attachment: fixed;
     align-content: center;
     background-color: #F5F5F5;
-    height: auto;
+    height: 100%;
 }
 
 .footer {
@@ -138,6 +138,7 @@ a {
     background-color: #111122;
     padding: 20px;
     color: #F5F5F5;
+    border-radius: 5px;
 }
 
 .button:hover {
@@ -166,6 +167,7 @@ p2, a2 {
         justify-items: center;
         margin-right: auto;
         margin-left: auto;
+        height: 100%;
     }
   
     .parent > div {
