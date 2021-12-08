@@ -72,7 +72,7 @@ body {
 }
 
 .title {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 40px;
     font-weight: 900;
     color: #31393c;
@@ -81,35 +81,35 @@ body {
 }
 
 .titlebutton {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #31393c;
 }
 
 .titlebutton_2 {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #F5F5F5;
 }
 
 .titlebutton:hover {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #F5F5F5;
 }
 
 .titlebutton_2:hover {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #31393c;
 }
 
 .title_main {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 40px;
     font-weight: 900;
     color: #31393c;
@@ -117,13 +117,21 @@ body {
     margin-bottom: 0;
 }
 
-.p_main, a {
-    font-family: 'Balsamiq Sans', cursive;
+.p_main {
+    font-family: 'Sen', sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #31393c;
     text-decoration: none;
     margin-bottom: 40px;
+}
+
+a {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #31393c;
+    text-decoration: none;
 }
 
 .button {
@@ -138,7 +146,7 @@ body {
 }
 
 p2, a2 {
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Sen', sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: #111122;
