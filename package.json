@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/server/"
+    "start": "cd ./src/server && nodemon ."
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,12 @@
   "author": "Jake Bailey",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
     "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "express-openid-connect": "^2.5.2",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^2.0.5",
     "pg": "^8.7.1"
   },
   "devDependencies": {
