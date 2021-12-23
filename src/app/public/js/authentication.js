@@ -18,19 +18,23 @@ async function initialiseClient() {
 
 async function updateUI() {
   const isAuthenticated = await auth0.isAuthenticated();
-  const button = document.getElementById('authBtn').disabled = isAuthenticated;
+  console.log(isAuthenticated);
+  document.getElementById('authBtn').disabled = isAuthenticated;
+  document.getElementById('authBtnLogout').disabled = !isAuthenticated;
   if (isAuthenticated) {
-    button.textContent = 'Logout';
-    button.href = '/logout';.
-  } else {
-    button.textContent = 'Login';
-    button.href = '/login';
+    // const user = await auth0.getUser();
+    const login = document.getElementById('authBtn');
+    const logout = document.getElementById('authBtnLogout');
+    console.log(login);
+    console.log(logout);
+    login.style.display = 'none';
+    logout.style.display = 'block';
   }
 }
 
 async function login() {
   await auth0.loginWithRedirect({
-    redirect_url: window.location.origin,
+    redirect_uri: window.location.origin,
   });
 }
 
@@ -59,18 +63,21 @@ async function handleAuth0Redirect() {
     // remove the query parameters
     window.history.replaceState({}, document.title, '/');
 
-    await updateAuthUI();
+    await updateUI();
   }
 }
 
 function setupListeners() {
   document.getElementById('authBtn').addEventListener('click', login);
+  document.getElementById('authBtnLogout').addEventListener('click', logout);
 }
 
 
 async function init() {
-  await initializeAuth0Client();
+  await initialiseClient();
   await setupListeners();
-  await updateAuthUI();
+  await updateUI();
   await handleAuth0Redirect();
 }
+
+window.addEventListener('load', init);
