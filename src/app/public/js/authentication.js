@@ -27,6 +27,15 @@ async function updateUI() {
     // const user = await auth0.getUser();
     const login = document.getElementById('authBtn');
     const logout = document.getElementById('authBtnLogout');
+    const website = document.getElementById('website');
+    const name = document.createElement('p');
+    const user = auth0.getUser();
+    user.then(function(res) {
+      console.log(res);
+      name.textContent = `Logged in as ${res.name}`;
+      website.appendChild(name);
+    });
+
     console.log(login);
     console.log(logout);
     login.style.display = 'none';
