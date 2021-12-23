@@ -160,6 +160,21 @@ a {
     width: 300px;
 }
 
+.card2 {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    color: #31393c;
+    background-color: #d3d3d3;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    /* height: 200px;
+    width: 1200px; */
+    height: 320px;
+    width: 300px;
+}
+
+
 p2, a2 {
     font-family: 'Sen', sans-serif;
     font-size: 15px;
@@ -175,6 +190,30 @@ p {
     color: #31393c;
     text-align: left;
     margin: 0px;
+}
+
+.parent2 {
+    display: flex;
+    background-color: transparent;
+    flex-flow: row;
+    width: 60%;
+    align-content: center;
+    align-items: flex-start;
+    justify-content: center;
+    justify-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    height: auto;
+}
+
+.parent2 > div {
+    background-color: transparent;
+    /* margin: 10px; */
+    padding: 10px;
+    font-size: 30px;
+    width: auto;
+    height: auto;
+    text-align: center;
 }
 @media screen and (min-width: 1401px) {
 
