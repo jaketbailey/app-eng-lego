@@ -1,3 +1,4 @@
+
 async function fetchConfig() {
   const response = await fetch('/auth-config');
   const config = await response.json();
@@ -8,6 +9,7 @@ let auth0 = null;
 
 async function initialiseClient() {
   const config = await fetchConfig();
+  // eslint-disable-next-line no-undef
   auth0 = await createAuth0Client({
     domain: config.domain,
     client_id: config.clientId,

@@ -19,6 +19,7 @@ function auth0(app) {
   app.get('/auth-config', (req, res) => {
     res.send(authConfig);
   });
+
   app.get('/profile', requiresAuth(), (req, res) => {
     res.send(JSON.stringify(req.oidc.user));
   });

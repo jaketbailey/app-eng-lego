@@ -2,6 +2,8 @@
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="../public/js/authentication.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" async defer></script>
 </head>
 
 <body>
@@ -19,7 +21,10 @@
                 <li class="nav-item"><a href="/kits" class="titlebutton_2">Kits</a></li>
                 <li class="nav-item"><a href="/bricks" class="titlebutton">Bricks</a></li>
                 <li class="nav-item"><a href="/basket" class="titlebutton">Basket</a></li>
-                <li class="nav-item"><a href="/login" class="button" style="padding: 10px;">Login</a></li>
+                <li class="nav-item">
+                    <button id="authBtn" class="button" style="padding: 10px;" >Login</button>
+                    <button id="authBtnLogout" class="button" style="padding: 10px; display: none;">Logout</button>
+                </li>
             </ul>
 
             <div class="hamburger">
