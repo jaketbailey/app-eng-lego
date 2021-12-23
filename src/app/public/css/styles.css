@@ -61,7 +61,7 @@ body {
     background-attachment: fixed;
     align-content: center;
     background-color: #F5F5F5;
-    height: 100%;
+    height: auto;
 }
 
 .footer {
@@ -148,6 +148,18 @@ a {
     background-color: #31393c;
 }
 
+.card {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    color: #31393c;
+    background-color: #d3d3d3;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    height: 320px;
+    width: 300px;
+}
+
 p2, a2 {
     font-family: 'Sen', sans-serif;
     font-size: 15px;
@@ -156,6 +168,14 @@ p2, a2 {
     text-decoration: none;
 }
 
+p {
+    font-family: 'Sen', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #31393c;
+    text-align: left;
+    margin: 0px;
+}
 @media screen and (min-width: 1401px) {
 
     .parent {
@@ -169,7 +189,7 @@ p2, a2 {
         justify-items: center;
         margin-right: auto;
         margin-left: auto;
-        height: 100%;
+        height: auto;
     }
   
     .parent > div {
@@ -177,7 +197,8 @@ p2, a2 {
         /* margin: 10px; */
         padding: 10px;
         font-size: 30px;
-        width: 40%;
+        width: auto;
+        height: auto;
         text-align: center;
     }
 }
@@ -194,6 +215,7 @@ p2, a2 {
         justify-items: center;
         margin-right: auto;
         margin-left: auto;
+        height: auto;
     }
 
     .parent > div {
@@ -201,7 +223,7 @@ p2, a2 {
         /* margin: 10px; */
         padding: 10px;
         font-size: 30px;
-        width: 75%;
+        width: auto;
         text-align: center;
         height: auto;
     }
