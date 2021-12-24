@@ -32,7 +32,7 @@ async function updateUI() {
     const user = auth0.getUser();
     user.then(function(res) {
       console.log(res);
-      name.textContent = `Logged in as ${res.name}`;
+      name.textContent = `Logged in as ${res.name}, ${res.email}`;
       website.appendChild(name);
     });
 

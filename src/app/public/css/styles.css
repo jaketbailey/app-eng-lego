@@ -78,6 +78,7 @@ body {
     color: #31393c;
     margin-top: 0;
     margin-bottom: 0;
+    text-align: left;
 }
 
 .titlebutton {
@@ -174,6 +175,19 @@ a {
     width: 300px;
 }
 
+.checkout-card {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    color: #31393c;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    height: auto;
+    width: 300px;
+    border-color: #31393c;
+    border-width: 2px;
+    border-style: dotted;
+}
 
 p2, a2 {
     font-family: 'Sen', sans-serif;
