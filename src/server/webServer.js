@@ -29,4 +29,3 @@ module.exports = {
   init: init,
   app: app,
 };
-

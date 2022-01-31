@@ -1,10 +1,10 @@
 const { Client } = require('pg');
 const fs = require('fs');
 const admin = new Client({
-  user: 'blockadmin',
-  host: 'jaketbailey.duckdns.org',
+  user: 'postgres',
+  host: 'localhost',
   database: 'block_shop',
-  password: 'qd!gFo4786dL?gd7',
+  password: 'Outdoor23',
   port: 5432,
 });
 
