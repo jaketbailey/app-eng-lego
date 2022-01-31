@@ -15,8 +15,8 @@ colors.setTheme({
 this starts the webserver using express and  statically serves the directory for the
 web application  */
 function init() {
-  
   app.get('/shop/all', db.getAllProducts);
+  app.get('/shop/item/:id', db.getProductById);
   app.use(express.static('../app/'));
   auth.auth0(app);
 
