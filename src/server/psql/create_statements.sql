@@ -14,19 +14,8 @@ CREATE TABLE colours(
 );
 
 CREATE TABLE product_colours(
-  choice_id INT REFERENCES colours(id) NOT NULL,
+  colour_id INT REFERENCES colours(id) NOT NULL,
   product_id INT REFERENCES products(id) NOT NULL
-);
-
-CREATE TABLE categories(
-  id SERIAL PRIMARY KEY,
-  category_name VARCHAR(50) NOT NULL,
-  category_desc VARCHAR(200) NOT NULL
-);
-
-CREATE TABLE product_category(
-  product_id INT REFERENCES products(id) NOT NULL,
-  category_id INT REFERENCES categories(id) NOT NULL
 );
 
 CREATE TABLE customers(
