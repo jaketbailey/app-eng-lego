@@ -4,6 +4,7 @@ const port = 8080;
 const auth = require('./authentication');
 const colors = require('colors');
 const app = express();
+const db = require('./queries.js');
 colors.setTheme({
   boot: 'cyan',
   error: ['red', 'bold'],
@@ -14,8 +15,11 @@ colors.setTheme({
 this starts the webserver using express and  statically serves the directory for the
 web application  */
 function init() {
+  
+  app.get('/shop/all', db.getAllProducts);
   app.use(express.static('../app/'));
   auth.auth0(app);
+
   app.listen(port, err => {
     if (err) {
       return err;

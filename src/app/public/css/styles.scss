@@ -161,6 +161,10 @@ a {
     width: 300px;
 }
 
+.card-body {
+    margin-bottom: 20px;
+}
+
 .card2 {
     font-family: 'Sen', sans-serif;
     font-size: 20px;
@@ -202,7 +206,7 @@ p {
     font-size: 15px;
     font-weight: 600;
     color: #31393c;
-    text-align: left;
+    text-align: center;
     margin: 0px;
 }
 
@@ -229,6 +233,28 @@ p {
     height: auto;
     text-align: center;
 }
+
+.store {
+    border-style: dashed;
+    border-color: #fff;
+    border-radius: 7px;
+}
+
+.store_btn {
+    background-color: #111122;
+    margin: 10px;
+    padding: 10px;
+    color: #F5F5F5;
+    border-radius: 5px;
+    font-family: 'Sen', sans-serif;
+    font-weight: 100;
+    font-size: 15px;
+}
+
+.store_btn:hover {
+    background-color: #31393c;
+}
+
 @media screen and (min-width: 1401px) {
 
     .parent {
