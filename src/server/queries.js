@@ -30,15 +30,15 @@ const getProductById = (req, res) => {
 };
 
 const getProductByFilter = (req, res) => {
-  const colour = req.params.filter;
-  console.log(colour);
+  const filter = req.params.filter;
+  console.log(filter);
   pool.query(`
   SELECT * 
   FROM products 
     JOIN product_colours ON product_colours.product_id = products.id 
     JOIN colours ON  product_colours.colour_id = colours.id 
 
-  WHERE colours.colour_name = '${colour}';
+  WHERE colours.colour_name = '${filter}' OR products.category LIKE '%${filter}%';
   `, (err, results) => {
     if (err) {
       throw err;

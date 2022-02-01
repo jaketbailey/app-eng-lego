@@ -31,10 +31,10 @@ const addCard = (params) => {
     cards = getData(`/shop/filter/${filterObj.join(',')}`);
   }
   cards.then((res) => {
-    for (let i = 0; i < res[0].length; i++) {
+    console.log(res.length);
+    for (let i = 0; i < res.length; i++) {
       page.appendChild(document.createElement('div'));
-      page.lastChild.appendChild(createCard(res[0][i].id, res[0][i].product_name, res[0][i].product_desc, res[0][i].image_ref, res[0][i].price));
-      console.log(res[0]);
+      page.lastChild.appendChild(createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price));
     }
     // res.forEach((card) => {
     //   page.appendChild(document.createElement('div'));

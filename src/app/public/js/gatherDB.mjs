@@ -4,20 +4,28 @@ const getData = async (input) => {
   const page = actualInput[2];
   console.log(actualInput);
   const finalOutput = [];
-  for (let i = 0; i < actualInput.length; i++) {
-    let res
-    if (page === 'all') {
-      res = await fetch(`/shop/${page}`);
-    } else {
-      actualInput = actualInput[3];
-      actualInput = actualInput.split(',');
+  let res;
+  if (page === 'all') {
+    actualInput = actualInput[2];
+    res = await fetch(`/shop/${page}`);
+    const data = await res.json();
+    for (let i = 0; i < data.length; i++) {
+      finalOutput.push(data[i]);
+    }
+  } else {
+    actualInput = actualInput[3];
+    actualInput = actualInput.split(',');
+    for (let i = 0; i < actualInput.length; i++) {
+      console.log(actualInput.length);
       console.log(`/shop/${page}/${actualInput[i]}`);
       res = await fetch(`/shop/${page}/${actualInput[i]}`);
+      const data = await res.json();
+      for (let i = 0; i < data.length; i++) {
+        finalOutput.push(data[i]);
+      }
     }
-    const data = await res.json();
-    finalOutput.push(data);
+    console.log(finalOutput);
   }
-  console.log(finalOutput);
   return finalOutput;
 };
 

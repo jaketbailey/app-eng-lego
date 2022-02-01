@@ -51,7 +51,7 @@ insert into products (id, product_name, price, product_desc, image_ref, category
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (38, 'River Heist', 24.34, 'A Lego River Heist Agents Set', 'heist', 'set', 89);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (39, 'Space Mining Mech', 15.32, 'A Lego Space Mining Mech Set', 'mech', 'set', 8);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (40, 'Space Shuttle Adventure', 33.98, 'A Lego Space shuttle 3 in 1 set', 'shuttle', 'set', 32);
-insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (41, 'Surfer Beach House', 19.78, 'A Lego Surder Beach Hut set.', 'beach-hut', 'set', 65);
+insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (41, 'Surfer Beach House', 19.78, 'A Lego Surfer Beach Hut set.', 'beach-hut', 'set', 65);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (42, 'Yellow Taxi', 11.37, 'A Lego yellow New York taxi set.', 'taxi', 'set', 28);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (43, 'Super Mario', 26.43, 'A Lego Super Mario Adventure set.', 'mario', 'set', 69);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (44, 'Mighty Dinosaurs T-Rex', 22.12, 'A Lego mighty dinosaurs T-Rex set', 't-rex', 'set', 12);
