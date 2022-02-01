@@ -24,13 +24,12 @@ const load = () => {
   const id = params.id;
   const items = getData(`/shop/item/${id}`);
   items.then((res) => {
-    res.forEach((item) => {
+    for (let i = 0; i < res[0].length; i++) {
       page.appendChild(document.createElement('div'));
-      page.lastChild.appendChild(createPage(item.id, item.product_name, item.product_desc, item.image_ref, item.price));
-      console.log(item);
-    });
+      page.lastChild.appendChild(createPage(res[0][i].id, res[0][i].product_name, res[0][i].product_desc, res[0][i].image_ref, res[0][i].price));
+      console.log(res[0]);
+    }
   });
-  console.log(items);
 };
 
 window.addEventListener('load', load);

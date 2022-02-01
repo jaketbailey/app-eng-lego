@@ -118,6 +118,15 @@ body {
     margin-bottom: 0;
 }
 
+.title_secondary {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    font-weight: 100;
+    color: #31393c;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .p_main {
     font-family: 'Sen', sans-serif;
     font-size: 20px;
@@ -149,6 +158,14 @@ a {
     background-color: #31393c;
 }
 
+.filters {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #31393c;
+    padding: 10px;
+}
+
 .card {
     font-family: 'Sen', sans-serif;
     font-size: 20px;
@@ -161,7 +178,7 @@ a {
     width: 300px;
 }
 
-.card-, .page-body {
+.card-body, .page-body {
     margin-bottom: 20px;
 }
 

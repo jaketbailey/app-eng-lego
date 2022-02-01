@@ -29,7 +29,27 @@ const getProductById = (req, res) => {
   }
 };
 
+const getProductByFilter = (req, res) => {
+  const colour = req.params.filter;
+  console.log(colour);
+  pool.query(`
+  SELECT * 
+  FROM products 
+    JOIN product_colours ON product_colours.product_id = products.id 
+    JOIN colours ON  product_colours.colour_id = colours.id 
+
+  WHERE colours.colour_name = '${colour}';
+  `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    console.log(results);
+    res.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
+  getProductByFilter: getProductByFilter,
 };

@@ -17,6 +17,8 @@ web application  */
 function init() {
   app.get('/shop/all', db.getAllProducts);
   app.get('/shop/item/:id', db.getProductById);
+  app.get('/shop/filter/:filter', db.getProductByFilter);
+
   app.use(express.static('../app/'));
   auth.auth0(app);
 
