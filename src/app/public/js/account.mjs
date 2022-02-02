@@ -20,7 +20,7 @@ export default function loadAccountPage(user) {
   console.log(user.sub);
   const userData = getUser(user.sub);
   userData.then((res) => {
-    address.innerHTML = `
+    address.innerHTML = `<br>
     Address:<br>
     ${res.address_line_1}<br>
     ${res.address_line_2}<br>
