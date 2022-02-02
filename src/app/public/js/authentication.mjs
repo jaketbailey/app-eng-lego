@@ -36,7 +36,7 @@ async function updateUI() {
       if (window.location.pathname === '/account/') {
         loadAccountPage(res);
       }
-      name.textContent = `Logged in as ${res.name}, ${res.email}`;
+      name.textContent = `Logged in as ${res.name}`;
       website.appendChild(name);
       createUser(res);
     });

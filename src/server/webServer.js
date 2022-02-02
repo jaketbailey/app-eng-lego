@@ -20,7 +20,9 @@ function init() {
   app.get('/shop/all', db.getAllProducts);
   app.get('/shop/item/:id', db.getProductById);
   app.get('/shop/filter/:filter', db.getProductByFilter);
+  app.get('/get-user/:id', db.getUser);
   app.post('/create-user/', jsonParser, db.createUser);
+  app.put('/update-user/', jsonParser, db.updateUser);
 
   app.use(express.static('../app/'));
   auth.auth0(app);

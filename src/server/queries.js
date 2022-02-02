@@ -57,7 +57,7 @@ const createUser = (req, res) => {
       id, email, first_name, last_name, phone, address_line_1, address_line_2, city, county, postcode, country
     ) VALUES (
       '${sub}', '${email}', '${names[0]}', '${names[1]}', null, null, null, null, null, null, null
-    ) ON CONFLICT (id) DO NOTHING`, (err, results) => {
+    ) ON CONFLICT (id) DO NOTHING`, (err) => {
     if (err) {
       throw err;
     }
@@ -66,8 +66,43 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  const { sub, name, email } = req.body;
-  console.log(req.body);
+  const { id, address1, address2, city, country, county, postcode, phone } = req.body;
+  pool.query(`UPDATE customers SET
+    phone = '${phone}',
+    address_line_1 = '${address1}',
+    address_line_2 = '${address2}',
+    city = '${city}',
+    county = '${county}',
+    postcode = '${postcode}',
+    country = '${country}'
+    WHERE id = '${id}'`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`User updated with ID: ${id}`);
+  });
+};
+
+const getUser = (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  pool.query(`
+    SELECT
+      phone,
+      address_line_1,
+      address_line_2,
+      city,
+      county,
+      postcode,
+      country
+    FROM 
+      customers 
+    WHERE id = '${id}'`, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
 };
 
 module.exports = {
@@ -75,4 +110,6 @@ module.exports = {
   getProductById: getProductById,
   getProductByFilter: getProductByFilter,
   createUser: createUser,
+  updateUser: updateUser,
+  getUser: getUser,
 };
