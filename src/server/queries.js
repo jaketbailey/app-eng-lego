@@ -105,6 +105,89 @@ const getUser = (req, res) => {
   });
 };
 
+const getPreviousOrder = (req, res) => {
+  console.log(req.params);
+  pool.query(`
+    SELECT
+      id
+    FROM
+      orders
+    ORDER BY order_date DESC
+    LIMIT 1
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+const checkExists = (req, res) => {
+  const id = req.params.id;
+  pool.query(`
+    SELECT * FROM orders WHERE customer_id = '${id}' AND order_status = 'pending'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+const createBasket = (req, res) => {
+  const { id, customerId, email } = req.body;
+  console.log(req.body);
+  const dateOb = new Date(Date.now());
+  const date = dateOb.getDate();
+  const month = dateOb.getMonth() + 1;
+  const year = dateOb.getFullYear();
+  const today = `${year}-${month}-${date}`;
+  console.log(today);
+  pool.query(`
+    INSERT INTO orders (
+      id, total_cost, order_address, order_email, order_date, order_status, customer_id
+    ) VALUES (
+      '${id}', 0.00, null, '${email}', '${today}', 'pending', '${customerId}'
+    )`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(201).send(`Basket created with ID: ${id}`);
+  });
+};
+
+const addToBasket = (req, res) => {
+  const random = Math.floor(Math.random() * (10000000 - 100 + 1)) + 1;
+  const { id, productId, price } = req.body;
+  console.log(productId);
+  pool.query(`
+    INSERT INTO order_details (
+      id, price, quantity, order_id, product_id
+    ) VALUES (
+      '${random}', '${price}', 1, '${id}', '${productId}'
+    )`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(201).send(`Product added to basket with ID: ${id}`);
+  });
+};
+
+const updateStock = (req, res) => {
+  const { id, quantity } = req.body;
+  console.log(id);
+  console.log(quantity);
+  pool.query(`
+    UPDATE products SET
+      stock = stock - ${quantity}
+    WHERE id = '${id}'`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Product updated with ID: ${id}`);
+  });
+};
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
@@ -112,4 +195,9 @@ module.exports = {
   createUser: createUser,
   updateUser: updateUser,
   getUser: getUser,
+  getPreviousOrder: getPreviousOrder,
+  checkExists: checkExists,
+  createBasket: createBasket,
+  addToBasket: addToBasket,
+  updateStock: updateStock,
 };

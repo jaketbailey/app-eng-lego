@@ -1,4 +1,5 @@
-import getData from './gatherDB.mjs';
+import getData from './store.mjs';
+// import { authCheck } from './authentication.mjs';
 
 const createCard = (id, name, desc, img, price, stock) => {
   const card = document.createElement('div');
@@ -11,8 +12,8 @@ const createCard = (id, name, desc, img, price, stock) => {
     <p>£${price}</p>
     <p id="stock">Stock: ${stock}</p>
   </div>
-  <a href="/shop" class="store_btn">Add to Cart</button>
-  <a href="/shop/item/?id=${id}" class="store_btn">View Details</button>
+  <a id="${id}" href="/shop/add/?id=${id}" class="store_btn">Add to Cart</a>
+  <a href="/shop/item/?id=${id}" class="store_btn">View Details</a>
   `;
   console.log(card);
   return card;
@@ -26,10 +27,16 @@ const addCard = (params) => {
     filterObj.push(pair[1]);
   }
   console.log(filterObj);
-  if (filterObj.length === 0) {
+  if (window.location.pathname === '/shop/add/') {
+    getData(`/shop/add/${filterObj[0]}`);
     cards = getData('/shop/all');
   } else {
-    cards = getData(`/shop/filter/${filterObj.join(',')}`);
+    console.log('test');
+    if (filterObj.length === 0) {
+      cards = getData('/shop/all');
+    } else {
+      cards = getData(`/shop/filter/${filterObj.join(',')}`);
+    }
   }
   cards.then((res) => {
     console.log(res.length);

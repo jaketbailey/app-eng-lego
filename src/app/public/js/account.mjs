@@ -3,14 +3,15 @@ import { updateUser, getUser } from './user.mjs';
 export default function loadAccountPage(user) {
   console.log(user);
   const main = document.getElementById('main');
+  const box = document.getElementById('main_box');
   const image = document.createElement('img');
   image.src = user.picture;
   image.className = 'profile-pic';
-  main.appendChild(image);
+  box.appendChild(image);
   const greeting = document.createElement('h2');
   greeting.textContent = `Welcome to your account, ${user.name}`;
   greeting.className = 'account_header';
-  main.appendChild(greeting);
+  box.appendChild(greeting);
   const email = document.createElement('p');
   email.className = 'p_accounts';
   email.textContent = `Email: ${user.email}`;

@@ -21,8 +21,13 @@ function init() {
   app.get('/shop/item/:id', db.getProductById);
   app.get('/shop/filter/:filter', db.getProductByFilter);
   app.get('/get-user/:id', db.getUser);
+  app.get('/get-previous-order/', db.getPreviousOrder);
+  app.get('/check-exists/:id', db.checkExists);
   app.post('/create-user/', jsonParser, db.createUser);
+  app.post('/create-basket/', jsonParser, db.createBasket);
+  app.post('/add-to-basket/', jsonParser, db.addToBasket);
   app.put('/update-user/', jsonParser, db.updateUser);
+  app.put('/update-stock/', jsonParser, db.updateStock);
 
   app.use(express.static('../app/'));
   auth.auth0(app);

@@ -1,3 +1,5 @@
+import { addToBasket } from './basket.mjs';
+
 const getData = async (input) => {
   let actualInput = input.split('/');
   console.log(actualInput);
@@ -12,6 +14,9 @@ const getData = async (input) => {
     for (let i = 0; i < data.length; i++) {
       finalOutput.push(data[i]);
     }
+  } else if (page === 'add') {
+    actualInput = actualInput[3];
+    addToBasket(actualInput);
   } else {
     actualInput = actualInput[3];
     actualInput = actualInput.split(',');

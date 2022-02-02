@@ -1,4 +1,4 @@
-import getData from './gatherDB.mjs';
+import getData from './store.mjs';
 
 const createPage = (id, name, desc, img, price, stock) => {
   const page = document.createElement('div');
@@ -11,7 +11,7 @@ const createPage = (id, name, desc, img, price, stock) => {
     <p>£${price}</p>
     <p id="stock">Stock: ${stock}</p>
   </div>
-  <a href="/shop" class="store_btn">Add to Cart</button>
+  <a id=${id} href="/shop/add/?id=${id}" class="store_btn">Add to Cart</button>
   `;
   console.log(page);
   return page;

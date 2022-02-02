@@ -1,5 +1,6 @@
 import loadAccountPage from './account.mjs';
 import createUser from './user.mjs';
+import createBasket from './basket.mjs';
 
 async function fetchConfig() {
   const response = await fetch('/auth-config');
@@ -37,8 +38,10 @@ async function updateUI() {
         loadAccountPage(res);
       }
       name.textContent = `Logged in as ${res.name}`;
+      localStorage.setItem('customerId', res.sub);
       website.appendChild(name);
       createUser(res);
+      createBasket(res);
     });
 
     console.log(login);

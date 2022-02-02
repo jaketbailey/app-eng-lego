@@ -34,8 +34,8 @@ CREATE TABLE customers(
 
 CREATE TABLE orders(
   id SERIAL PRIMARY KEY,
-  total_cost DECIMAL(12,2) NOT NULL,
-  order_address VARCHAR(200) NOT NULL,
+  total_cost DECIMAL(12,2),
+  order_address VARCHAR(200),
   order_email VARCHAR(100) NOT NULL,
   order_date DATE NOT NULL,
   order_status VARCHAR(10),
