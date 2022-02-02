@@ -1,3 +1,5 @@
+import loadAccountPage from './account.mjs';
+import createUser from './user.mjs';
 
 async function fetchConfig() {
   const response = await fetch('/auth-config');
@@ -31,9 +33,12 @@ async function updateUI() {
     const name = document.createElement('p');
     const user = auth0.getUser();
     user.then(function (res) {
-      console.log(res);
+      if (window.location.pathname === '/account/') {
+        loadAccountPage(res);
+      }
       name.textContent = `Logged in as ${res.name}, ${res.email}`;
       website.appendChild(name);
+      createUser(res);
     });
 
     console.log(login);
@@ -93,5 +98,6 @@ async function init() {
   await updateUI();
   await handleAuth0Redirect();
 }
+
 
 window.addEventListener('load', init);

@@ -19,17 +19,17 @@ CREATE TABLE product_colours(
 );
 
 CREATE TABLE customers(
-  id SERIAL PRIMARY KEY,
+  id VARCHAR(500) PRIMARY KEY,
   email VARCHAR(100) NOT NULL,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
-  phone VARCHAR(15) NOT NULL,
-  address_line_1 varchar(50) NOT NULL,
+  phone VARCHAR(15),
+  address_line_1 varchar(50),
   address_line_2 varchar(100),
-  city VARCHAR(20) NOT NULL,
+  city VARCHAR(20),
   county varchar(50),
-  postcode varchar(7) NOT NULL,
-  country varchar(50) NOT NULL
+  postcode varchar(7),
+  country varchar(50)
 );
 
 CREATE TABLE orders(
@@ -39,7 +39,7 @@ CREATE TABLE orders(
   order_email VARCHAR(100) NOT NULL,
   order_date DATE NOT NULL,
   order_status VARCHAR(10),
-  customer_id INT REFERENCES customers(id) NOT NULL
+  customer_id VARCHAR(500) REFERENCES customers(id) NOT NULL
 );
 
 CREATE TABLE order_details(

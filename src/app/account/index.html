@@ -2,8 +2,9 @@
     <link rel="stylesheet" href="/public/css/styles.scss">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
-    <script src="../public/js/authentication.js"></script>
+    <script type="module" src="../public/js/authentication.mjs"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" async defer></script>
+    <script type="module" src="../public/js/account.mjs"></script>
 </head>
 
 <body>
@@ -33,22 +34,23 @@
         </div>
     </div>
     
-    <div class="content">
+    <div class="content" style="padding: auto;">
 
         <div class="parent" style="align-items: center; height: 75%;">                           
-            <div>
-                <img src="../public/images/26317.jpg" height="311px" width="400px">
+            <div id="main">
             </div>
-            
-            <div>
-                <h2 class="title_main">
-                    Welcome to the Block Store!
-                </h2>
-                <p class="p_main">
-                    The place for all your block kits, bricks and more!
-                </p>
-                <button class="button" onclick="location.href='/shop'">Visit the shop here now!</button>
-            </th>
+                
+            <div id="secondary">
+                <p class="p_main"> Update your account information here: </p>
+                <form>
+                    <input required type="text" name="address_1" placeholder="Address Line 1" id="address_1"><br>
+                    <input type="text" name="address_2" placeholder="Address Line 2" id="address_2"><br>
+                    <input required type="text" name="city" placeholder="City" id="city"><br>
+                    <input required type="text" name="county" placeholder="County" id="county"><br>
+                    <input required type="text" name="postcode" placeholder="Postcode" id="postcode"><br>
+                    <input type="text" name="country" placeholder="Country" id="country"><br><br>
+                    <button type="button" class="button" id="submit_address">Submit Update</button>
+                </form>
             </div> 
         </div>
 

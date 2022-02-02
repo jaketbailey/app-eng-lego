@@ -48,8 +48,31 @@ const getProductByFilter = (req, res) => {
   });
 };
 
+const createUser = (req, res) => {
+  const { sub, name, email } = req.body;
+  console.log(req.body);
+  const names = name.split(' ');
+  console.log(names);
+  pool.query(`INSERT INTO customers (
+      id, email, first_name, last_name, phone, address_line_1, address_line_2, city, county, postcode, country
+    ) VALUES (
+      '${sub}', '${email}', '${names[0]}', '${names[1]}', null, null, null, null, null, null, null
+    ) ON CONFLICT (id) DO NOTHING`, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(201).send(`User added with ID: ${sub}`);
+  });
+};
+
+const updateUser = (req, res) => {
+  const { sub, name, email } = req.body;
+  console.log(req.body);
+};
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
   getProductByFilter: getProductByFilter,
+  createUser: createUser,
 };

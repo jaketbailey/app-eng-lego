@@ -276,6 +276,50 @@ p {
     background-color: #31393c;
 }
 
+.account_header {
+    font-family: 'Sen', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: #31393c;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+input[type=text], select {
+    width: 100%;
+    font-family: 'Sen', sans-serif;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+label {
+    font-family: 'Sen', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #31393c;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    border-color: #000;
+    border-style: solid;
+    border-width: 3px;
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
 @media screen and (min-width: 1401px) {
 
     .parent {
@@ -284,7 +328,7 @@ p {
         flex-flow: row wrap;
         width: 90%;
         align-content: center;
-        align-items: flex-start;
+        align-items: stretch;
         justify-content: center;
         justify-items: center;
         margin-right: auto;
