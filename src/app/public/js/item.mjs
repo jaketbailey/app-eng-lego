@@ -1,6 +1,6 @@
 import getData from './gatherDB.mjs';
 
-const createPage = (id, name, desc, img, price) => {
+const createPage = (id, name, desc, img, price, stock) => {
   const page = document.createElement('div');
   page.className = 'page';
   page.innerHTML = `
@@ -9,6 +9,7 @@ const createPage = (id, name, desc, img, price) => {
   <div class="page-body">
     <p>${desc}</p>
     <p>£${price}</p>
+    <p id="stock">Stock: ${stock}</p>
   </div>
   <a href="/shop" class="store_btn">Add to Cart</button>
   `;
@@ -26,8 +27,7 @@ const load = () => {
   items.then((res) => {
     for (let i = 0; i < res.length; i++) {
       page.appendChild(document.createElement('div'));
-      page.lastChild.appendChild(createPage(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price));
-      console.log(res[0]);
+      page.lastChild.appendChild(createPage(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock));
     }
   });
 };

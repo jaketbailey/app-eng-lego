@@ -1,6 +1,6 @@
 import getData from './gatherDB.mjs';
 
-const createCard = (id, name, desc, img, price) => {
+const createCard = (id, name, desc, img, price, stock) => {
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;
@@ -9,6 +9,7 @@ const createCard = (id, name, desc, img, price) => {
   <div class="card-body">
     <p>${name}</p>
     <p>£${price}</p>
+    <p id="stock">Stock: ${stock}</p>
   </div>
   <a href="/shop" class="store_btn">Add to Cart</button>
   <a href="/shop/item/?id=${id}" class="store_btn">View Details</button>
@@ -34,15 +35,9 @@ const addCard = (params) => {
     console.log(res.length);
     for (let i = 0; i < res.length; i++) {
       page.appendChild(document.createElement('div'));
-      page.lastChild.appendChild(createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price));
+      page.lastChild.appendChild(createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock));
     }
-    // res.forEach((card) => {
-    //   page.appendChild(document.createElement('div'));
-    //   page.lastChild.appendChild(createCard(card.id, card.product_name, card.product_desc, card.image_ref, card.price));
-    //   console.log(card[0]);
-    // });
   });
-  console.log(cards);
 };
 
 const load = () => {

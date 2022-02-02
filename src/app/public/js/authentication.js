@@ -30,7 +30,7 @@ async function updateUI() {
     const website = document.getElementById('website');
     const name = document.createElement('p');
     const user = auth0.getUser();
-    user.then(function(res) {
+    user.then(function (res) {
       console.log(res);
       name.textContent = `Logged in as ${res.name}, ${res.email}`;
       website.appendChild(name);
@@ -40,6 +40,9 @@ async function updateUI() {
     console.log(logout);
     login.style.display = 'none';
     logout.style.display = 'block';
+
+    const account = document.getElementById('account');
+    account.style.display = 'block';
   }
 }
 
