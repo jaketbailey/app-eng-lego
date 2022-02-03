@@ -20,6 +20,22 @@ async function getProductById(id) {
   return result;
 }
 
+async function addTotalCost(id, total) {
+  const data = {
+    id: id,
+    total: total,
+  };
+  const response = await fetch('/add-total-cost/', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    method: 'PUT',
+  });
+  const result = await response.json();
+  console.log(result);
+}
+
 function addCheckoutItem(product, id) {
   const page = document.querySelector('.checkout-card');
   const basketItem = document.createElement('div');
@@ -55,7 +71,7 @@ async function getUserAddress() {
   addressBox.appendChild(address);
 }
 
-async function removeOrderDetail(id, productId, totalCost) {
+async function removeOrderDetail(id, productId, basket) {
   const response = await fetch('/remove-basket-item/', {
     headers: {
       'Content-Type': 'application/json',
@@ -63,6 +79,21 @@ async function removeOrderDetail(id, productId, totalCost) {
     body: JSON.stringify({ id: id }),
     method: 'DELETE',
   });
+  await getTotalCost(id, productId, basket);
+  const result = await response.json();
+  console.log(result);
+}
+
+async function getTotalCost(id, productId, basket) {
+  console.log(basket);
+  const response2 = await fetch(`/get-total-cost/${basket}`);
+  const result = await response2.json();
+  console.log(result);
+  const totalCost = result[0].total_cost;
+  updatePageCost(id, productId, totalCost, basket);
+}
+
+function updatePageCost(id, productId, totalCost, basket) {
   const e = document.getElementById(id);
   console.log(productId);
   const price = getProductById(productId);
@@ -75,25 +106,20 @@ async function removeOrderDetail(id, productId, totalCost) {
     console.log(total);
     const cost = document.getElementById('totalCost');
     const elem = document.createElement('p');
+    elem.className = 'p_basket';
+    elem.id = 'totalCost';
+    elem.style = 'text-align: center;';
     const main = document.getElementById('price_box');
-    elem.innerHTML = `
-      <p class="p_basket" id="totalCost" style="text-align: center;">
-        Total: £${total}
-      </p>`;
+    elem.innerHTML = `Total: £${total}`;
     main.removeChild(cost);
     main.appendChild(elem);
-    // const parent = cost.parentNode;
-    // console.log('test');
-    // console.log(cost);
-    // cost.innerHTML = `£${total}`;
-    // parent.replaceChild(newCost, cost);
+    console.log(main);
     e.parentElement.parentElement.remove();
-    const result = await response.json();
-    console.log(result);
+    await addTotalCost(basket, total);
   });
 }
 
-async function updateStock(e, id, quantity, totalCost) {
+async function updateStock(e, id, quantity, basket) {
   const data = {
     productId: id,
     quantity: quantity,
@@ -107,7 +133,7 @@ async function updateStock(e, id, quantity, totalCost) {
     method: 'PUT',
   });
   console.log(id);
-  await removeOrderDetail(e, id, totalCost);
+  await removeOrderDetail(e, id, basket);
   const result = await response.json();
   console.log(result);
 }
@@ -134,11 +160,13 @@ async function basketLoad() {
     <button class="button" id="checkout" style="padding: 10px; margin-top: 20px;">Checkout</button>
     `;
   page.appendChild(total);
+  addTotalCost(basket[0].id, totalCost);
   getUserAddress();
   const remove = document.querySelectorAll('.button_remove');
   let quantity = 0;
   let productId;
   let item;
+  let basketId;
   for (let i = 0; i < remove.length; i++) {
     remove[i].addEventListener('click', async () => {
       for (let j = 0; j < basketItems.length; j++) {
@@ -148,14 +176,15 @@ async function basketLoad() {
           console.log('hello');
           quantity = basketItems[j].quantity;
           productId = basketItems[j].product_id;
+          basketId = basket[0].id;
         }
       }
-      await updateStock(item, productId, quantity, totalCost);
+      await updateStock(item, productId, quantity, basketId);
     });
     console.log(item);
   }
   console.log(item);
-  console.log(basket);
+  console.log(basketId);
   console.log(basketItems);
 }
 

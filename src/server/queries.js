@@ -251,6 +251,38 @@ const getStock = (req, res) => {
   });
 };
 
+const addTotalCost = (req, res) => {
+  const { id, total } = req.body;
+  console.log(req.body);
+  pool.query(`
+    UPDATE orders SET
+      total_cost = ${total}
+    WHERE id = '${id}'`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Total cost updated with ID: ${id}`);
+  });
+};
+
+const getTotalCost = (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  pool.query(`
+    SELECT
+      total_cost
+    FROM
+      orders
+    WHERE id = '${id}'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
@@ -267,4 +299,6 @@ module.exports = {
   removeBasketItem: removeBasketItem,
   addToStock: addToStock,
   getStock: getStock,
+  addTotalCost: addTotalCost,
+  getTotalCost: getTotalCost,
 };
