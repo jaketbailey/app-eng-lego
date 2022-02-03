@@ -55,6 +55,7 @@ insert into products (id, product_name, price, product_desc, image_ref, category
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (42, 'Yellow Taxi', 11.37, 'A Lego yellow New York taxi set.', 'taxi', 'set', 28);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (43, 'Super Mario', 26.43, 'A Lego Super Mario Adventure set.', 'mario', 'set', 69);
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (44, 'Mighty Dinosaurs T-Rex', 22.12, 'A Lego mighty dinosaurs T-Rex set', 't-rex', 'set', 12);
+insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (45, 'Bonsai Tree', 50.00, 'A 850 brick Lego Bonsai tree set', 'bonsai', 'set', 100);
 
 -- Colours
 insert into colours (colour_id, colour_name) values (1, 'white');

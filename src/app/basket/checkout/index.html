@@ -1,0 +1,61 @@
+<head>
+    <link rel="stylesheet" href="/public/css/styles.scss">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <script type="module" src="../public/js/authentication.mjs"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" async defer></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="navbar">
+            <a href="/" id="website">
+                <h1 class="title">
+                    Block Shop
+                </h1>
+            </a>
+            <ul class="nav-menu" id="menu">
+                <li class="nav-item"><a href="/" class="titlebutton_2">Home</a></li>
+                <li class="nav-item"><a href="/shop" class="titlebutton">Shop</a></li>
+                <li class="nav-item"><a href="/basket" class="titlebutton">Basket</a></li>
+                <li class="nav-item" id="account"><a href="/account" class="titlebutton">My Account</a></li>
+                <li class="nav-item">
+                    <button id="authBtn" class="button" style="padding: 10px;" >Login</button>
+                    <button id="authBtnLogout" class="button" style="padding: 10px; display: none;">Logout</button>
+                </li>
+            </ul>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">
+
+        <div class="parent" style="align-items: center; height: 75%;">                           
+            <div>
+                <img src="../public/images/26317.jpg" height="311px" width="400px">
+            </div>
+            
+            <div>
+                <h2 class="title_main">
+                    Welcome to the Block Store!
+                </h2>
+                <p class="p_main">
+                    The place for all your block kits, bricks and more!
+                </p>
+                <button class="button" onclick="location.href='/shop'">Visit the shop here now!</button>
+            </th>
+            </div> 
+        </div>
+
+        
+    </div>
+
+    <div class="footer">
+        <!-- <a href="https://www.freepik.com/vectors/house">House vector created by macrovector - www.freepik.com</a> -->
+    </div>
+</body>
