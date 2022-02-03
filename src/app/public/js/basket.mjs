@@ -73,11 +73,24 @@ export async function addToBasket(productId) {
     method: 'PUT',
     body: JSON.stringify(updateData),
   });
-  window.location.href = '/return-to-shop/';
+  await getStock(productId);
   const result = await response.json();
   console.log(result);
   const result2 = await update.json();
   console.log(result2);
+}
+
+async function getStock(productId) {
+  const stock = await fetch(`/get-stock/${productId}`);
+  const result = stock.json();
+  result.then((data) => {
+    console.log(data[0].stock);
+    const card = document.getElementById(`card-${productId}`);
+    const cardBody = card.querySelector('.card-body');
+    console.log(cardBody);
+    console.log(card);
+    cardBody.querySelector('.stock').innerHTML = `Stock: ${data[0].stock}`;
+  });
 }
 
 export async function updateBasket(user, productId) {

@@ -1,7 +1,10 @@
 import getData from './store.mjs';
+import { addToBasket } from './basket.mjs';
 // import { authCheck } from './authentication.mjs';
 
 const createCard = (id, name, desc, img, price, stock) => {
+  const page = document.getElementById('page');
+  page.appendChild(document.createElement('div'));
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;
@@ -10,17 +13,17 @@ const createCard = (id, name, desc, img, price, stock) => {
   <div class="card-body">
     <p>${name}</p>
     <p>£${price}</p>
-    <p id="stock">Stock: ${stock}</p>
+    <p class="stock">Stock: ${stock}</p>
   </div>
-  <a id="${id}" href="/shop/add/?id=${id}" class="store_btn">Add to Cart</a>
+  <button class="add_btn">Add to Basket</button>
   <a href="/shop/item/?id=${id}" class="store_btn">View Details</a>
   `;
   console.log(card);
+  page.lastChild.appendChild(card);
   return card;
 };
 
 const addCard = (params) => {
-  const page = document.getElementById('page');
   let cards;
   const filterObj = [];
   for (const pair of params.entries()) {
@@ -40,11 +43,26 @@ const addCard = (params) => {
   cards.then((res) => {
     console.log(res.length);
     for (let i = 0; i < res.length; i++) {
-      page.appendChild(document.createElement('div'));
-      page.lastChild.appendChild(createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock));
+      // page.appendChild(document.createElement('div'));
+      // page.lastChild.appendChild(
+      createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock);
     }
+    checkForAdd();
   });
 };
+
+function checkForAdd() {
+  const addBtn = document.querySelectorAll('.add_btn');
+  console.log(addBtn);
+  for (let i = 0; i < addBtn.length; i++) {
+    addBtn[i].addEventListener('click', async () => {
+      const id = addBtn[i].parentElement.id.split('-')[1];
+      console.log(id);
+      console.log(addBtn[i].parentElement);
+      await addToBasket(id);
+    });
+  }
+}
 
 const load = () => {
   const params = new URLSearchParams(window.location.search);

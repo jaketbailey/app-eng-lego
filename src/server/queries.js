@@ -205,6 +205,52 @@ const getBasketItems = (req, res) => {
   });
 };
 
+const removeBasketItem = (req, res) => {
+  const { id } = req.body;
+  console.log(req.body);
+  pool.query(`
+    DELETE FROM order_details
+    WHERE id = '${id}'
+    `, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Product removed from basket with ID: ${id}`);
+  });
+};
+
+const addToStock = (req, res) => {
+  const { productId, quantity } = req.body;
+  console.log(req.body);
+  console.log('test');
+  pool.query(`
+    UPDATE products SET
+      stock = stock + ${quantity}
+    WHERE id = '${productId}'`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Product updated with ID: ${productId}`);
+  });
+};
+
+const getStock = (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  pool.query(`
+    SELECT
+      stock
+    FROM
+      products
+    WHERE id = '${id}'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
@@ -218,4 +264,7 @@ module.exports = {
   addToBasket: addToBasket,
   updateStock: updateStock,
   getBasketItems: getBasketItems,
+  removeBasketItem: removeBasketItem,
+  addToStock: addToStock,
+  getStock: getStock,
 };
