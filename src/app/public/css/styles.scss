@@ -158,7 +158,7 @@ body {
     text-align: center;
 }
 
-.p_accounts {
+.p_accounts, .p_basket {
     font-family: 'Sen', sans-serif;
     font-size: 20px;
     font-weight: 600;
@@ -282,7 +282,7 @@ p {
     text-align: center;
 }
 
-.store {
+.store, .checkout {
     border-style: dashed;
     border-color: #fff;
     border-radius: 7px;

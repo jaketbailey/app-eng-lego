@@ -16,7 +16,7 @@ const getData = async (input) => {
     }
   } else if (page === 'add') {
     actualInput = actualInput[3];
-    addToBasket(actualInput);
+    await addToBasket(actualInput);
   } else {
     actualInput = actualInput[3];
     actualInput = actualInput.split(',');

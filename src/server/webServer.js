@@ -23,6 +23,10 @@ function init() {
   app.get('/get-user/:id', db.getUser);
   app.get('/get-previous-order/', db.getPreviousOrder);
   app.get('/check-exists/:id', db.checkExists);
+  app.get('/return-to-shop/', (req, res) => {
+    res.redirect('/shop/');
+  });
+  app.get('/get-basket-items/:id', db.getBasketItems);
   app.post('/create-user/', jsonParser, db.createUser);
   app.post('/create-basket/', jsonParser, db.createBasket);
   app.post('/add-to-basket/', jsonParser, db.addToBasket);

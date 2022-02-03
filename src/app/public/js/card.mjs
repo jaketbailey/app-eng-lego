@@ -29,7 +29,6 @@ const addCard = (params) => {
   console.log(filterObj);
   if (window.location.pathname === '/shop/add/') {
     getData(`/shop/add/${filterObj[0]}`);
-    cards = getData('/shop/all');
   } else {
     console.log('test');
     if (filterObj.length === 0) {

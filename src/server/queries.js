@@ -8,7 +8,7 @@ const pool = new Pool({
 });
 
 const getAllProducts = (req, res) => {
-  pool.query('SELECT * FROM products', (err, results) => {
+  pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
     if (err) {
       throw err;
     }
@@ -188,6 +188,23 @@ const updateStock = (req, res) => {
   });
 };
 
+const getBasketItems = (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  pool.query(`
+    SELECT
+      *
+    FROM
+      order_details
+    WHERE order_id = '${id}'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
@@ -200,4 +217,5 @@ module.exports = {
   createBasket: createBasket,
   addToBasket: addToBasket,
   updateStock: updateStock,
+  getBasketItems: getBasketItems,
 };

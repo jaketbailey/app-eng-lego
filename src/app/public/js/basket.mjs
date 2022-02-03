@@ -73,6 +73,7 @@ export async function addToBasket(productId) {
     method: 'PUT',
     body: JSON.stringify(updateData),
   });
+  window.location.href = '/return-to-shop/';
   const result = await response.json();
   console.log(result);
   const result2 = await update.json();

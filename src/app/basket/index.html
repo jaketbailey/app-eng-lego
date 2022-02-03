@@ -3,7 +3,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <script type="module" src="../public/js/authentication.mjs"></script>
-    <script type="module" src="../public/js/basket.mjs"></script>
+    <script type="module" src="../public/js/checkout.mjs"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" async defer></script>
 </head>
 
@@ -42,7 +42,23 @@
 
             <div class="parent2">                           
                 <div>
-                    <div class="parent" id="page" style="align-items: center; margin-right: 0px;">         
+                    <div class="parent" id="page" style="align-items: center; margin-right: 0px;">   
+                        <div id="first">
+                            
+                            <div id="address_box">
+
+                            </div>
+                            <p class="p_basket"> Or specify the shipping address: </p>
+                            <form>
+                                <input required type="text" class="update" name="address_1" placeholder="Address Line 1" id="address_1"><br>
+                                <input type="text" class="update" name="address_2" placeholder="Address Line 2" id="address_2"><br>
+                                <input required type="text" class="update" name="city" placeholder="City" id="city"><br>
+                                <input required type="text" class="update" name="county" placeholder="County" id="county"><br>
+                                <input required type="text" class="update" name="postcode" placeholder="Postcode" id="postcode"><br>
+                                <input type="text" name="country" class="update" placeholder="Country" id="country"><br>
+                                <button type="button" class="button" style="padding: 10px; margin-top: 20px;" id="submit_checkout_address">Submit</button>
+                            </form>
+                        </div>    
                     </div>
                 </div>
 
@@ -50,36 +66,6 @@
                     <div class="parent" id="checkout-box" style="align-items: center;">  
                         <div>
                             <div class="checkout-card">
-                                <div>
-                                    <div>
-                                        <img src="../public/images/26317.jpg" width="150px" height="116.63px">
-                                    </div>
-                                    <div>
-                                        This is an example checkout item
-                                    </div>
-                                </div>
-                                <hr>
-                                <div>
-                                    <div>
-                                        <img src="../public/images/26317.jpg" width="150px" height="116.63px">
-                                    </div>
-                                    <div>
-                                        This is an example checkout item
-                                    </div>
-                                </div>
-                                <hr>
-                                <div>
-                                    <div>
-                                        <img src="../public/images/26317.jpg" width="150px" height="116.63px">
-                                    </div>
-                                    <div>
-                                        This is an example checkout item
-                                    </div>
-                                </div>
-                                <div>
-                                    <button class="button" style="padding: 10px; margin-top: 20px;">
-                                        Checkout
-                                    </button> 
                                 </div>
                             </div>
                         </div>       
