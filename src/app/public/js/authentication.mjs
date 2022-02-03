@@ -33,15 +33,15 @@ async function updateUI() {
     const website = document.getElementById('website');
     const name = document.createElement('p');
     const user = auth0.getUser();
-    user.then(function (res) {
+    user.then(async function (res) {
       if (window.location.pathname === '/account/') {
         loadAccountPage(res);
       }
       name.textContent = `Logged in as ${res.name}`;
       localStorage.setItem('customerId', res.sub);
       website.appendChild(name);
-      createUser(res);
-      createBasket(res);
+      await createUser(res);
+      await createBasket(res);
     });
 
     console.log(login);

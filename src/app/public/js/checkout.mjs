@@ -156,8 +156,8 @@ async function basketLoad() {
     <p class="p_basket" id="totalCost" style="text-align: center;">
       Total: £${totalCost}
     </p>
-    </div>
-    <button class="button" id="checkout" style="padding: 10px; margin-top: 20px;">Checkout</button>
+    </div><br>
+    <a class="button" id="checkout" href="/basket/checkout/" style="padding: 10px; margin-top: 20px;">Checkout</button>
     `;
   page.appendChild(total);
   addTotalCost(basket[0].id, totalCost);
