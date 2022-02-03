@@ -23,9 +23,6 @@ function init() {
   app.get('/get-user/:id', db.getUser);
   app.get('/get-previous-order/', db.getPreviousOrder);
   app.get('/check-exists/:id', db.checkExists);
-  app.get('/return-to-shop/', (req, res) => {
-    res.redirect('/shop/');
-  });
   app.get('/get-basket-items/:id', db.getBasketItems);
   app.get('/get-stock/:id', db.getStock);
   app.get('/get-total-cost/:id', db.getTotalCost);

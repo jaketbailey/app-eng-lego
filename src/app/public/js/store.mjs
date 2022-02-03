@@ -24,8 +24,11 @@ const getData = async (input) => {
     for (let i = 0; i < actualInput.length; i++) {
       console.log(actualInput.length);
       console.log(`/shop/${page}/${actualInput[i]}`);
+      console.log(page);
+      console.log(actualInput[i]);
       res = await fetch(`/shop/${page}/${actualInput[i]}`);
       const data = await res.json();
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         finalOutput.push(data[i]);
       }

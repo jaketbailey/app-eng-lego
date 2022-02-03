@@ -33,10 +33,17 @@ const getProductByFilter = (req, res) => {
   const filter = req.params.filter;
   console.log(filter);
   pool.query(`
-  SELECT * 
+  SELECT 
+    id,
+    product_name,
+    price,
+    product_desc,
+    image_ref,
+    category,
+    stock 
   FROM products 
     JOIN product_colours ON product_colours.product_id = products.id 
-    JOIN colours ON  product_colours.colour_id = colours.id 
+    JOIN colours ON  product_colours.colour_id = colours.colour_id 
 
   WHERE colours.colour_name = '${filter}' OR products.category LIKE '%${filter}%';
   `, (err, results) => {

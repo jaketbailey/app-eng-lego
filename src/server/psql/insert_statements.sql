@@ -57,14 +57,14 @@ insert into products (id, product_name, price, product_desc, image_ref, category
 insert into products (id, product_name, price, product_desc, image_ref, category, stock) values (44, 'Mighty Dinosaurs T-Rex', 22.12, 'A Lego mighty dinosaurs T-Rex set', 't-rex', 'set', 12);
 
 -- Colours
-insert into colours (id, colour_name) values (1, 'white');
-insert into colours (id, colour_name) values (2, 'grey');
-insert into colours (id, colour_name) values (3, 'blue');
-insert into colours (id, colour_name) values (4, 'black');
-insert into colours (id, colour_name) values (5, 'pink');
-insert into colours (id, colour_name) values (6, 'purple');
-insert into colours (id, colour_name) values (7, 'green');
-insert into colours (id, colour_name) values (8, 'n/a(set)');
+insert into colours (colour_id, colour_name) values (1, 'white');
+insert into colours (colour_id, colour_name) values (2, 'grey');
+insert into colours (colour_id, colour_name) values (3, 'blue');
+insert into colours (colour_id, colour_name) values (4, 'black');
+insert into colours (colour_id, colour_name) values (5, 'pink');
+insert into colours (colour_id, colour_name) values (6, 'purple');
+insert into colours (colour_id, colour_name) values (7, 'green');
+insert into colours (colour_id, colour_name) values (8, 'n/a(set)');
 
 -- Colours Intersection
 insert into product_colours (colour_id, product_id) values (1, 1);

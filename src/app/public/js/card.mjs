@@ -42,16 +42,15 @@ const addCard = (params) => {
   }
   cards.then((res) => {
     console.log(res.length);
+    console.log(res);
     for (let i = 0; i < res.length; i++) {
-      // page.appendChild(document.createElement('div'));
-      // page.lastChild.appendChild(
       createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock);
     }
     checkForAdd();
   });
 };
 
-function checkForAdd() {
+export function checkForAdd() {
   const addBtn = document.querySelectorAll('.add_btn');
   console.log(addBtn);
   for (let i = 0; i < addBtn.length; i++) {

@@ -9,12 +9,12 @@ CREATE TABLE IF NOT EXISTS products(
 );
 
 CREATE TABLE colours(
-  id SERIAL PRIMARY KEY,
+  colour_id SERIAL PRIMARY KEY,
   colour_name VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE product_colours(
-  colour_id INT REFERENCES colours(id) NOT NULL,
+  colour_id INT REFERENCES colours(colour_id) NOT NULL,
   product_id INT REFERENCES products(id) NOT NULL
 );
 
