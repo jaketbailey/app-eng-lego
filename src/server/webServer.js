@@ -33,6 +33,7 @@ function init() {
   app.put('/update-stock/', jsonParser, db.updateStock);
   app.put('/add-to-stock/', jsonParser, db.addToStock);
   app.put('/add-total-cost/', jsonParser, db.addTotalCost);
+  app.put('/add-shipping-address/', jsonParser, db.addShippingAddress);
   app.delete('/remove-basket-item/', jsonParser, db.removeBasketItem);
 
   app.use(express.static('../app/'));

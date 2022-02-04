@@ -183,9 +183,68 @@ async function basketLoad() {
     });
     console.log(item);
   }
-  console.log(item);
-  console.log(basketId);
-  console.log(basketItems);
+  console.log('hellotest');
+  await shippingAddress();
+}
+
+async function shippingAddress() {
+  const basket = await getBasket();
+  console.log(basket);
+  const user = await getUser(localStorage.getItem('customerId'));
+  console.log(user);
+  let shippingAddress = {
+    id: basket[0].id,
+    address1: user.address_line_1,
+    address2: user.address_line_2,
+    city: user.city,
+    county: user.county,
+    postcode: user.postcode,
+    country: user.country,
+  };
+  storeShippingAddress(shippingAddress);
+  const addressBtn = document.getElementById('address_btn');
+  addressBtn.addEventListener('click', () => {
+    const addressElem = document.getElementsByClassName('shipping');
+    for (let i = 0; i < addressElem.length; i++) {
+      if (addressElem[i].value === '' && i !== 1) {
+        alert('Please fill in all fields');
+        return;
+      } else {
+        let tempLine2;
+        if (addressElem[1].value === '') {
+          tempLine2 = null;
+        } else {
+          tempLine2 = addressElem[1].value;
+        }
+        shippingAddress = {
+          id: basket[0].id,
+          address1: addressElem[0].value,
+          address2: tempLine2,
+          city: addressElem[2].value,
+          county: addressElem[4].value,
+          postcode: addressElem[5].value,
+          country: addressElem[3].value,
+        };
+      }
+    }
+    console.log(shippingAddress);
+    addressBtn.textContent = 'Shipping Address Updated';
+    addressBtn.className = 'button_success';
+    addressBtn.setAttribute('disabled', 'true');
+    storeShippingAddress(shippingAddress);
+  });
+}
+
+async function storeShippingAddress(shippingAddress) {
+  const response = await fetch('/add-shipping-address/', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(shippingAddress),
+    method: 'PUT',
+  });
+  const result = await response.json();
+  console.log(result);
 }
 
 window.addEventListener('load', basketLoad);

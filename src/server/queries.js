@@ -289,6 +289,20 @@ const getTotalCost = (req, res) => {
   });
 };
 
+const addShippingAddress = (req, res) => {
+  const { id, address1, address2, city, county, postcode, country } = req.body;
+  console.log(req.body);
+  pool.query(`
+    UPDATE orders SET
+      order_address = '${address1}, ${address2}, ${city}, ${county}, ${postcode}, ${country}'
+    WHERE id = '${id}'`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Shipping address updated with ID: ${id}`);
+  });
+};
+
 
 module.exports = {
   getAllProducts: getAllProducts,
@@ -308,4 +322,5 @@ module.exports = {
   getStock: getStock,
   addTotalCost: addTotalCost,
   getTotalCost: getTotalCost,
+  addShippingAddress: addShippingAddress,
 };
