@@ -19,7 +19,6 @@ function init() {
   const jsonParser = bodyParser.json();
   app.get('/shop/all', db.getAllProducts);
   app.get('/shop/item/:id', db.getProductById);
-  // app.get('/shop/filter/:filter', db.getProductByFilter);
   app.get('/get-user/:id', db.getUser);
   app.get('/get-previous-order/', db.getPreviousOrder);
   app.get('/check-exists/:id', db.checkExists);

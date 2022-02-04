@@ -7,8 +7,8 @@
         <script type="module" src="../../public/js/basket.mjs"></script>
         <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" async defer></script>
         <script type="module" src="../../public/js/card.mjs"></script>
+        <script type="module" src="../../public/js/nav.mjs"></script>
         <script type="module" src="../../public/js/addToBasket.mjs"></script>
-        <script type="module" src="../public/js/nav.mjs"></script>
     </head>
 
     <body>
@@ -27,7 +27,7 @@
                     <li class="nav-item" id="account"><a href="/account" class="titlebutton">My Account</a></li>
                     <li class="nav-item">
                         <button id="authBtn" class="auth_button" >Login</button>
-                        <button id="authBtnLogout" class="auth_button" style="display: none;">Logout</button>
+                    <button id="authBtnLogout" class="auth_button" style="display: none;">Logout</button>
                     </li>
                 </ul>
 
@@ -44,11 +44,11 @@
                 Welcome to the Block Shop!
             </h2>
             <div class="parent_main" id="main" style="align-items: center;">
-                <div style="width: 10%; align-self: flex-start;">
-                    <h3 class="title_secondary" style="text-align: right;">
+                <div id="filter_div"style="width: 10%; align-self: flex-start;">
+                    <h3 class="filter_title" style="text-align: right;">
                         Filter by:
                     </h3><br>
-                    <form id="filter-form" action="/shop/filter" method="get" style="text-align: right;">
+                    <form id="filter-form" action="/shop/filter" method="get">
                         <label class="filters" for="filter-blue">Blue</label>
                         <input type="checkbox" id="filter-blue" name="filter" value="blue" unchecked><br><br>
                         <label class="filters" for="filter-black">Black</label>
@@ -82,12 +82,17 @@
                         <button class="button" id="submit-filter" style="padding: 10px;">Submit</button>
                     </form>
                 </div>  
-                <div style="width: 75%;">
+                <div style="width: 90%;">
                     <div class="parent" id="page" style="align-items: center;">                                       
                     </div>      
-                </div>                                         
+                </div> 
+                                               
             </div>
+            
+
+            
         </div>
+
         <div class="footer">
             <!-- <a href="https://www.freepik.com/vectors/house">House vector created by macrovector - www.freepik.com</a> -->
         </div>

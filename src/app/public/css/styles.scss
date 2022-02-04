@@ -305,8 +305,7 @@ p {
     margin: 0.7em;
     color: #F5F5F5;
     font-family: 'Sen', sans-serif;
-    font-weight: 100;
-    
+    font-weight: 100; 
 }
 
 .store_btn:hover {
@@ -416,6 +415,10 @@ input[type=text], select {
 
 @media screen and (max-width:1400px) {
 
+    .content {
+        height: auto;
+    }
+
     .header {
         height: auto;
     }
@@ -447,19 +450,31 @@ input[type=text], select {
 
     p.header {
         height: auto;
+        font-size: 1.6em;
     }
 
-    .store, .checkout {
-        border-style: dashed;
-        border-color: #fff;
-        border-radius: 7px;
-        width: 10em;
+    .titlebutton {
+        font-size: 4em;
+    }
+    
+    .titlebutton_2 {
+        font-size: 4em;
+    }
+
+    .auth_button {
+        font-size: 3em;
+    }
+
+    .store_btn, .add_btn {
+        font-size: 1em;
+        padding: 0.5em;
+    }
+
+    .parent {
+        height: auto;
     }
 
     .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         padding: 1rem 1.5rem;
     }
     
@@ -491,13 +506,13 @@ input[type=text], select {
     .nav-menu {
         position: fixed;
         right: -100%;
-        top: 9.9rem;
+        top: 8rem;
         flex-direction: column;
         background-color: #03A29C;
         width: 100%;
         text-align: center;
         transition: 0.3s;
-        height: auto;
+        height: 40em;
         padding: 1rem;
     }
 
@@ -508,10 +523,6 @@ input[type=text], select {
     .nav-menu.active {
         right: 0;
     }
-
-    /* .titlebutton {
-        margin: 2.5rem 0;
-    } */
 
     .hamburger {
         display: block;
@@ -551,7 +562,76 @@ input[type=text], select {
         padding: 1em;
         border-radius: 0.5em;
         margin-bottom: 1em;
-        height: 20em;
+        margin-left: 2em;
+        height: auto;
         width: 12em;
+    }
+
+    .parent2 {
+        width: 100%;
+    }
+
+    .checkout-card {
+        font-family: 'Sen', sans-serif;
+        font-size: 1em;
+        color: #31393c;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        height: auto;
+        width: 15em;
+        border-color: #31393c;
+        border-width: 2px;
+        border-style: dotted;
+    }
+
+    .checkout {
+        width: 13em;
+    }
+
+    .button_remove {
+        margin-bottom: 1em;
+    }
+
+    input[type=text], select {
+        width: 100%;
+        font-family: 'Sen', sans-serif;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 0.9em;
+    }
+
+    input[type=checkbox] {
+        width: 2em;
+        height: 2em;
+    }
+
+    .p_basket, .p_accounts {
+        font-size: 1.2em;
+    }
+
+    hr {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .filter_title{
+        font-family: 'Sen', sans-serif;
+        font-size: 3em;
+        text-align: center;
+        margin: 0px;
+    }
+
+    .filters{
+        font-size: 2.8em;
+        text-align: center;
+    }
+    #filter_div{
+        margin-right: 2.2em;
+        text-align: center;
     }
 }
