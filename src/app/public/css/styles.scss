@@ -381,6 +381,32 @@ label {
         height: auto;
         text-align: center;
     }
+
+    .parent_main {
+        display: flex;
+        background-color: transparent;
+        flex-flow: row;
+        width: 90%;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: center;
+        justify-items: center;
+        margin-right: auto;
+        margin-left: auto;
+        height: auto;
+        div {
+            align-self: start;
+            background-color: transparent;
+            /* margin: 10px; */
+            padding: 10px;
+            font-size: 30px;
+            width: auto;
+            height: auto;
+            text-align: center;
+        }
+    }
+  
+    
 }
 
 @media screen and (max-width:1400px) {
