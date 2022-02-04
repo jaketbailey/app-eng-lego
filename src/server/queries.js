@@ -29,33 +29,6 @@ const getProductById = (req, res) => {
   }
 };
 
-const getProductByFilter = (filter) => {
-  console.log(filter);
-  for (let i = 0; i < filter.length; i++) {
-    pool.query(`
-    SELECT 
-      id,
-      product_name,
-      price,
-      product_desc,
-      image_ref,
-      category,
-      stock 
-    FROM products 
-      JOIN product_colours ON product_colours.product_id = products.id 
-      JOIN colours ON  product_colours.colour_id = colours.colour_id 
-  
-    WHERE colours.colour_name = '${filter[i]}' OR products.category LIKE '%${[i]}%';
-    `, (err, results) => {
-      if (err) {
-        throw err;
-      }
-      console.log(results);
-      return results;
-    });
-  }
-};
-
 const createUser = (req, res) => {
   const { sub, name, email } = req.body;
   console.log(req.body);
@@ -338,32 +311,28 @@ const updateOrder = (req, res) => {
   });
 };
 
-const getFilterByColourAndType = (req, res) => {
+const getProductByFilter = (req, res) => {
   const { filter } = req.params;
-  console.log(filter);
   const newFilter = filter.split('_');
   const types = ['brick', 'plate', '1x2', '1x8', '2x2', '2x4', '4x8'];
-  let temp;
-  console.log(newFilter);
-  console.log('testthishere');
   let check = false;
+  let type;
   for (let i = 0; i < types.length; i++) {
-    for (let j = 0; j < newFilter.length; j++) {
-      if (newFilter[j] !== types[i]) {
-        check = true;
-        temp = newFilter[j-1];
-        break;
-      } else {
+    if (newFilter.indexOf(types[i]) > -1) {
+      if (newFilter.length === 1) {
         check = false;
+      } else {
+        check = true;
+        type = newFilter.at(-1);
+        newFilter.pop();
+        break;
       }
+    } else {
+      check = false;
     }
   }
-  const type = newFilter.at(-1);
-  newFilter.pop();
-  console.log(newFilter);
-  console.log(type);
   const finalResults = [];
-  if (check) {
+  if (check === true) {
     for (let i = 0; i < newFilter.length; i++) {
       pool.query(`
         SELECT
@@ -382,23 +351,42 @@ const getFilterByColourAndType = (req, res) => {
         }
         for (let j = 0; j < results.rows.length; j++) {
           finalResults.push(results.rows[j]);
-          console.log('hhhh');
-          console.log(finalResults);
-          console.log(results.rows[j]);
         }
         if (i === newFilter.length - 1) {
-          console.log('test');
-          console.log(finalResults);
           res.status(200).json(finalResults);
         }
       });
     }
   } else {
-    const results = getProductByFilter(newFilter);
-    console.log('gyudsfgiu')
-    console.log(results.rows);
-    console.log('gyudsfgiu')
-    res.status(200).json(results.rows);
+    for (let i = 0; i < newFilter.length; i++) {
+      console.log('heman');
+      pool.query(`
+      SELECT 
+        id,
+        product_name,
+        price,
+        product_desc,
+        image_ref,
+        category,
+        stock 
+      FROM products 
+        JOIN product_colours ON product_colours.product_id = products.id 
+        JOIN colours ON  product_colours.colour_id = colours.colour_id 
+    
+      WHERE colours.colour_name = '${newFilter[i]}' OR products.category LIKE '%${newFilter[i]}%';
+      `, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        for (let j = 0; j < results.rows.length; j++) {
+          finalResults.push(results.rows[j]);
+        }
+        if (i === newFilter.length - 1) {
+          res.status(200).json(finalResults);
+        }
+      });
+    }
+    console.log('end fo loop');
   }
 };
 
@@ -406,7 +394,6 @@ const getFilterByColourAndType = (req, res) => {
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
-  getProductByFilter: getProductByFilter,
   createUser: createUser,
   updateUser: updateUser,
   getUser: getUser,
@@ -424,5 +411,5 @@ module.exports = {
   addShippingAddress: addShippingAddress,
   getUserName: getUserName,
   updateOrder: updateOrder,
-  getFilterByColourAndType: getFilterByColourAndType,
+  getProductByFilter: getProductByFilter,
 };

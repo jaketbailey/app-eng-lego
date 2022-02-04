@@ -27,10 +27,6 @@ const createCard = (id, name, desc, img, price, stock) => {
 const addCard = (params) => {
   let cards;
   const filterObj = [];
-  let check = false;
-  const productTypes = ['brick', 'set', 'plate'];
-  let actualType = '';
-  const productSize = ['2x2', '2x4', '1x2', '1x8', '4x8'];
   for (const pair of params.entries()) {
     filterObj.push(pair[1]);
   }
@@ -41,8 +37,6 @@ const addCard = (params) => {
   } else {
     cards = filter(filterObj);
     console.log(cards);
-    console.log('vgusdfgihkji')
-    // cards = getData(`/shop/filter/${filterObj.join(',')}`);
   }
   cards.then((res) => {
     console.log(res.length);

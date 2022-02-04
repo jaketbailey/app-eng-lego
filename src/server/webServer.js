@@ -19,7 +19,7 @@ function init() {
   const jsonParser = bodyParser.json();
   app.get('/shop/all', db.getAllProducts);
   app.get('/shop/item/:id', db.getProductById);
-  app.get('/shop/filter/:filter', db.getProductByFilter);
+  // app.get('/shop/filter/:filter', db.getProductByFilter);
   app.get('/get-user/:id', db.getUser);
   app.get('/get-previous-order/', db.getPreviousOrder);
   app.get('/check-exists/:id', db.checkExists);
@@ -27,7 +27,7 @@ function init() {
   app.get('/get-stock/:id', db.getStock);
   app.get('/get-total-cost/:id', db.getTotalCost);
   app.get('/get-user-name/:id', db.getUserName);
-  app.get('/type-filters/:filter/', db.getFilterByColourAndType);
+  app.get('/type-filters/:filter/', db.getProductByFilter);
   app.post('/create-user/', jsonParser, db.createUser);
   app.post('/create-basket/', jsonParser, db.createBasket);
   app.post('/add-to-basket/', jsonParser, db.addToBasket);
