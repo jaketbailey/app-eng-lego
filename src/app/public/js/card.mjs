@@ -10,7 +10,7 @@ const createCard = (id, name, desc, img, price, stock) => {
   card.className = 'card';
   card.id = `card-${id}`;
   card.innerHTML = `
-  <img class="store" src="/public/images/store/${img}.jpg" alt="${name}" width="200">
+  <img class="store" src="/public/images/store/${img}.jpg" alt="${name}">
   <div class="card-body">
     <p>${name}</p>
     <p>£${price}</p>

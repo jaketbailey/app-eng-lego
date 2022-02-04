@@ -8,6 +8,7 @@
         <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" async defer></script>
         <script type="module" src="../../public/js/card.mjs"></script>
         <script type="module" src="../../public/js/addToBasket.mjs"></script>
+        <script type="module" src="../public/js/nav.mjs"></script>
     </head>
 
     <body>
@@ -25,8 +26,8 @@
                     <li class="nav-item"><a href="/basket" class="titlebutton">Basket</a></li>
                     <li class="nav-item" id="account"><a href="/account" class="titlebutton">My Account</a></li>
                     <li class="nav-item">
-                        <button id="authBtn" class="button" style="padding: 10px;" >Login</button>
-                        <button id="authBtnLogout" class="button" style="padding: 10px; display: none;">Logout</button>
+                        <button id="authBtn" class="auth_button" >Login</button>
+                        <button id="authBtnLogout" class="auth_button" style="display: none;">Logout</button>
                     </li>
                 </ul>
 
@@ -84,14 +85,9 @@
                 <div style="width: 75%;">
                     <div class="parent" id="page" style="align-items: center;">                                       
                     </div>      
-                </div> 
-                                               
+                </div>                                         
             </div>
-            
-
-            
         </div>
-
         <div class="footer">
             <!-- <a href="https://www.freepik.com/vectors/house">House vector created by macrovector - www.freepik.com</a> -->
         </div>

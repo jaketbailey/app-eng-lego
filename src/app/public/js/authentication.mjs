@@ -32,6 +32,7 @@ async function updateUI() {
     const logout = document.getElementById('authBtnLogout');
     const website = document.getElementById('website');
     const name = document.createElement('p');
+    name.className = 'header';
     const user = auth0.getUser();
     user.then(async function (res) {
       if (window.location.pathname === '/account/') {
