@@ -1,4 +1,3 @@
-import { addToBasket } from './basket.mjs';
 
 const getData = async (input) => {
   let actualInput = input.split('/');
@@ -14,10 +13,6 @@ const getData = async (input) => {
     for (let i = 0; i < data.length; i++) {
       finalOutput.push(data[i]);
     }
-  } else if (page === 'add') {
-    actualInput = actualInput[3];
-    const stock = addToBasket(actualInput);
-    return stock;
   } else {
     actualInput = actualInput[3];
     actualInput = actualInput.split(',');

@@ -25,7 +25,6 @@ export default async function createBasket(user) {
       customerId: user.sub,
       email: user.email,
     };
-    console.log('testhere');
     console.log(data);
     const response = await fetch('/create-basket/', {
       headers: {

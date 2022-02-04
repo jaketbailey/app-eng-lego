@@ -1,5 +1,6 @@
 import getData from './store.mjs';
 import { addToBasket } from './basket.mjs';
+import filter from './filters.mjs';
 // import { authCheck } from './authentication.mjs';
 
 const createCard = (id, name, desc, img, price, stock) => {
@@ -26,19 +27,22 @@ const createCard = (id, name, desc, img, price, stock) => {
 const addCard = (params) => {
   let cards;
   const filterObj = [];
+  let check = false;
+  const productTypes = ['brick', 'set', 'plate'];
+  let actualType = '';
+  const productSize = ['2x2', '2x4', '1x2', '1x8', '4x8'];
   for (const pair of params.entries()) {
     filterObj.push(pair[1]);
   }
   console.log(filterObj);
-  if (window.location.pathname === '/shop/add/') {
-    getData(`/shop/add/${filterObj[0]}`);
+  console.log(filterObj.join(','));
+  if (filterObj.length === 0) {
+    cards = getData('/shop/all');
   } else {
-    console.log('test');
-    if (filterObj.length === 0) {
-      cards = getData('/shop/all');
-    } else {
-      cards = getData(`/shop/filter/${filterObj.join(',')}`);
-    }
+    cards = filter(filterObj);
+    console.log(cards);
+    console.log('vgusdfgihkji')
+    // cards = getData(`/shop/filter/${filterObj.join(',')}`);
   }
   cards.then((res) => {
     console.log(res.length);

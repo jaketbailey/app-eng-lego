@@ -29,30 +29,31 @@ const getProductById = (req, res) => {
   }
 };
 
-const getProductByFilter = (req, res) => {
-  const filter = req.params.filter;
+const getProductByFilter = (filter) => {
   console.log(filter);
-  pool.query(`
-  SELECT 
-    id,
-    product_name,
-    price,
-    product_desc,
-    image_ref,
-    category,
-    stock 
-  FROM products 
-    JOIN product_colours ON product_colours.product_id = products.id 
-    JOIN colours ON  product_colours.colour_id = colours.colour_id 
-
-  WHERE colours.colour_name = '${filter}' OR products.category LIKE '%${filter}%';
-  `, (err, results) => {
-    if (err) {
-      throw err;
-    }
-    console.log(results);
-    res.status(200).json(results.rows);
-  });
+  for (let i = 0; i < filter.length; i++) {
+    pool.query(`
+    SELECT 
+      id,
+      product_name,
+      price,
+      product_desc,
+      image_ref,
+      category,
+      stock 
+    FROM products 
+      JOIN product_colours ON product_colours.product_id = products.id 
+      JOIN colours ON  product_colours.colour_id = colours.colour_id 
+  
+    WHERE colours.colour_name = '${filter[i]}' OR products.category LIKE '%${[i]}%';
+    `, (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.log(results);
+      return results;
+    });
+  }
 };
 
 const createUser = (req, res) => {
@@ -337,6 +338,71 @@ const updateOrder = (req, res) => {
   });
 };
 
+const getFilterByColourAndType = (req, res) => {
+  const { filter } = req.params;
+  console.log(filter);
+  const newFilter = filter.split('_');
+  const types = ['brick', 'plate', '1x2', '1x8', '2x2', '2x4', '4x8'];
+  let temp;
+  console.log(newFilter);
+  console.log('testthishere');
+  let check = false;
+  for (let i = 0; i < types.length; i++) {
+    for (let j = 0; j < newFilter.length; j++) {
+      if (newFilter[j] !== types[i]) {
+        check = true;
+        temp = newFilter[j-1];
+        break;
+      } else {
+        check = false;
+      }
+    }
+  }
+  const type = newFilter.at(-1);
+  newFilter.pop();
+  console.log(newFilter);
+  console.log(type);
+  const finalResults = [];
+  if (check) {
+    for (let i = 0; i < newFilter.length; i++) {
+      pool.query(`
+        SELECT
+          *
+        FROM
+          products
+          JOIN product_colours ON product_colours.product_id = products.id 
+          JOIN colours ON  product_colours.colour_id = colours.colour_id 
+        WHERE 
+          colours.colour_name = '${newFilter[i]}'
+        AND 
+          category LIKE '%${type}%'
+        `, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        for (let j = 0; j < results.rows.length; j++) {
+          finalResults.push(results.rows[j]);
+          console.log('hhhh');
+          console.log(finalResults);
+          console.log(results.rows[j]);
+        }
+        if (i === newFilter.length - 1) {
+          console.log('test');
+          console.log(finalResults);
+          res.status(200).json(finalResults);
+        }
+      });
+    }
+  } else {
+    const results = getProductByFilter(newFilter);
+    console.log('gyudsfgiu')
+    console.log(results.rows);
+    console.log('gyudsfgiu')
+    res.status(200).json(results.rows);
+  }
+};
+
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
@@ -358,4 +424,5 @@ module.exports = {
   addShippingAddress: addShippingAddress,
   getUserName: getUserName,
   updateOrder: updateOrder,
+  getFilterByColourAndType: getFilterByColourAndType,
 };

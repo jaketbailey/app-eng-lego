@@ -27,6 +27,7 @@ function init() {
   app.get('/get-stock/:id', db.getStock);
   app.get('/get-total-cost/:id', db.getTotalCost);
   app.get('/get-user-name/:id', db.getUserName);
+  app.get('/type-filters/:filter/', db.getFilterByColourAndType);
   app.post('/create-user/', jsonParser, db.createUser);
   app.post('/create-basket/', jsonParser, db.createBasket);
   app.post('/add-to-basket/', jsonParser, db.addToBasket);
