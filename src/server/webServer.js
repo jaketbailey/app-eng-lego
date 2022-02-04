@@ -26,6 +26,7 @@ function init() {
   app.get('/get-basket-items/:id', db.getBasketItems);
   app.get('/get-stock/:id', db.getStock);
   app.get('/get-total-cost/:id', db.getTotalCost);
+  app.get('/get-user-name/:id', db.getUserName);
   app.post('/create-user/', jsonParser, db.createUser);
   app.post('/create-basket/', jsonParser, db.createBasket);
   app.post('/add-to-basket/', jsonParser, db.addToBasket);
@@ -33,6 +34,8 @@ function init() {
   app.put('/update-stock/', jsonParser, db.updateStock);
   app.put('/add-to-stock/', jsonParser, db.addToStock);
   app.put('/add-total-cost/', jsonParser, db.addTotalCost);
+  app.put('/add-shipping-address/', jsonParser, db.addShippingAddress);
+  app.put('/update-order/', jsonParser, db.updateOrder);
   app.delete('/remove-basket-item/', jsonParser, db.removeBasketItem);
 
   app.use(express.static('../app/'));
