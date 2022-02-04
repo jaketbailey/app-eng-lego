@@ -1,4 +1,7 @@
+import createBasket from './basket.mjs';
+
 export default async function createUser(user) {
+  console.log(user.sub);
   const response = await fetch('/create-user/', {
     headers: {
       'Accept': 'application/json',
@@ -7,6 +10,7 @@ export default async function createUser(user) {
     method: 'POST',
     body: JSON.stringify(user),
   });
+  await createBasket(user);
   const result = await response.json();
   console.log(result);
 }

@@ -1,6 +1,6 @@
 import { getUser } from './user.mjs';
 
-async function getBasket() {
+export async function getBasket() {
   const customerId = localStorage.getItem('customerId');
   const response = await fetch(`/check-exists/${customerId}`);
   const result = await response.json();

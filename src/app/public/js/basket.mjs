@@ -13,7 +13,9 @@ async function checkExists(id) {
 export default async function createBasket(user) {
   const previousData = await findPrevious();
   const check = await checkExists(user.sub);
+  console.log(check);
   let id = 0;
+  console.log(previousData);
   if (previousData.length !== 0) {
     id = previousData[0].id + 1;
   }
@@ -23,6 +25,8 @@ export default async function createBasket(user) {
       customerId: user.sub,
       email: user.email,
     };
+    console.log('testhere');
+    console.log(data);
     const response = await fetch('/create-basket/', {
       headers: {
         'Accept': 'application/json',

@@ -119,7 +119,7 @@ const getPreviousOrder = (req, res) => {
       id
     FROM
       orders
-    ORDER BY order_date DESC
+    ORDER BY id DESC
     LIMIT 1
     `, (err, results) => {
     if (err) {
@@ -303,6 +303,39 @@ const addShippingAddress = (req, res) => {
   });
 };
 
+const getUserName = (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  pool.query(`
+    SELECT
+      first_name,
+      last_name,
+      email,
+      phone
+    FROM
+      customers
+    WHERE id = '${id}'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+const updateOrder = (req, res) => {
+  const { id, status } = req.body;
+  console.log(req.body);
+  pool.query(`
+    UPDATE orders SET
+      order_status = '${status}'
+    WHERE id = '${id}'`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Order updated with ID: ${id}`);
+  });
+};
 
 module.exports = {
   getAllProducts: getAllProducts,
@@ -323,4 +356,6 @@ module.exports = {
   addTotalCost: addTotalCost,
   getTotalCost: getTotalCost,
   addShippingAddress: addShippingAddress,
+  getUserName: getUserName,
+  updateOrder: updateOrder,
 };
