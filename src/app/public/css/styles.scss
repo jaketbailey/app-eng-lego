@@ -375,7 +375,7 @@ input[type=text], select {
     justify-items: center;
     margin-right: auto;
     margin-left: auto;
-    height: auto;
+    height: 70%;
 }
 
 .parent > div {
@@ -472,6 +472,7 @@ input[type=text], select {
 
     .parent {
         height: auto;
+        margin-left: 0;
     }
 
     .navbar {
@@ -569,24 +570,22 @@ input[type=text], select {
 
     .parent2 {
         width: 100%;
+        flex-flow: row wrap;
+        width: 100%;
     }
 
     .checkout-card {
-        font-family: 'Sen', sans-serif;
         font-size: 1em;
-        color: #31393c;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
         height: auto;
-        width: 15em;
-        border-color: #31393c;
-        border-width: 2px;
-        border-style: dotted;
+        width: 25em;
     }
 
     .checkout {
-        width: 13em;
+        width: 23em;
+    }
+
+    #first {
+        width: 25em;
     }
 
     .button_remove {
@@ -633,5 +632,9 @@ input[type=text], select {
     #filter_div{
         margin-right: 2.2em;
         text-align: center;
+    }
+
+    .p_main {
+        font-size: 2em;
     }
 }
