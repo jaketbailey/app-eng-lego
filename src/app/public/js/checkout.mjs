@@ -36,7 +36,7 @@ async function addTotalCost(id, total) {
   console.log(result);
 }
 
-function addCheckoutItem(product, id) {
+function addCheckoutItem(product, id, quantity) {
   const page = document.querySelector('.checkout-card');
   const basketItem = document.createElement('div');
   basketItem.innerHTML = `
@@ -45,7 +45,9 @@ function addCheckoutItem(product, id) {
     </div>
     <div>
       <p>${product[0].product_name}</p>
+      <p>Quantity: ${quantity}</p>
       <p>£${product[0].price}</p>
+    </p>
       <button class="button_remove" id="${id}" style="padding: 10px; margin-top: 20px;">Remove</button>
     </div>
     <hr>
@@ -145,8 +147,8 @@ async function basketLoad() {
   for (let i = 0; i < basketItems.length; i++) {
     const product = await getProductById(basketItems[i].product_id);
     console.log(product);
-    addCheckoutItem(product, basketItems[i].id);
-    totalCost = ((totalCost * 1000) + (product[0].price * 1000)) / 1000;
+    addCheckoutItem(product, basketItems[i].id, basketItems[i].quantity);
+    totalCost = ((totalCost * 1000) + ((product[0].price * 1000) * basketItems[i].quantity)) / 1000;
   }
   const page = document.querySelector('.checkout-card');
   const total = document.createElement('div');

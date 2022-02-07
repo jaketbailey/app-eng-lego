@@ -139,13 +139,13 @@ const createBasket = (req, res) => {
 
 const addToBasket = (req, res) => {
   const random = Math.floor(Math.random() * (10000000 - 100 + 1)) + 1;
-  const { id, productId, price } = req.body;
+  const { id, productId, price, quantity } = req.body;
   console.log(productId);
   pool.query(`
     INSERT INTO order_details (
       id, price, quantity, order_id, product_id
     ) VALUES (
-      '${random}', '${price}', 1, '${id}', '${productId}'
+      '${random}', '${price}', ${quantity}, '${id}', '${productId}'
     )`, (err) => {
     if (err) {
       throw err;

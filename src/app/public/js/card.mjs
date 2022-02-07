@@ -14,6 +14,14 @@ const createCard = (id, name, desc, img, price, stock) => {
   <div class="card-body">
     <p>${name}</p>
     <p>£${price}</p>
+    <p>Quantity:
+      <select name="quantity" class="quantity" id="quantity-${id}">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+      </select>
+    </p>
     <p class="stock">Stock: ${stock}</p>
   </div>
   <button id="add-${id}" class="add_btn">Add to Basket</button>

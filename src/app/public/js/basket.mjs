@@ -46,6 +46,8 @@ export async function addToBasket(productId) {
   const customerId = localStorage.getItem('customerId');
   const order = await checkExists(customerId);
   const getProduct = await (await fetch(`/shop/item/${productId}`)).json();
+  const quantity = document.getElementById(`quantity-${productId}`).value;
+  console.log(quantity);
   console.log(getProduct);
   console.log(order);
   let data = {};
@@ -54,11 +56,11 @@ export async function addToBasket(productId) {
     id: order[0].id,
     productId: productId,
     price: getProduct[0].price,
+    quantity: quantity,
   };
   const checkStock = await getStock(productId, false);
   console.log(checkStock);
   console.log(productId);
-  const quantity = 1;
   if (checkStock[0].stock > 0 && (checkStock[0].stock - quantity) >= 0) {
     const response = await fetch('/add-to-basket/', {
       headers: {
@@ -85,7 +87,7 @@ export async function addToBasket(productId) {
     const button = document.getElementById(`add-${productId}`);
     console.log(button);
     button.className = 'add_btn_success';
-    button.innerHTML = 'Added';
+    button.innerHTML = `Added x${quantity}`;
     setTimeout(function () {
       button.className = 'add_btn';
       button.innerHTML = 'Add to Basket';
