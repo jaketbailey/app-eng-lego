@@ -16,7 +16,7 @@ const createCard = (id, name, desc, img, price, stock) => {
     <p>£${price}</p>
     <p class="stock">Stock: ${stock}</p>
   </div>
-  <button class="add_btn">Add to Basket</button>
+  <button id="add-${id}" class="add_btn">Add to Basket</button>
   <a href="/shop/item/?id=${id}" class="store_btn">View Details</a>
   `;
   console.log(card);

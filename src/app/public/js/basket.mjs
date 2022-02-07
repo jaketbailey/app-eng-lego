@@ -55,45 +55,73 @@ export async function addToBasket(productId) {
     productId: productId,
     price: getProduct[0].price,
   };
-  const response = await fetch('/add-to-basket/', {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(data),
-  });
-  const updateData = {
-    id: productId,
-    quantity: 1,
-  };
-  console.log(updateData);
-  const update = await fetch('/update-stock/', {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    method: 'PUT',
-    body: JSON.stringify(updateData),
-  });
-  await getStock(productId);
-  const result = await response.json();
-  console.log(result);
-  const result2 = await update.json();
-  console.log(result2);
+  const checkStock = await getStock(productId, false);
+  console.log(checkStock);
+  console.log(productId);
+  const quantity = 1;
+  if (checkStock[0].stock > 0 && (checkStock[0].stock - quantity) >= 0) {
+    const response = await fetch('/add-to-basket/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    const updateData = {
+      id: productId,
+      quantity: quantity,
+    };
+    console.log(updateData);
+    const update = await fetch('/update-stock/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'PUT',
+      body: JSON.stringify(updateData),
+    });
+    await getStock(productId, true);
+    const button = document.getElementById(`add-${productId}`);
+    console.log(button);
+    button.className = 'add_btn_success';
+    button.innerHTML = 'Added';
+    setTimeout(function () {
+      button.className = 'add_btn';
+      button.innerHTML = 'Add to Basket';
+    }, 1000);
+    console.log(button);
+    const result = await response.json();
+    console.log(result);
+    const result2 = await update.json();
+    console.log(result2);
+  } else {
+    console.log('out of stock, cannot update');
+    const button = document.getElementById(`add-${productId}`);
+    console.log(button);
+    button.className = 'add_btn_fail';
+    button.innerHTML = 'Not Available';
+    setTimeout(function () {
+      button.className = 'add_btn';
+      button.innerHTML = 'Add to Basket';
+    }, 1000);
+  }
 }
 
-async function getStock(productId) {
+async function getStock(productId, update) {
   const stock = await fetch(`/get-stock/${productId}`);
   const result = stock.json();
   result.then((data) => {
     console.log(data[0].stock);
-    const card = document.getElementById(`card-${productId}`);
-    const cardBody = card.querySelector('.card-body');
-    console.log(cardBody);
-    console.log(card);
-    cardBody.querySelector('.stock').innerHTML = `Stock: ${data[0].stock}`;
+    if (update === true) {
+      const card = document.getElementById(`card-${productId}`);
+      const cardBody = card.querySelector('.card-body');
+      console.log(cardBody);
+      console.log(card);
+      cardBody.querySelector('.stock').innerHTML = `Stock: ${data[0].stock}`;
+    }
   });
+  return result;
 }
 
 export async function updateBasket(user, productId) {

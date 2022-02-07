@@ -15,7 +15,7 @@ const createPage = (id, name, desc, img, price, stock) => {
         <p class="stock">Stock: ${stock}</p>
       </div>
     </div>
-    <button class="add_btn">Add to Basket</button>
+    <button id="add-${id}" class="add_btn">Add to Basket</button>
   </div>
   `;
   console.log(page);
