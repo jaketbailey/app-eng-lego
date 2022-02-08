@@ -1,12 +1,14 @@
 const { Client } = require('pg');
 const fs = require('fs');
 
+const dbConfig = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+
 const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
+  user: dbConfig.user,
+  host: dbConfig.host,
   database: 'block_shop',
-  password: 'Outdoor23',
-  port: 5432,
+  password: dbConfig.password,
+  port: dbConfig.port,
 });
 
 function createTables() {
