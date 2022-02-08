@@ -1,10 +1,13 @@
 const { Pool } = require('pg');
+const fs = require('fs');
+const dbConfig = JSON.parse(fs.readFileSync('./db/config.json', 'utf8'));
+console.log(dbConfig.user);
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
+  user: dbConfig.user,
+  host: dbConfig.host,
   database: 'block_shop',
-  password: 'Outdoor23',
-  port: 5432,
+  password: dbConfig.password,
+  port: dbConfig.port,
 });
 
 const getAllProducts = (req, res) => {
