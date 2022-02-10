@@ -7,16 +7,37 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+rl.stoutMuted = true;
+
 function init() {
-  rl.question('Enter your postgres username: ', (username) => {
-    rl.question('Enter your postgres password: ', (password) => {
-      rl.question('Enter your postgres port: ', (port) => {
-        rl.question('Enter your postgres host: ', (host) => {
+  rl.history = rl.history.slice(1);
+
+  rl.stdoutMuted = false;
+
+  rl.query = 'Enter your postgres username: ';
+  rl.question(rl.query, (username) => {
+    rl.stdoutMuted = true;
+    rl.query = 'Enter your postgres password: ';
+    rl.question(rl.query, (password) => {
+      rl.stdoutMuted = false;
+      rl.query = 'Enter your postgres port: ';
+      rl.question(rl.query, (port) => {
+        rl.query = 'Enter your postgres host: ';
+        rl.question(rl.query, (host) => {
           createDB(username, password, port, host);
+          rl.close();
         });
       });
     });
   });
+
+  rl._writeToOutput = function _writeToOutput(stringToWrite) {
+    if (rl.stdoutMuted) {
+      rl.output.write('\x1B[2K\x1B[200D' + rl.query + '[' + ((rl.line.length % 2 === 1) ? '=-' : '-=') + ']');
+    } else {
+      rl.output.write(stringToWrite);
+    }
+  };
 }
 
 function createDB(username, password, port, host) {
