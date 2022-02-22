@@ -12,7 +12,8 @@ function generateRandomString(length) {
   return id;
 }
 
-document.addEventListener('load', async () => {
+window.addEventListener('load', async () => {
+  console.log('loadedHome');
   const unregisteredId = `unregisteredUser-${generateRandomString(10)}`;
   localStorage.setItem('customerId', unregisteredId);
   const unregistered = {
