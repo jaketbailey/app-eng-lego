@@ -28,8 +28,27 @@ export async function updateUser(address) {
   console.log(result);
 }
 
-export async function getUser(id) {
-  const response = await fetch(`/get-user/${id}`);
+export async function getBasketId(id) {
+  const response = await fetch(`/get-basket/${id}`);
   const result = await response.json();
   return result[0];
+}
+
+export async function deleteUser() {
+  const id = localStorage.getItem('customerId');
+
+  const orderDetails = await (await fetch(`/get-order-id/${id}`)).json();
+  console.log(orderDetails);
+  const orderId = orderDetails[0].id;
+
+  const response = await fetch('/delete-user', {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: id, orderId: orderId }),
+  });
+  const result = await response.json();
+  return result;
 }

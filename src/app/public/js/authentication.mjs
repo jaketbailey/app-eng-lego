@@ -1,5 +1,5 @@
 import loadAccountPage from './account.mjs';
-import createUser from './user.mjs';
+import { createUser, getBasketId, deleteUser } from './user.mjs';
 // import createBasket from './basket.mjs';
 
 async function fetchConfig() {
@@ -38,6 +38,11 @@ async function updateUI() {
       if (window.location.pathname === '/account/') {
         loadAccountPage(res);
       }
+      const unregisteredId = localStorage.getItem('customerId');
+      if (unregisteredId.split('-')[0] === 'unregisteredUser') {
+        const basketId = await getBasketId(unregisteredId);
+        await deleteUser(unregisteredId, basketId);
+      }
       name.textContent = `Logged in as ${res.name}`;
       localStorage.setItem('customerId', res.sub);
       website.appendChild(name);
@@ -61,6 +66,7 @@ async function login() {
 }
 
 function logout() {
+  localStorage.removeItem('customerId');
   auth0.logout({
     returnTo: window.location.origin,
   });

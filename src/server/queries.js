@@ -393,6 +393,39 @@ const getProductByFilter = (req, res) => {
   }
 };
 
+const getBasketId = (req, res) => {
+  const id = req.params.id;
+  pool.query(`
+  SELECT id
+  FROM orders
+  WHERE customer_id = '${id}'
+  `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+const deleteUser = (req, res) => {
+  const { id, orderId } = req.body;
+  console.log(req.body);
+  pool.query(`
+    DELETE FROM customers
+    WHERE id = '${id}';
+    
+    DELETE FROM orders
+    WHERE customer_id = '${id}';
+
+    DELETE FROM order_details
+    WHERE order_id = '${orderId}';
+    `, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`User deleted with ID: ${id}`);
+  });
+};
 
 module.exports = {
   getAllProducts: getAllProducts,
@@ -415,4 +448,6 @@ module.exports = {
   getUserName: getUserName,
   updateOrder: updateOrder,
   getProductByFilter: getProductByFilter,
+  getBasketId: getBasketId,
+  deleteUser: deleteUser,
 };
