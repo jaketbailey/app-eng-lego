@@ -1,5 +1,6 @@
 import loadAccountPage from './account.mjs';
-import { createUser, getBasketId, deleteUser } from './user.mjs';
+import { getBasketId, deleteUser } from './user.mjs';
+import createUser from './user.mjs';
 // import createBasket from './basket.mjs';
 
 async function fetchConfig() {

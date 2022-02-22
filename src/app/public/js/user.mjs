@@ -28,6 +28,12 @@ export async function updateUser(address) {
   console.log(result);
 }
 
+export async function getUser(id) {
+  const response = await fetch(`/get-user/${id}`);
+  const result = await response.json();
+  return result[0];
+}
+
 export async function getBasketId(id) {
   const response = await fetch(`/get-basket/${id}`);
   const result = await response.json();
