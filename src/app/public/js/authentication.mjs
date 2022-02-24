@@ -40,7 +40,7 @@ async function updateUI() {
         loadAccountPage(res);
       }
       const unregisteredId = localStorage.getItem('customerId');
-      if (unregisteredId.split('-')[0] === 'unregisteredUser') {
+      if (unregisteredId.split('-')[0] === 'unregistered') {
         const basketId = await getBasketId(unregisteredId);
         await deleteUser(unregisteredId, basketId);
       }
