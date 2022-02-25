@@ -14,7 +14,7 @@ function generateRandomString(length) {
 
 export default async function generateUnregistered() {
   const check = localStorage.getItem('customerId');
-  if (check.split('-')[0] !== 'unregistered' || check === null) {
+  if (check === null || check.split('-')[0] !== 'unregistered') {
     const unregisteredId = `unregistered-${generateRandomString(20)}`;
     localStorage.setItem('customerId', unregisteredId);
     const unregistered = {

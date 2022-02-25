@@ -55,7 +55,8 @@ async function updateUI() {
     account.style.display = 'block';
 
     const basketId = await getBasketId(unregisteredId);
-    await deleteUser(unregisteredId, basketId);
+    console.log(basketId);
+    await deleteUser(unregisteredId, basketId.id);
   } else {
     generateUnregistered();
   }

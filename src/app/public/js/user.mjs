@@ -40,13 +40,8 @@ export async function getBasketId(id) {
   return result[0];
 }
 
-export async function deleteUser() {
-  const id = localStorage.getItem('customerId');
-
-  const orderDetails = await (await fetch(`/get-order-id/${id}`)).json();
-  console.log(orderDetails);
-  const orderId = orderDetails[0].id;
-
+export async function deleteUser(id, orderId) {
+  console.log('Delete')
   const response = await fetch('/delete-user', {
     method: 'DELETE',
     headers: {

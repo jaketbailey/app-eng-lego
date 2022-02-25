@@ -45,6 +45,7 @@ function init() {
 
   // All DELETE requests to delete data from the database
   app.delete('/remove-basket-item/', jsonParser, db.removeBasketItem);
+  app.delete('/delete-user/', jsonParser, db.deleteUser);
 
   app.use(express.static('../app/'));
   auth.auth0(app);

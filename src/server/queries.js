@@ -411,14 +411,14 @@ const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
   console.log(req.body);
   pool.query(`
-    DELETE FROM customers
-    WHERE id = '${id}';
+    DELETE FROM order_details
+    WHERE order_id = '${orderId}';
     
     DELETE FROM orders
     WHERE customer_id = '${id}';
-
-    DELETE FROM order_details
-    WHERE order_id = '${orderId}';
+    
+    DELETE FROM customers
+    WHERE id = '${id}';
     `, (err) => {
     if (err) {
       throw err;
