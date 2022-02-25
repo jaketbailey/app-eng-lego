@@ -41,14 +41,17 @@ export async function getBasketId(id) {
 }
 
 export async function deleteUser(id, orderId) {
-  const response = await fetch('/delete-user', {
-    method: 'DELETE',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: id, orderId: orderId }),
-  });
-  const result = await response.json();
-  return result;
+  console.log('Delete');
+  if (id.split('-')[0] === 'unregistered') {
+    const response = await fetch('/delete-user', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id, orderId: orderId }),
+    });
+    const result = await response.json();
+    return result;
+  }
 }

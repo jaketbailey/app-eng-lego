@@ -56,21 +56,30 @@ function addCheckoutItem(product, id, quantity) {
 }
 
 async function getUserAddress() {
-  const user = await getUser(localStorage.customerId);
-  console.log(user);
+  const id = localStorage.getItem('customerId');
+  const user = await getUser(id);
   const addressBox = document.getElementById('address_box');
-  const address = document.createElement('div');
-  address.innerHTML = `
-    <p class="p_basket" style="text-align: center;">Stored Shipping Address:</p>
-    <p>${user.address_line_1}</p>
-    <p>${user.address_line_2}</p>
-    <p>${user.city}</p>
-    <p>${user.county}</p>
-    <p>${user.postcode}</p>
-    <p>${user.country}</p>
-    <hr>
-    `;
-  addressBox.appendChild(address);
+  if (id === null || id.split('-')[0] !== 'unregistered') {
+    console.log(user);
+    const address = document.createElement('div');
+    address.innerHTML = `
+      <p class="p_basket" style="text-align: center;">Stored Shipping Address:</p>
+      <p>${user.address_line_1}</p>
+      <p>${user.address_line_2}</p>
+      <p>${user.city}</p>
+      <p>${user.county}</p>
+      <p>${user.postcode}</p>
+      <p>${user.country}</p>
+      <hr>
+      `;
+    addressBox.appendChild(address);
+  } else {
+    const text = document.getElementById('shipping_text');
+    console.log('hellowu')
+    console.log(text);
+    text.textContent = 'Enter the shipping address below:';
+    addressBox.remove();
+  }
 }
 
 async function removeOrderDetail(id, productId, basket) {
