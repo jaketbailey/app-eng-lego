@@ -33,3 +33,23 @@ export async function getUser(id) {
   const result = await response.json();
   return result[0];
 }
+
+export async function getBasketId(id) {
+  const response = await fetch(`/get-basket/${id}`);
+  const result = await response.json();
+  return result[0];
+}
+
+export async function deleteUser(id, orderId) {
+  console.log('Delete')
+  const response = await fetch('/delete-user', {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: id, orderId: orderId }),
+  });
+  const result = await response.json();
+  return result;
+}

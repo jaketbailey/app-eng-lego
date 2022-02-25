@@ -3,15 +3,14 @@ const fs = require('fs');
 
 const dbConfig = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 
-const client = new Client({
-  user: dbConfig.user,
-  host: dbConfig.host,
-  database: 'block_shop',
-  password: dbConfig.password,
-  port: dbConfig.port,
-});
-
-function createTables() {
+function createTables(password) {
+  const client = new Client({
+    user: dbConfig.user,
+    host: dbConfig.host,
+    database: 'block_shop',
+    password: password,
+    port: dbConfig.port,
+  });
   const create = fs.readFileSync('./psql/create_statements.sql', 'utf8');
   client.connect();
   client.query(create, (err, res) => {
@@ -20,11 +19,11 @@ function createTables() {
       process.exit(-1);
     }
     console.log(res);
-    insertInto();
+    insertInto(client);
   });
 }
 
-function insertInto() {
+function insertInto(client) {
   const insert = fs.readFileSync('./psql/insert_statements.sql', 'utf8');
   client.query(insert, (err, res) => {
     if (err) {
@@ -36,7 +35,7 @@ function insertInto() {
 }
 
 module.exports = {
-  init: () => {
-    createTables();
+  init: (password) => {
+    createTables(password);
   },
 };

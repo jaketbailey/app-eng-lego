@@ -48,20 +48,24 @@ function createDB(username, password, port, host) {
     host: host,
   };
 
-  const data = JSON.stringify(config, null, 2);
-
-  fs.writeFileSync('./config.json', data, (err) => {
-    if (err) throw err;
-    console.log('Config written to file');
-  });
-
   pgtools.createdb(config, 'block_shop', (err, res) => {
     if (err) {
       console.error(err);
       process.exit(-1);
     }
     console.log(res);
-    generate.init();
+    console.log(config);
+    delete config.password;
+    delete config.database;
+
+    const data = JSON.stringify(config, null, 2);
+    console.log(data);
+
+    fs.writeFileSync('./config.json', data, (err) => {
+      if (err) throw err;
+      console.log('Config written to file');
+    });
+    generate.init(password);
   });
 }
 

@@ -1,5 +1,7 @@
 import loadAccountPage from './account.mjs';
+import { getBasketId, deleteUser } from './user.mjs';
 import createUser from './user.mjs';
+import generateUnregistered from './unregistered.mjs';
 // import createBasket from './basket.mjs';
 
 async function fetchConfig() {
@@ -22,12 +24,12 @@ async function initialiseClient() {
 }
 
 async function updateUI() {
+  const unregisteredId = localStorage.getItem('customerId');
   const isAuthenticated = await auth0.isAuthenticated();
   console.log(isAuthenticated);
   document.getElementById('authBtn').disabled = isAuthenticated;
   document.getElementById('authBtnLogout').disabled = !isAuthenticated;
   if (isAuthenticated) {
-    // const user = await auth0.getUser();
     const login = document.getElementById('authBtn');
     const logout = document.getElementById('authBtnLogout');
     const website = document.getElementById('website');
@@ -38,8 +40,8 @@ async function updateUI() {
       if (window.location.pathname === '/account/') {
         loadAccountPage(res);
       }
-      name.textContent = `Logged in as ${res.name}`;
       localStorage.setItem('customerId', res.sub);
+      name.textContent = `Logged in as ${res.name}`;
       website.appendChild(name);
       await createUser(res);
     });
@@ -51,6 +53,12 @@ async function updateUI() {
 
     const account = document.getElementById('account');
     account.style.display = 'block';
+
+    const basketId = await getBasketId(unregisteredId);
+    console.log(basketId);
+    await deleteUser(unregisteredId, basketId.id);
+  } else {
+    generateUnregistered();
   }
 }
 
@@ -61,6 +69,7 @@ async function login() {
 }
 
 function logout() {
+  localStorage.removeItem('customerId');
   auth0.logout({
     returnTo: window.location.origin,
   });
