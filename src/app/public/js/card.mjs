@@ -9,36 +9,20 @@ const createCard = (id, name, desc, img, price, stock) => {
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;
-  appendElem(card, 'img', '', 'store', '', `/public/images/store/${img}.jpg`, '');
-  const innerDiv = appendElem(card, 'div', 'card-body', '', '', '', '');
-  appendElem(innerDiv, 'p', '', '', name, '', '');
-  appendElem(innerDiv, 'p', '', '', `£${price}`, '', '');
-  const quantityParagraph = appendElem(innerDiv, 'p', '', '', 'Quantity:', '', '');
-  const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity', '', '', '');
+
+  appendElem(card, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
+  const innerDiv = appendElem(card, 'div', null, 'card-body', null, null, null);
+  appendElem(innerDiv, 'p', null, null, name, null, null);
+  appendElem(innerDiv, 'p', null, null, `£${price}`, null, null);
+  const quantityParagraph = appendElem(innerDiv, 'p', null, null, 'Quantity:', null, null);
+  const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity', null, null, null);
   for (let i = 1; i < 5; i++) {
-    appendElem(select, 'option', '', '', i, '', i);
+    appendElem(select, 'option', null, null, i, null, i);
   }
-  appendElem(innerDiv, 'p', '', 'stock', `Stock: ${stock}`, '', '');
-  appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', '', '');
-  appendElem(card, 'a', '', 'store_btn', 'View Details', `/shop/item/${id}`, '');
-  card.innerHTML = `
-  <img class="store" src="/public/images/store/${img}.jpg" alt="${name}">
-  <div class="card-body">
-    <p>${name}</p>
-    <p>£${price}</p>
-    <p>Quantity:
-      <select name="quantity" class="quantity" id="quantity-${id}">
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-      </select>
-    </p>
-    <p class="stock">Stock: ${stock}</p>
-  </div>
-  <button id="add-${id}" class="add_btn">Add to Basket</button>
-  <a href="/shop/item/?id=${id}" class="store_btn">View Details</a>
-  `;
+  appendElem(innerDiv, 'p', null, 'stock', `Stock: ${stock}`, null, null);
+  appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
+  appendElem(card, 'a', null, 'store_btn', 'View Details', `/shop/item/${id}`, null);
+
   console.log(card);
   page.lastChild.appendChild(card);
   return card;

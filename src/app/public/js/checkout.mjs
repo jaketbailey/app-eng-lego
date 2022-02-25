@@ -75,7 +75,6 @@ async function getUserAddress() {
     addressBox.appendChild(address);
   } else {
     const text = document.getElementById('shipping_text');
-    console.log('hellowu')
     console.log(text);
     text.textContent = 'Enter the shipping address below:';
     addressBox.remove();

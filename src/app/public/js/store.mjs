@@ -31,16 +31,17 @@ export async function getData(input) {
     console.log(finalOutput);
   }
   return finalOutput;
-};
+}
 
 export function appendElem(parent, type, id, className, text, src, value) {
   const elem = document.createElement(type);
-  if (id !== '') elem.id = id;
-  if (className !== '') elem.className = className;
-  if (text === '') elem.textContent = text;
+  if (id !== null) elem.id = id;
+  if (className !== null) elem.classList.add(className);
+  if (text !== null) elem.textContent = `${text}`;
   if (type === 'img') elem.src = src;
   if (type === 'a') elem.href = src;
-  if (value !== '') elem.value = value;
+  if (value !== null) elem.value = `${value}`;
+  console.log(text);
   parent.appendChild(elem);
   return elem;
 }
