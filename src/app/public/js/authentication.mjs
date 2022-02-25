@@ -1,6 +1,5 @@
 import loadAccountPage from './account.mjs';
-import { getBasketId, deleteUser } from './user.mjs';
-import createUser from './user.mjs';
+import { createUser, getBasketId, deleteUser } from './user.mjs';
 import generateUnregistered from './unregistered.mjs';
 // import createBasket from './basket.mjs';
 

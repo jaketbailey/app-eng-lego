@@ -1,4 +1,4 @@
-import createUser from './user.mjs';
+import { createUser } from './user.mjs';
 import createBasket from './basket.mjs';
 
 const charList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

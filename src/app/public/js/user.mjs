@@ -1,6 +1,6 @@
 import createBasket from './basket.mjs';
 
-export default async function createUser(user) {
+export async function createUser(user) {
   console.log(user.sub);
   const response = await fetch('/create-user/', {
     headers: {
@@ -41,7 +41,6 @@ export async function getBasketId(id) {
 }
 
 export async function deleteUser(id, orderId) {
-  console.log('Delete')
   const response = await fetch('/delete-user', {
     method: 'DELETE',
     headers: {
