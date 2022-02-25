@@ -4,7 +4,7 @@
   "description": "Lego store website coursework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "cd ./src/server && node .",
     "dev": "cd ./src/server && nodemon .",
     "config": "cd ./src/server/db && node ."
@@ -30,7 +30,8 @@
   },
   "devDependencies": {
     "eslint": "^8.4.1",
-    "eslint-config-portsoc": "^0.8.2"
+    "eslint-config-portsoc": "^0.8.2",
+    "jest": "^27.5.1"
   },
   "eslintConfig": {
     "extends": "portsoc",

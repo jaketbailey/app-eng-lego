@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS products(
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS products(
   id SERIAL PRIMARY KEY,
   product_name VARCHAR(100) NOT NULL,
   price DECIMAL(12,2) NOT NULL,
@@ -8,17 +8,17 @@ CREATE TABLE IF NOT EXISTS products(
   stock INT NOT NULL
 );
 
-CREATE TABLE colours(
+CREATE TABLE IF NOT EXISTS colours(
   colour_id SERIAL PRIMARY KEY,
   colour_name VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE product_colours(
+CREATE TABLE IF NOT EXISTS product_colours(
   colour_id INT REFERENCES colours(colour_id) NOT NULL,
   product_id INT REFERENCES products(id) NOT NULL
 );
 
-CREATE TABLE customers(
+CREATE TABLE IF NOT EXISTS customers(
   id VARCHAR(500) PRIMARY KEY,
   email VARCHAR(100) NOT NULL,
   first_name VARCHAR(30) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE customers(
   country varchar(50)
 );
 
-CREATE TABLE orders(
+CREATE TABLE IF NOT EXISTS orders(
   id SERIAL PRIMARY KEY,
   total_cost DECIMAL(12,2),
   order_address VARCHAR(200),
@@ -42,7 +42,7 @@ CREATE TABLE orders(
   customer_id VARCHAR(500) REFERENCES customers(id) NOT NULL
 );
 
-CREATE TABLE order_details(
+CREATE TABLE IF NOT EXISTS order_details(
   id SERIAL PRIMARY KEY,
   price DECIMAL(12,2) NOT NULL,
   quantity INT NOT NULL,

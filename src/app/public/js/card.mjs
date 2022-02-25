@@ -9,7 +9,6 @@ const createCard = (id, name, desc, img, price, stock) => {
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;
-
   appendElem(card, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
   const innerDiv = appendElem(card, 'div', null, 'card-body', null, null, null);
   appendElem(innerDiv, 'p', null, null, name, null, null);
@@ -21,8 +20,7 @@ const createCard = (id, name, desc, img, price, stock) => {
   }
   appendElem(innerDiv, 'p', null, 'stock', `Stock: ${stock}`, null, null);
   appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
-  appendElem(card, 'a', null, 'store_btn', 'View Details', `/shop/item/${id}`, null);
-
+  appendElem(card, 'a', null, 'store_btn', 'View Details', `/shop/item/?id=${id}`, null);
   console.log(card);
   page.lastChild.appendChild(card);
   return card;

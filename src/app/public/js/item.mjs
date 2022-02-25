@@ -1,24 +1,21 @@
-import getData from './store.mjs';
+import { getData, appendElem } from './store.mjs';
 import { checkForAdd } from './card.mjs';
 
 const createPage = (id, name, desc, img, price, stock) => {
   const page = document.createElement('div');
-  page.className = 'page';
-  page.innerHTML = `
-  <div id="card-${id}">
-    <div class="card-body">
-      <h2 class="title_main">${name}</h2>
-      <img class="store" src="/public/images/store/${img}.jpg" alt="${name}" width="200">
-      <div class="page-body">
-        <p>${desc}</p>
-        <p>£${price}</p>
-        <p class="stock">Stock: ${stock}</p>
-      </div>
-    </div>
-    <button id="add-${id}" class="add_btn">Add to Basket</button>
-  </div>
-  `;
   console.log(page);
+  const card = appendElem(page, 'div', `card-${id}`, 'card', null, null, null);
+  card.style = 'margin-left: auto; margin-right: auto; margin-top: 2em';
+  const innerDiv = appendElem(card, 'div', null, 'card-body', null, null, null);
+  const image = appendElem(innerDiv, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
+  image.style = 'width:11em';
+  const innerInnerDiv = appendElem(innerDiv, 'div', null, 'card-body', null, null, null);
+  appendElem(innerInnerDiv, 'p', null, null, desc, null, null);
+  appendElem(innerInnerDiv, 'p', null, null, `£${price}`, null, null);
+  appendElem(innerInnerDiv, 'p', null, 'stock', `Stock: ${stock}`, null, null);
+  appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
+  appendElem(page, 'h2', null, 'title_main', name, null, null);
+  page.appendChild(card);
   return page;
 };
 
