@@ -3,7 +3,7 @@
 
 Before running the application, you must configure the application.
 To do so, you must:
-- Have Postgres installed on your machine [Postgres Install](https://www.postgresql.org/)
+- Have Postgres installed on your machine [Postgres Install](https://www.postgresql.org/download/)
 - Run `npm run config` to generate the configuration.
 - This will prompt you for postgres details.
 - You must enter the following details:
