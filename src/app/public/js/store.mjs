@@ -1,5 +1,5 @@
 
-const getData = async (input) => {
+export async function getData(input) {
   let actualInput = input.split('/');
   console.log(actualInput);
   const page = actualInput[2];
@@ -33,4 +33,14 @@ const getData = async (input) => {
   return finalOutput;
 };
 
-export default getData;
+export function appendElem(parent, type, id, className, text, src, value) {
+  const elem = document.createElement(type);
+  if (id !== '') elem.id = id;
+  if (className !== '') elem.className = className;
+  if (text === '') elem.textContent = text;
+  if (type === 'img') elem.src = src;
+  if (type === 'a') elem.href = src;
+  if (value !== '') elem.value = value;
+  parent.appendChild(elem);
+  return elem;
+}

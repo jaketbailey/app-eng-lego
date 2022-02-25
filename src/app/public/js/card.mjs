@@ -1,14 +1,26 @@
-import getData from './store.mjs';
+import { getData, appendElem } from './store.mjs';
 import { addToBasket } from './basket.mjs';
 import filter from './filters.mjs';
 // import { authCheck } from './authentication.mjs';
-
+// (parent, type, id, className, text, src)
 const createCard = (id, name, desc, img, price, stock) => {
   const page = document.getElementById('page');
   page.appendChild(document.createElement('div'));
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;
+  appendElem(card, 'img', '', 'store', '', `/public/images/store/${img}.jpg`, '');
+  const innerDiv = appendElem(card, 'div', 'card-body', '', '', '', '');
+  appendElem(innerDiv, 'p', '', '', name, '', '');
+  appendElem(innerDiv, 'p', '', '', `£${price}`, '', '');
+  const quantityParagraph = appendElem(innerDiv, 'p', '', '', 'Quantity:', '', '');
+  const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity', '', '', '');
+  for (let i = 1; i < 5; i++) {
+    appendElem(select, 'option', '', '', i, '', i);
+  }
+  appendElem(innerDiv, 'p', '', 'stock', `Stock: ${stock}`, '', '');
+  appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', '', '');
+  appendElem(card, 'a', '', 'store_btn', 'View Details', `/shop/item/${id}`, '');
   card.innerHTML = `
   <img class="store" src="/public/images/store/${img}.jpg" alt="${name}">
   <div class="card-body">
