@@ -12,15 +12,20 @@ function generateRandomString(length) {
   return id;
 }
 
-window.addEventListener('load', async () => {
-  console.log('loadedHome');
-  const unregisteredId = `unregistered-${generateRandomString(20)}`;
-  localStorage.setItem('customerId', unregisteredId);
-  const unregistered = {
-    sub: unregisteredId,
-    name: 'Unregistered Unregistered',
-    email: 'Unregistered',
-  };
-  await createUser(unregistered);
-  await createBasket(unregistered);
-});
+export default async function generateUnregistered() {
+  const check = localStorage.getItem('customerId');
+  if (check.split('-')[0] !== 'unregistered' || check === null) {
+    const unregisteredId = `unregistered-${generateRandomString(20)}`;
+    localStorage.setItem('customerId', unregisteredId);
+    const unregistered = {
+      sub: unregisteredId,
+      name: 'Unregistered Unregistered',
+      email: 'Unregistered',
+    };
+    await createUser(unregistered);
+    await createBasket(unregistered);
+  }
+  // else {
+  //   console.log('Temp user already made');
+  // }
+}
