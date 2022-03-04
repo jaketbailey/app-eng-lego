@@ -21,22 +21,24 @@ export default function loadAccountPage(user) {
   console.log(user.sub);
   const userData = getUser(user.sub);
   userData.then((res) => {
-    address.innerHTML = `<br>
-    Address:<br>
-    ${res.address_line_1}<br>
-    ${res.address_line_2}<br>
-    ${res.city}<br>
-    ${res.county}<br>
-    ${res.postcode}<br>
-    ${res.country}<br><br>
-    Phone Number:<br>
-    ${res.phone}
-    `;
-  });
-  main.appendChild(address);
-  const button = document.getElementById('submit_address');
-  button.addEventListener('click', () => {
-    updateAddress(user);
+    address.appendChild(document.createElement('hr'));
+    address.appendChild(document.createTextNode('Address: '));
+    address.appendChild(document.createElement('br'));
+    for (const [key, value] of Object.entries(res)) {
+      if (key !== 'phone' && value !== 'null') {
+        address.appendChild(document.createTextNode(`${value}`));
+        address.appendChild(document.createElement('br'));
+      }
+    }
+    address.appendChild(document.createElement('hr'));
+    address.appendChild(document.createTextNode('Phone: '));
+    address.appendChild(document.createElement('br'));
+    address.appendChild(document.createTextNode(`${res.phone}`));
+    main.appendChild(address);
+    const button = document.getElementById('submit_address');
+    button.addEventListener('click', () => {
+      updateAddress(user);
+    });
   });
 }
 

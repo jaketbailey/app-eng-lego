@@ -164,6 +164,16 @@ body {
     text-align: left;
 }
 
+.p_basket_2 {
+    font-family: 'Sen', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #31393c;
+    text-decoration: none;
+    text-align: left;
+    text-align: center;
+}
+
 a {
     font-family: 'Sen', sans-serif;
     font-size: 20px;
@@ -646,7 +656,7 @@ input[type=text], select {
         height: 2em;
     }
 
-    .p_basket, .p_accounts {
+    .p_basket, .p_accounts, .p_basket_2 {
         font-size: 1.2em;
     }
 

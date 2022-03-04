@@ -156,15 +156,11 @@ async function basketLoad() {
   }
   const page = document.querySelector('.checkout-card');
   const total = document.createElement('div');
-  total.innerHTML = `
-    <div id=price_box>
-    <br>
-    <p class="p_basket" id="totalCost" style="text-align: center;">
-      Total: £${totalCost}
-    </p>
-    </div><br>
-    <a class="button" id="checkout" href="/basket/checkout/" style="padding: 10px; margin-top: 20px;">Checkout</button>
-    `;
+  const priceBox = appendElem(total, 'div', 'price_box', null, null, null, null);
+  priceBox.appendChild(document.createElement('br'));
+  appendElem(priceBox, 'p', 'totalCost', 'p_basket_2', `Total: £${totalCost}`, null, null);
+  total.appendChild(document.createElement('br'));
+  appendElem(total, 'a', 'checkout', 'button', 'Checkout', '/basket/checkout/');
   page.appendChild(total);
   addTotalCost(basket[0].id, totalCost);
   getUserAddress();

@@ -1,4 +1,5 @@
 import { getBasket } from './checkout.mjs';
+import { appendElem } from './store.mjs';
 
 async function loadFinalCheckout() {
   const customerId = localStorage.getItem('customerId');
@@ -29,6 +30,7 @@ function addToPage(customerData, shippingAddress, total) {
   title.appendChild(totalCost);
   const main = document.getElementById('main');
   const userDetails = document.createElement('div');
+  console.log(customerData[0].entries);
   userDetails.className = 'user_details';
   userDetails.innerHTML = `
     <p class="p_main" style="margin-bottom: 10px;">Customer Details:</p>
@@ -39,16 +41,10 @@ function addToPage(customerData, shippingAddress, total) {
   main.appendChild(userDetails);
   const secondary = document.getElementById('secondary');
   const order = document.createElement('div');
-  order.className = 'order';
-  order.innerHTML = `
-    <p class="p_main" style="margin-bottom: 10px;">Order Details:</p>
-    <p>${shippingAddress[0]}</p>
-    <p>${shippingAddress[1]}</p>
-    <p>${shippingAddress[2]}</p>
-    <p>${shippingAddress[3]}</p>
-    <p>${shippingAddress[4]}</p>
-    <p style="margin-bottom: 10px;">${shippingAddress[5]}</p>
-    `;
+  appendElem(order, 'p', null, 'order', 'Order Details:', null, null);
+  for (const item of shippingAddress) {
+    appendElem(order, 'p', null, null, item, null, null);
+  }
   secondary.appendChild(order);
 }
 
