@@ -1,4 +1,5 @@
 import { getUser } from './user.mjs';
+import { appendElem } from './store.mjs';
 
 export async function getBasket() {
   const customerId = localStorage.getItem('customerId');
@@ -59,19 +60,13 @@ async function getUserAddress() {
   const id = localStorage.getItem('customerId');
   const user = await getUser(id);
   const addressBox = document.getElementById('address_box');
-  if (id === null || id.split('-')[0] !== 'unregistered') {
+  if (id === null || (user.address_line_1 !== null && id.split('-')[0] !== 'unregistered')) {
     console.log(user);
     const address = document.createElement('div');
-    address.innerHTML = `
-      <p class="p_basket" style="text-align: center;">Stored Shipping Address:</p>
-      <p>${user.address_line_1}</p>
-      <p>${user.address_line_2}</p>
-      <p>${user.city}</p>
-      <p>${user.county}</p>
-      <p>${user.postcode}</p>
-      <p>${user.country}</p>
-      <hr>
-      `;
+    const addressData = [user.address_line_1, user.address_line_2, user.city, user.county, user.postcode, user.country];
+    for (const item of addressData) {
+      if (item !== 'null') appendElem(address, 'p', null, null, item, null, null);
+    }
     addressBox.appendChild(address);
   } else {
     const text = document.getElementById('shipping_text');
@@ -79,6 +74,7 @@ async function getUserAddress() {
     text.textContent = 'Enter the shipping address below:';
     addressBox.remove();
   }
+  addressBox.appendChild(document.createElement('hr'));
 }
 
 async function removeOrderDetail(id, productId, basket) {
