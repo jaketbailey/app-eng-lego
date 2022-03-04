@@ -1,38 +1,41 @@
 const Server = require('./webServer');
-const db = require('./queries.js');
+const dbGet = require('./getDb');
+const dbPost = require('./postDb');
+const dbPut = require('./putDb');
+const dbDelete = require('./deleteDb');
 const bodyParser = require('body-parser');
 
 function init() {
   const jsonParser = bodyParser.json();
   // All GET requests to retrieve data from the database
-  Server.app.get('/shop/all', db.getAllProducts);
-  Server.app.get('/shop/item/:id', db.getProductById);
-  Server.app.get('/get-user/:id', db.getUser);
-  Server.app.get('/get-previous-order/', db.getPreviousOrder);
-  Server.app.get('/check-exists/:id', db.checkExists);
-  Server.app.get('/get-basket-items/:id', db.getBasketItems);
-  Server.app.get('/get-stock/:id', db.getStock);
-  Server.app.get('/get-total-cost/:id', db.getTotalCost);
-  Server.app.get('/get-user-name/:id', db.getUserName);
-  Server.app.get('/get-basket/:id', db.getBasketId);
-  Server.app.get('/type-filters/:filter/', db.getProductByFilter);
+  Server.app.get('/shop/all', dbGet.getAllProducts);
+  Server.app.get('/shop/item/:id', dbGet.getProductById);
+  Server.app.get('/get-user/:id', dbGet.getUser);
+  Server.app.get('/get-previous-order/', dbGet.getPreviousOrder);
+  Server.app.get('/check-exists/:id', dbGet.checkExists);
+  Server.app.get('/get-basket-items/:id', dbGet.getBasketItems);
+  Server.app.get('/get-stock/:id', dbGet.getStock);
+  Server.app.get('/get-total-cost/:id', dbGet.getTotalCost);
+  Server.app.get('/get-user-name/:id', dbGet.getUserName);
+  Server.app.get('/get-basket/:id', dbGet.getBasketId);
+  Server.app.get('/type-filters/:filter/', dbGet.getProductByFilter);
 
   // All POST requests to add data to the database
-  Server.app.post('/create-user/', jsonParser, db.createUser);
-  Server.app.post('/create-basket/', jsonParser, db.createBasket);
-  Server.app.post('/add-to-basket/', jsonParser, db.addToBasket);
+  Server.app.post('/create-user/', jsonParser, dbPost.createUser);
+  Server.app.post('/create-basket/', jsonParser, dbPost.createBasket);
+  Server.app.post('/add-to-basket/', jsonParser, dbPost.addToBasket);
 
   // All PUT requests to update data in the database
-  Server.app.put('/update-user/', jsonParser, db.updateUser);
-  Server.app.put('/update-stock/', jsonParser, db.updateStock);
-  Server.app.put('/add-to-stock/', jsonParser, db.addToStock);
-  Server.app.put('/add-total-cost/', jsonParser, db.addTotalCost);
-  Server.app.put('/add-shipping-address/', jsonParser, db.addShippingAddress);
-  Server.app.put('/update-order/', jsonParser, db.updateOrder);
+  Server.app.put('/update-user/', jsonParser, dbPut.updateUser);
+  Server.app.put('/update-stock/', jsonParser, dbPut.updateStock);
+  Server.app.put('/add-to-stock/', jsonParser, dbPut.addToStock);
+  Server.app.put('/add-total-cost/', jsonParser, dbPut.addTotalCost);
+  Server.app.put('/add-shipping-address/', jsonParser, dbPut.addShippingAddress);
+  Server.app.put('/update-order/', jsonParser, dbPut.updateOrder);
 
   // All DELETE requests to delete data from the database
-  Server.app.delete('/remove-basket-item/', jsonParser, db.removeBasketItem);
-  Server.app.delete('/delete-user/', jsonParser, db.deleteUser);
+  Server.app.delete('/remove-basket-item/', jsonParser, dbDelete.removeBasketItem);
+  Server.app.delete('/delete-user/', jsonParser, dbDelete.deleteUser);
 }
 
 module.exports = {
