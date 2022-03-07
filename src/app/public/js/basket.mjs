@@ -1,3 +1,5 @@
+import { DataRowMessage } from "pg-protocol/dist/messages";
+
 async function findPrevious() {
   const response = await fetch('/get-previous-order/');
   const result = await response.json();
@@ -62,19 +64,43 @@ export async function addToBasket(productId) {
   console.log(checkStock);
   console.log(productId);
   if (checkStock[0].stock > 0 && (checkStock[0].stock - quantity) >= 0) {
-    const response = await fetch('/add-to-basket/', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    const updateData = {
-      id: productId,
-      quantity: quantity,
-    };
-    console.log(updateData);
+    const check = await fetch(`/check-order-detail/${productId}`);
+    const orderDetail = await check.json();
+    let updateData;
+    data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
+    data.price = parseFloat(data.price) + (parseFloat(data.price) * parseFloat(orderDetail[0].quantity));
+    console.log(`new quantity: ${data.quantity}`);
+    let response;
+    if (orderDetail) {
+      response = await fetch('/update-basket-item/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      console.log(result);
+      updateData = {
+        id: data.productId,
+        quantity: data.quantity,
+      };
+    } else {
+      response = await fetch('/add-to-basket/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      updateData = {
+        id: productId,
+        quantity: quantity,
+      };
+      console.log(updateData);
+    }
     const update = await fetch('/update-stock/', {
       headers: {
         'Accept': 'application/json',

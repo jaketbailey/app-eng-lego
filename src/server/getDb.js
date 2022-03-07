@@ -239,6 +239,25 @@ const getProductByFilter = (req, res) => {
   }
 };
 
+const checkOrderDetail = (req, res) => {
+  const id = req.params.id;
+  console.log(req.params);
+  pg.Pool.query(`
+    SELECT
+      quantity
+    FROM
+      order_details
+    WHERE product_id = '${id}'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
+
+
 module.exports = {
   getAllProducts: getAllProducts,
   getProductById: getProductById,
@@ -251,4 +270,5 @@ module.exports = {
   getUserName: getUserName,
   getProductByFilter: getProductByFilter,
   getBasketId: getBasketId,
+  checkOrderDetail: checkOrderDetail,
 };
