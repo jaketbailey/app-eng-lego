@@ -160,7 +160,7 @@ async function basketLoad() {
   priceBox.appendChild(document.createElement('br'));
   appendElem(priceBox, 'p', 'totalCost', 'p_basket_2', `Total: £${totalCost}`, null, null);
   total.appendChild(document.createElement('br'));
-  appendElem(total, 'a', 'checkout', 'button', 'Checkout', '/basket/checkout/');
+  appendElem(total, 'button', 'checkout', 'button', 'Checkout', '/basket/checkout/');
   page.appendChild(total);
   addTotalCost(basket[0].id, totalCost);
   getUserAddress();
@@ -175,7 +175,6 @@ async function basketLoad() {
         if (basketItems[j].id === parseInt(remove[i].id)) {
           item = remove[i].id;
           console.log(item);
-          console.log('hello');
           quantity = basketItems[j].quantity;
           productId = basketItems[j].product_id;
           basketId = basket[0].id;
@@ -203,6 +202,15 @@ async function shippingAddress() {
     postcode: user.postcode,
     country: user.country,
   };
+  const checkout = document.getElementById('checkout');
+  console.log(checkout);
+  checkout.addEventListener('click', () => {
+    if (shippingAddress.address1 === null) {
+      alert('Please enter your shipping address');
+    } else {
+      window.location.href = '/basket/checkout/';
+    }
+  });
   storeShippingAddress(shippingAddress);
   const addressBtn = document.getElementById('address_btn');
   addressBtn.addEventListener('click', () => {

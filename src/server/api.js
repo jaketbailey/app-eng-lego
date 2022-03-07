@@ -19,6 +19,7 @@ function init() {
   Server.app.get('/get-user-name/:id', dbGet.getUserName);
   Server.app.get('/get-basket/:id', dbGet.getBasketId);
   Server.app.get('/type-filters/:filter/', dbGet.getProductByFilter);
+  Server.app.get('/check-order-detail/:id', dbGet.checkOrderDetail);
 
   // All POST requests to add data to the database
   Server.app.post('/create-user/', jsonParser, dbPost.createUser);
@@ -32,6 +33,7 @@ function init() {
   Server.app.put('/add-total-cost/', jsonParser, dbPut.addTotalCost);
   Server.app.put('/add-shipping-address/', jsonParser, dbPut.addShippingAddress);
   Server.app.put('/update-order/', jsonParser, dbPut.updateOrder);
+  Server.app.put('/update-basket-item/', jsonParser, dbPut.updateOrderDetail);
 
   // All DELETE requests to delete data from the database
   Server.app.delete('/remove-basket-item/', jsonParser, dbDelete.removeBasketItem);

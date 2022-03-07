@@ -90,6 +90,21 @@ const updateOrder = (req, res) => {
   });
 };
 
+const updateOrderDetail = (req, res) => {
+  const { id, productId, price, quantity } = req.body;
+  console.log(req.body);
+  pg.Pool.query(`
+    UPDATE order_details SET
+      quantity = '${quantity}',
+      price = '${price}'
+    WHERE product_id = '${productId}' AND order_id = ${id}`, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).send(`Order updated with orderId: ${id}, ProductId: ${productId}`);
+  });
+};
+
 module.exports = {
   updateUser: updateUser,
   updateStock: updateStock,
@@ -97,4 +112,5 @@ module.exports = {
   addTotalCost: addTotalCost,
   addShippingAddress: addShippingAddress,
   updateOrder: updateOrder,
+  updateOrderDetail: updateOrderDetail,
 };
