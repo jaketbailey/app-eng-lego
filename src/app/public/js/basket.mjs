@@ -1,5 +1,3 @@
-import { DataRowMessage } from "pg-protocol/dist/messages";
-
 async function findPrevious() {
   const response = await fetch('/get-previous-order/');
   const result = await response.json();
@@ -67,11 +65,12 @@ export async function addToBasket(productId) {
     const check = await fetch(`/check-order-detail/${productId}`);
     const orderDetail = await check.json();
     let updateData;
-    data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
-    data.price = parseFloat(data.price) + (parseFloat(data.price) * parseFloat(orderDetail[0].quantity));
-    console.log(`new quantity: ${data.quantity}`);
     let response;
-    if (orderDetail) {
+    console.log(orderDetail);
+    if (orderDetail.length !== 0) {
+      data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
+      data.price = parseFloat(data.price) + (parseFloat(data.price) * parseFloat(orderDetail[0].quantity));
+      console.log(`new quantity: ${data.quantity}`);
       response = await fetch('/update-basket-item/', {
         headers: {
           'Accept': 'application/json',
@@ -80,11 +79,9 @@ export async function addToBasket(productId) {
         method: 'PUT',
         body: JSON.stringify(data),
       });
-      const result = await response.json();
-      console.log(result);
       updateData = {
         id: data.productId,
-        quantity: data.quantity,
+        quantity: quantity,
       };
     } else {
       response = await fetch('/add-to-basket/', {
