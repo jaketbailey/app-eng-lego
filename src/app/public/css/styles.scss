@@ -245,13 +245,13 @@ a {
 
 .checkout-card {
     font-family: 'Sen', sans-serif;
-    font-size: 1em;
+    font-size: 0.7em;
     color: #31393c;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
     height: auto;
-    width: 300px;
+    width: 200px;
     border-color: #31393c;
     border-width: 2px;
     border-style: dotted;
@@ -299,11 +299,18 @@ p {
     text-align: center;
 }
 
-.store, .checkout {
+.store {
     border-style: dashed;
     border-color: #fff;
     border-radius: 7px;
     width: 9em;
+}
+
+.checkout {
+    border-style: dashed;
+    border-color: #fff;
+    border-radius: 7px;
+    width: 3em;
 }
 
 .store_btn, .add_btn {
@@ -378,6 +385,22 @@ input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 1em;
+}
+
+.q-remove {
+    font-size: 0.7em;
+}
+
+.quantity-remove {
+    width: 6em;
+    font-family: 'Sen', sans-serif;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.8em;
 }
 
 .profile-pic {
@@ -592,6 +615,15 @@ input[type=text], select {
     .button, .button_remove {
         background-color: #111122;
         // padding: 20px;
+        color: #F5F5F5;
+        border-radius: 1rem;
+        font-family: 'Sen', sans-serif;
+        font-size: 2rem;
+    }
+
+    .button_remove_success {
+        background-color: #014947;
+        padding: 20px;
         color: #F5F5F5;
         border-radius: 1rem;
         font-family: 'Sen', sans-serif;
