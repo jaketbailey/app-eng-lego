@@ -5,7 +5,9 @@ import filter from './filters.mjs';
 // (parent, type, id, className, text, src)
 const createCard = (id, name, desc, img, price, stock) => {
   const page = document.getElementById('page');
-  page.appendChild(document.createElement('div'));
+  const outerDiv = document.createElement('div');
+  outerDiv.classList.add('outerCard');
+  page.appendChild(outerDiv);
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;

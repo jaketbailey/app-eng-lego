@@ -40,7 +40,6 @@ async function addTotalCost(id, total) {
 function addCheckoutItem(product, id, quantity) {
   const page = document.querySelector('.checkout-card');
   const basketItem = document.createElement('div');
-  // appendElem(parent, type, id, className, text, src, value)
   const innerDiv1 = appendElem(basketItem, 'div', null, null, null, null, null);
   appendElem(innerDiv1, 'img', null, 'checkout', null, `/public/images/store/${product[0].image_ref}.jpg`, product[0].product_name);
   const innerDiv2 = appendElem(basketItem, 'div', null, null, null, null, null);
@@ -107,9 +106,11 @@ function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
   const price = getProductById(productId);
   console.log(price);
   let total;
+  let itemCost;
   price.then(async (res) => {
     console.log(res);
     console.log(totalCost);
+    itemCost = (res[0].price * 1000) * parseFloat(quantity) / 1000;
     total = ((totalCost * 1000) - ((res[0].price * 1000) * parseFloat(quantitySelect.value))) / 1000;
     console.log(total);
     const cost = document.getElementById('totalCost');
@@ -125,8 +126,8 @@ function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
     if (remove) {
       e.parentElement.parentElement.remove();
     } else {
-      console.log(e.parentElement.parentElement.childNodes[1].childNodes[1]);
       e.parentElement.parentElement.childNodes[1].childNodes[1].textContent = `Quantity: ${quantity}`;
+      e.parentElement.parentElement.childNodes[1].childNodes[2].textContent = `£${itemCost}`;
       const button = document.getElementById(id);
       console.log(button);
       button.className = 'button_remove_success';
@@ -152,7 +153,7 @@ async function updateStock(e, id, quantity, basket, removeQuantity, price) {
   console.log(newPrice);
   const data = {
     productId: id,
-    quantity: quantity,
+    quantity: removeQuantity,
   };
   console.log(data);
   const response = await fetch('/add-to-stock/', {
@@ -201,15 +202,19 @@ async function basketLoad() {
   let removeQuantity;
   for (let i = 0; i < remove.length; i++) {
     remove[i].addEventListener('click', async () => {
-      for (let j = 0; j < basketItems.length; j++) {
-        if (basketItems[j].id === parseInt(remove[i].id)) {
+      const basketItemsNew = await getBasketItems(basket);
+      for (let j = 0; j < basketItemsNew.length; j++) {
+        if (basketItemsNew[j].id === parseInt(remove[i].id)) {
           item = remove[i].id;
           console.log(item);
           removeQuantity = document.getElementById(`quantity-${item}`).value;
           console.log(item);
-          price = basketItems[j].price;
-          quantity = basketItems[j].quantity;
-          productId = basketItems[j].product_id;
+          console.log('random stuff here test');
+          price = basketItemsNew[j].price;
+          quantity = basketItemsNew[j].quantity;
+          console.log(`${price} ${quantity}`);
+          console.log(removeQuantity);
+          productId = basketItemsNew[j].product_id;
           basketId = basket[0].id;
         }
       }
