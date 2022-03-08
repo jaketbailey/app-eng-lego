@@ -69,7 +69,7 @@ export async function addToBasket(productId) {
     console.log(orderDetail);
     if (orderDetail.length !== 0) {
       data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
-      data.price = parseFloat(data.price) + (parseFloat(data.price) * parseFloat(orderDetail[0].quantity));
+      data.price = (parseFloat(data.price) * parseFloat(data.quantity));
       console.log(`new quantity: ${data.quantity}`);
       response = await fetch('/update-basket-item/', {
         headers: {

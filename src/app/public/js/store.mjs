@@ -38,7 +38,10 @@ export function appendElem(parent, type, id, className, text, src, value) {
   if (id !== null) elem.id = id;
   if (className !== null) elem.classList.add(className);
   if (text !== null) elem.textContent = `${text}`;
-  if (type === 'img') elem.src = src;
+  if (type === 'img') {
+    elem.src = src;
+    elem.alt = value;
+  }
   if (type === 'a') elem.href = src;
   if (value !== null) elem.value = `${value}`;
   console.log(text);

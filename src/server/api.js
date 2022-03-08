@@ -34,6 +34,7 @@ function init() {
   Server.app.put('/add-shipping-address/', jsonParser, dbPut.addShippingAddress);
   Server.app.put('/update-order/', jsonParser, dbPut.updateOrder);
   Server.app.put('/update-basket-item/', jsonParser, dbPut.updateOrderDetail);
+  Server.app.put('/update-order-detail/', jsonParser, dbPut.updateOrderDetail);
 
   // All DELETE requests to delete data from the database
   Server.app.delete('/remove-basket-item/', jsonParser, dbDelete.removeBasketItem);

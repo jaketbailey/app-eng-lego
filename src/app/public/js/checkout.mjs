@@ -40,19 +40,19 @@ async function addTotalCost(id, total) {
 function addCheckoutItem(product, id, quantity) {
   const page = document.querySelector('.checkout-card');
   const basketItem = document.createElement('div');
-  basketItem.innerHTML = `
-    <div>  
-      <img class="checkout" src="/public/images/store/${product[0].image_ref}.jpg" alt="${product[0].product_name}" width=100px">
-    </div>
-    <div>
-      <p>${product[0].product_name}</p>
-      <p>Quantity: ${quantity}</p>
-      <p>£${product[0].price}</p>
-    </p>
-      <button class="button_remove" id="${id}" style="padding: 10px; margin-top: 20px;">Remove</button>
-    </div>
-    <hr>
-    `;
+  const innerDiv1 = appendElem(basketItem, 'div', null, null, null, null, null);
+  appendElem(innerDiv1, 'img', null, 'checkout', null, `/public/images/store/${product[0].image_ref}.jpg`, product[0].product_name);
+  const innerDiv2 = appendElem(basketItem, 'div', null, null, null, null, null);
+  appendElem(innerDiv2, 'p', null, null, `${product[0].product_name}`, null, null);
+  appendElem(innerDiv2, 'p', null, null, `Quantity: ${quantity}`, null, null);
+  appendElem(innerDiv2, 'p', null, null, `£${parseFloat(product[0].price) * parseFloat(quantity)}`, null, null);
+  const quantityParagraph = appendElem(innerDiv2, 'p', null, 'q-remove', 'Remove:', null, null);
+  const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity-remove', null, null, null);
+  for (let i = 1; i < 5; i++) {
+    appendElem(select, 'option', null, null, i, null, i);
+  }
+  appendElem(innerDiv2, 'button', id, 'button_remove', 'Remove', null, null);
+  basketItem.appendChild(document.createElement('hr'));
   page.appendChild(basketItem);
 }
 
@@ -77,7 +77,7 @@ async function getUserAddress() {
   addressBox.appendChild(document.createElement('hr'));
 }
 
-async function removeOrderDetail(id, productId, basket) {
+async function removeOrderDetail(id, productId, basket, quantity) {
   const response = await fetch('/remove-basket-item/', {
     headers: {
       'Content-Type': 'application/json',
@@ -85,30 +85,33 @@ async function removeOrderDetail(id, productId, basket) {
     body: JSON.stringify({ id: id }),
     method: 'DELETE',
   });
-  await getTotalCost(id, productId, basket);
+  await getTotalCost(id, productId, basket, quantity, true);
   const result = await response.json();
   console.log(result);
 }
 
-async function getTotalCost(id, productId, basket) {
+async function getTotalCost(id, productId, basket, quantity, remove) {
   console.log(basket);
   const response2 = await fetch(`/get-total-cost/${basket}`);
   const result = await response2.json();
   console.log(result);
   const totalCost = result[0].total_cost;
-  updatePageCost(id, productId, totalCost, basket);
+  updatePageCost(id, productId, totalCost, basket, quantity, remove);
 }
 
-function updatePageCost(id, productId, totalCost, basket) {
+function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
+  const quantitySelect = document.getElementById(`quantity-${id}`);
   const e = document.getElementById(id);
   console.log(productId);
   const price = getProductById(productId);
   console.log(price);
   let total;
+  let itemCost;
   price.then(async (res) => {
     console.log(res);
     console.log(totalCost);
-    total = ((totalCost * 1000) - (res[0].price * 1000)) / 1000;
+    itemCost = (res[0].price * 1000) * parseFloat(quantity) / 1000;
+    total = ((totalCost * 1000) - ((res[0].price * 1000) * parseFloat(quantitySelect.value))) / 1000;
     console.log(total);
     const cost = document.getElementById('totalCost');
     const elem = document.createElement('p');
@@ -120,15 +123,37 @@ function updatePageCost(id, productId, totalCost, basket) {
     main.removeChild(cost);
     main.appendChild(elem);
     console.log(main);
-    e.parentElement.parentElement.remove();
+    if (remove) {
+      e.parentElement.parentElement.remove();
+    } else {
+      e.parentElement.parentElement.childNodes[1].childNodes[1].textContent = `Quantity: ${quantity}`;
+      e.parentElement.parentElement.childNodes[1].childNodes[2].textContent = `£${itemCost}`;
+      const button = document.getElementById(id);
+      console.log(button);
+      button.className = 'button_remove_success';
+      button.innerHTML = `Removed x${quantitySelect.value}`;
+      setTimeout(function () {
+        button.className = 'button_remove';
+        button.innerHTML = 'Remove';
+      }, 1000);
+    }
     await addTotalCost(basket, total);
   });
 }
 
-async function updateStock(e, id, quantity, basket) {
+async function updateStock(e, id, quantity, basket, removeQuantity, price) {
+  console.log(parseFloat(removeQuantity, 10));
+  console.log(quantity);
+  console.log(parseFloat(price));
+  const newQuantity = parseFloat(quantity) - parseFloat(removeQuantity);
+  const newPrice = (parseFloat(price) / parseFloat(quantity)) * parseFloat(newQuantity);
+
+  console.log(`${newQuantity} £${newPrice}`);
+  console.log(newQuantity);
+  console.log(newPrice);
   const data = {
     productId: id,
-    quantity: quantity,
+    quantity: removeQuantity,
   };
   console.log(data);
   const response = await fetch('/add-to-stock/', {
@@ -139,7 +164,11 @@ async function updateStock(e, id, quantity, basket) {
     method: 'PUT',
   });
   console.log(id);
-  await removeOrderDetail(e, id, basket);
+  if (newQuantity === 0) {
+    await removeOrderDetail(e, id, basket, newQuantity);
+  } else {
+    await updateOrderDetail(e, id, basket, newQuantity, newPrice);
+  }
   const result = await response.json();
   console.log(result);
 }
@@ -169,18 +198,27 @@ async function basketLoad() {
   let productId;
   let item;
   let basketId;
+  let price;
+  let removeQuantity;
   for (let i = 0; i < remove.length; i++) {
     remove[i].addEventListener('click', async () => {
-      for (let j = 0; j < basketItems.length; j++) {
-        if (basketItems[j].id === parseInt(remove[i].id)) {
+      const basketItemsNew = await getBasketItems(basket);
+      for (let j = 0; j < basketItemsNew.length; j++) {
+        if (basketItemsNew[j].id === parseInt(remove[i].id)) {
           item = remove[i].id;
           console.log(item);
-          quantity = basketItems[j].quantity;
-          productId = basketItems[j].product_id;
+          removeQuantity = document.getElementById(`quantity-${item}`).value;
+          console.log(item);
+          console.log('random stuff here test');
+          price = basketItemsNew[j].price;
+          quantity = basketItemsNew[j].quantity;
+          console.log(`${price} ${quantity}`);
+          console.log(removeQuantity);
+          productId = basketItemsNew[j].product_id;
           basketId = basket[0].id;
         }
       }
-      await updateStock(item, productId, quantity, basketId);
+      await updateStock(item, productId, quantity, basketId, removeQuantity, price);
     });
     console.log(item);
   }
@@ -253,6 +291,25 @@ async function storeShippingAddress(shippingAddress) {
     body: JSON.stringify(shippingAddress),
     method: 'PUT',
   });
+  const result = await response.json();
+  console.log(result);
+}
+
+async function updateOrderDetail(e, productId, orderId, newQuantity, newPrice) {
+  const data = {
+    id: orderId,
+    productId: productId,
+    price: newPrice,
+    quantity: newQuantity,
+  };
+  const response = await fetch('/update-order-detail/', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    method: 'PUT',
+  });
+  await getTotalCost(e, productId, orderId, newQuantity, false);
   const result = await response.json();
   console.log(result);
 }
