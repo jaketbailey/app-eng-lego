@@ -1,8 +1,14 @@
 import { getUser } from './user.mjs';
 import { appendElem } from './store.mjs';
+import { callServer } from './authentication.mjs';
 
 export async function getBasket() {
-  const customerId = localStorage.getItem('customerId');
+  const userDetails = callServer();
+  let customerId = localStorage.getItem('customerId');
+  if (customerId === null) {
+    customerId = userDetails.sub;
+    localStorage.removeItem('customerId');
+  }
   const response = await fetch(`/check-exists/${customerId}`);
   const result = await response.json();
   return result;
@@ -57,7 +63,12 @@ function addCheckoutItem(product, id, quantity) {
 }
 
 async function getUserAddress() {
-  const id = localStorage.getItem('customerId');
+  const userDetails = callServer();
+  let id = localStorage.getItem('customerId');
+  if (id === null) {
+    id = userDetails.sub;
+    localStorage.removeItem('customerId');
+  }
   const user = await getUser(id);
   const addressBox = document.getElementById('address_box');
   if (id === null || (user.address_line_1 !== null && id.split('-')[0] !== 'unregistered')) {
@@ -231,7 +242,12 @@ async function basketLoad() {
 async function shippingAddress() {
   const basket = await getBasket();
   console.log(basket);
-  const user = await getUser(localStorage.getItem('customerId'));
+  const userDetails = callServer();
+  let userId = localStorage.getItem('customerId');
+  if (userId === null) {
+    userId = userDetails.sub;
+  }
+  const user = await getUser(userId);
   console.log(user);
   let shippingAddress = {
     id: basket[0].id,

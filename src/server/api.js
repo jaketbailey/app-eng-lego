@@ -32,13 +32,8 @@ import {
   deleteUser,
 } from './deleteDb.js';
 import bodyParser from 'body-parser';
-import config from './auth-config.js';
-import authHelp from './auth0-helpers.js';
 
 export default function () {
-  app.get('/auth-config', (req, res) => {
-    res.json(config);
-  });
   const jsonParser = bodyParser.json();
   // All GET requests to retrieve data from the database
   app.get('/shop/all', getAllProducts);
@@ -53,19 +48,6 @@ export default function () {
   app.get('/get-basket/:id', getBasketId);
   app.get('/type-filters/:filter/', getProductByFilter);
   app.get('/check-order-detail/:id', checkOrderDetail);
-
-  const auth0 = authHelp(config);
-
-  app.get('/api/hello', async (req, res) => {
-    const userId = auth0.getUserID(req);
-
-    // load the user information, in production this would need caching or storing in a database
-    const profile = await auth0.getProfile(req);
-
-    res.send(`Hello user ${userId}, here's your profile:\n${JSON.stringify(profile, null, 2)}`);
-
-    console.log('successful authenticated request by ' + userId);
-  });
 
   // All POST requests to add data to the database
   app.post('/create-user/', jsonParser, createUser);

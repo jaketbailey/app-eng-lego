@@ -45,10 +45,12 @@ export default async function createBasket(user) {
 
 export async function addToBasket(productId) {
   console.log('test');
-  const test = callServer();
-  console.log(test);
-  console.log('wowowowowowo');
-  const customerId = localStorage.getItem('customerId');
+  const userDetails = callServer();
+  let customerId = localStorage.getItem('customerId');
+  if (customerId === null) {
+    customerId = userDetails.sub;
+    localStorage.removeItem('customerId');
+  }
   const order = await checkExists(customerId);
   const getProduct = await (await fetch(`/shop/item/${productId}`)).json();
   const quantity = document.getElementById(`quantity-${productId}`).value;

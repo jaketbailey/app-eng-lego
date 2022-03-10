@@ -1,8 +1,13 @@
 import { getBasket } from './checkout.mjs';
 import { appendElem } from './store.mjs';
+import { callServer } from './authentication.mjs';
 
 async function loadFinalCheckout() {
-  const customerId = localStorage.getItem('customerId');
+  let customerId = localStorage.getItem('customerId');
+  if (customerId !== null) {
+    const userDetails = callServer();
+    customerId = userDetails.sub;
+  }
   console.log(customerId);
   await getOrder(customerId);
 }

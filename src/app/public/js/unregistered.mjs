@@ -1,5 +1,6 @@
 import { createUser } from './user.mjs';
 import createBasket from './basket.mjs';
+import { callServer } from './authentication.mjs';
 
 const charList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const charLength = charList.length;
@@ -13,7 +14,12 @@ function generateRandomString(length) {
 }
 
 export default async function generateUnregistered() {
-  const check = localStorage.getItem('customerId');
+  const userDetails = callServer();
+  let check = localStorage.getItem('customerId');
+  if (check === null) {
+    check = userDetails.sub;
+    localStorage.removeItem('customerId');
+  }
   if (check === null || check.split('-')[0] !== 'unregistered') {
     const unregisteredId = `unregistered-${generateRandomString(20)}`;
     localStorage.setItem('customerId', unregisteredId);
