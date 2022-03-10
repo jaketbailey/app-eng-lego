@@ -79,6 +79,14 @@ function updateAddress(user) {
   }
   if (checkVal) {
     console.log(address);
+    const button = document.getElementById('submit_address');
+    console.log(button);
+    button.className = 'button_success';
+    button.innerHTML = 'Address Updated';
+    setTimeout(function () {
+      button.className = 'button';
+      button.innerHTML = 'Submit Update';
+    }, 1000);
     updateUser(address);
   } else {
     alert('Please fill in all fields');
