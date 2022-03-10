@@ -1,8 +1,7 @@
 import { getData, appendElem } from './store.mjs';
 import { addToBasket } from './basket.mjs';
 import filter from './filters.mjs';
-// import { authCheck } from './authentication.mjs';
-// (parent, type, id, className, text, src)
+
 const createCard = (id, name, desc, img, price, stock) => {
   const page = document.getElementById('page');
   const outerDiv = document.createElement('div');
