@@ -63,12 +63,24 @@ function updateAddress(user) {
     country: input[5].value,
     phone: input[6].value,
   };
-  if (address.address2 === '') {
-    address.address2 = null;
+  let checkVal = false;
+  for (const [key, value] of Object.entries(address)) {
+    if (value === '') {
+      if (key === 'address2' || key === 'country') {
+        address[key] = null;
+        checkVal = true;
+      } else {
+        checkVal = false;
+        break;
+      }
+    } else {
+      checkVal = true;
+    }
   }
-  if (address.country === '') {
-    address.country = null;
+  if (checkVal) {
+    console.log(address);
+    updateUser(address);
+  } else {
+    alert('Please fill in all fields');
   }
-  console.log(address);
-  updateUser(address);
 }
