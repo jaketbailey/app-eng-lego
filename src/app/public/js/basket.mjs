@@ -62,7 +62,7 @@ export async function addToBasket(productId) {
   console.log(checkStock);
   console.log(productId);
   if (checkStock[0].stock > 0 && (checkStock[0].stock - quantity) >= 0) {
-    const check = await fetch(`/check-order-detail/${productId}`);
+    const check = await fetch(`/check-order-detail/${productId}-${data.id}`);
     const orderDetail = await check.json();
     let updateData;
     let response;

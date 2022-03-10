@@ -43,6 +43,7 @@ const addToBasket = (req, res) => {
   const random = Math.floor(Math.random() * (10000000 - 100 + 1)) + 1;
   const { id, productId, price, quantity } = req.body;
   console.log(productId);
+  console.log('this teste');
   pg.Pool.query(`
     INSERT INTO order_details (
       id, price, quantity, order_id, product_id

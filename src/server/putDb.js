@@ -93,6 +93,7 @@ const updateOrder = (req, res) => {
 const updateOrderDetail = (req, res) => {
   const { id, productId, price, quantity } = req.body;
   console.log(req.body);
+  console.log('why put here');
   pg.Pool.query(`
     UPDATE order_details SET
       quantity = '${quantity}',

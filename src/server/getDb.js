@@ -241,13 +241,16 @@ const getProductByFilter = (req, res) => {
 
 const checkOrderDetail = (req, res) => {
   const id = req.params.id;
+  const productId = id.split('-')[0];
+  const orderId = id.split('-')[1];
   console.log(req.params);
+  console.log(`check details ${productId} ${orderId}`);
   pg.Pool.query(`
     SELECT
       quantity
     FROM
       order_details
-    WHERE product_id = '${id}'
+    WHERE product_id = '${productId}' AND order_id = '${orderId}'
     `, (err, results) => {
     if (err) {
       throw err;
@@ -255,7 +258,6 @@ const checkOrderDetail = (req, res) => {
     res.status(200).json(results.rows);
   });
 };
-
 
 
 module.exports = {
