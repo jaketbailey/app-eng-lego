@@ -15,25 +15,34 @@ export default function loadAccountPage(user) {
   const email = document.createElement('p');
   email.className = 'p_accounts';
   email.textContent = `Email: ${user.email}`;
-  main.appendChild(email);
+  main.prepend(email);
   const address = document.createElement('p');
   address.className = 'p_accounts';
   console.log(user.sub);
   const userData = getUser(user.sub);
   userData.then((res) => {
-    address.appendChild(document.createElement('hr'));
-    address.appendChild(document.createTextNode('Address: '));
-    address.appendChild(document.createElement('br'));
-    for (const [key, value] of Object.entries(res)) {
-      if (key !== 'phone' && value !== 'null') {
-        address.appendChild(document.createTextNode(`${value}`));
-        address.appendChild(document.createElement('br'));
+    const check = res.address_line_1;
+    console.log(`check: ${check}`);
+    if (check !== null) {
+      address.appendChild(document.createElement('hr'));
+      address.appendChild(document.createTextNode('Address: '));
+      address.appendChild(document.createElement('br'));
+      for (const [key, value] of Object.entries(res)) {
+        if (key !== 'phone' && value !== 'null') {
+          address.appendChild(document.createTextNode(`${value}`));
+          address.appendChild(document.createElement('br'));
+        }
       }
+      address.appendChild(document.createElement('hr'));
+      address.appendChild(document.createTextNode('Phone: '));
+      address.appendChild(document.createElement('br'));
+      address.appendChild(document.createTextNode(`${res.phone}`));
+    } else {
+      address.appendChild(document.createElement('hr'));
+      address.appendChild(document.createTextNode('No Address'));
+      address.appendChild(document.createElement('hr'));
+      address.appendChild(document.createTextNode('No Phone'));
     }
-    address.appendChild(document.createElement('hr'));
-    address.appendChild(document.createTextNode('Phone: '));
-    address.appendChild(document.createElement('br'));
-    address.appendChild(document.createTextNode(`${res.phone}`));
     main.appendChild(address);
     const button = document.getElementById('submit_address');
     button.addEventListener('click', () => {
