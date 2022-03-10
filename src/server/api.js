@@ -1,70 +1,42 @@
 import { app } from './webServer.js';
-import {
-  getAllProducts,
-  getProductById,
-  getUser,
-  getPreviousOrder,
-  checkExists,
-  getBasketItems,
-  getStock,
-  getTotalCost,
-  getUserName,
-  getBasketId,
-  getProductByFilter,
-  checkOrderDetail,
-} from './getDb.js';
-import {
-  createUser,
-  createBasket,
-  addToBasket,
-} from './postDb.js';
-import {
-  updateUser,
-  updateStock,
-  addToStock,
-  addTotalCost,
-  addShippingAddress,
-  updateOrder,
-  updateOrderDetail,
-} from './putDb.js';
-import {
-  removeBasketItem,
-  deleteUser,
-} from './deleteDb.js';
+import * as getDb from './getDb.js';
+import * as postDb from './postDb.js';
+import * as putDb from './putDb.js';
+import * as deleteDb from './deleteDb.js';
 import bodyParser from 'body-parser';
 
 export default function () {
   const jsonParser = bodyParser.json();
   // All GET requests to retrieve data from the database
-  app.get('/shop/all', getAllProducts);
-  app.get('/shop/item/:id', getProductById);
-  app.get('/get-user/:id', getUser);
-  app.get('/get-previous-order/', getPreviousOrder);
-  app.get('/check-exists/:id', checkExists);
-  app.get('/get-basket-items/:id', getBasketItems);
-  app.get('/get-stock/:id', getStock);
-  app.get('/get-total-cost/:id', getTotalCost);
-  app.get('/get-user-name/:id', getUserName);
-  app.get('/get-basket/:id', getBasketId);
-  app.get('/type-filters/:filter/', getProductByFilter);
-  app.get('/check-order-detail/:id', checkOrderDetail);
+  app.get('/shop/all', getDb.getAllProducts);
+  app.get('/shop/item/:id', getDb.getProductById);
+  app.get('/get-user/:id', getDb.getUser);
+  app.get('/get-previous-order/', getDb.getPreviousOrder);
+  app.get('/check-exists/:id', getDb.checkExists);
+  app.get('/get-basket-items/:id', getDb.getBasketItems);
+  app.get('/get-stock/:id', getDb.getStock);
+  app.get('/get-total-cost/:id', getDb.getTotalCost);
+  app.get('/get-user-name/:id', getDb.getUserName);
+  app.get('/get-basket/:id', getDb.getBasketId);
+  app.get('/type-filters/:filter/', getDb.getProductByFilter);
+  app.get('/check-order-detail/:id', getDb.checkOrderDetail);
 
   // All POST requests to add data to the database
-  app.post('/create-user/', jsonParser, createUser);
-  app.post('/create-basket/', jsonParser, createBasket);
-  app.post('/add-to-basket/', jsonParser, addToBasket);
+  app.post('/create-user/', jsonParser, postDb.createUser);
+  app.post('/create-basket/', jsonParser, postDb.createBasket);
+  app.post('/add-to-basket/', jsonParser, postDb.addToBasket);
 
   // All PUT requests to update data in the database
-  app.put('/update-user/', jsonParser, updateUser);
-  app.put('/update-stock/', jsonParser, updateStock);
-  app.put('/add-to-stock/', jsonParser, addToStock);
-  app.put('/add-total-cost/', jsonParser, addTotalCost);
-  app.put('/add-shipping-address/', jsonParser, addShippingAddress);
-  app.put('/update-order/', jsonParser, updateOrder);
-  app.put('/update-basket-item/', jsonParser, updateOrderDetail);
-  app.put('/update-order-detail/', jsonParser, updateOrderDetail);
+  app.put('/update-user/', jsonParser, putDb.updateUser);
+  app.put('/update-stock/', jsonParser, putDb.updateStock);
+  app.put('/add-to-stock/', jsonParser, putDb.addToStock);
+  app.put('/add-total-cost/', jsonParser, putDb.addTotalCost);
+  app.put('/add-shipping-address/', jsonParser, putDb.addShippingAddress);
+  app.put('/update-order/', jsonParser, putDb.updateOrder);
+  app.put('/update-basket-item/', jsonParser, putDb.updateOrderDetail);
+  app.put('/update-order-detail/', jsonParser, putDb.updateOrderDetail);
 
   // All DELETE requests to delete data from the database
-  app.delete('/remove-basket-item/', jsonParser, removeBasketItem);
-  app.delete('/delete-user/', jsonParser, deleteUser);
+  app.delete('/remove-basket-item/', jsonParser, deleteDb.removeBasketItem);
+  app.delete('/delete-user/', jsonParser, deleteDb.deleteUser);
 }
