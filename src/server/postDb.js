@@ -1,11 +1,11 @@
-const pg = require('./connectDb');
+import Pool from './connectDb.js';
 
-const createUser = (req, res) => {
+export const createUser = (req, res) => {
   const { sub, name, email } = req.body;
   console.log(req.body);
   const names = name.split(' ');
   console.log(names);
-  pg.Pool.query(`INSERT INTO customers (
+  Pool.query(`INSERT INTO customers (
       id, email, first_name, last_name, phone, address_line_1, address_line_2, city, county, postcode, country
     ) VALUES (
       '${sub}', '${email}', '${names[0]}', '${names[1]}', null, null, null, null, null, null, null
@@ -17,7 +17,7 @@ const createUser = (req, res) => {
   });
 };
 
-const createBasket = (req, res) => {
+export const createBasket = (req, res) => {
   const { id, customerId, email } = req.body;
   console.log(req.body);
   const dateOb = new Date(Date.now());
@@ -26,7 +26,7 @@ const createBasket = (req, res) => {
   const year = dateOb.getFullYear();
   const today = `${year}-${month}-${date}`;
   console.log(today);
-  pg.Pool.query(`
+  Pool.query(`
     INSERT INTO orders (
       id, total_cost, order_address, order_email, order_date, order_status, customer_id
     ) VALUES (
@@ -39,12 +39,12 @@ const createBasket = (req, res) => {
   });
 };
 
-const addToBasket = (req, res) => {
+export const addToBasket = (req, res) => {
   const random = Math.floor(Math.random() * (10000000 - 100 + 1)) + 1;
   const { id, productId, price, quantity } = req.body;
   console.log(productId);
   console.log('this teste');
-  pg.Pool.query(`
+  Pool.query(`
     INSERT INTO order_details (
       id, price, quantity, order_id, product_id
     ) VALUES (
@@ -55,10 +55,4 @@ const addToBasket = (req, res) => {
     }
     res.status(201).send(`Product added to basket with ID: ${id}`);
   });
-};
-
-module.exports = {
-  createUser: createUser,
-  createBasket: createBasket,
-  addToBasket: addToBasket,
 };

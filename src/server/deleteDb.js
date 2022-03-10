@@ -1,9 +1,9 @@
-const pg = require('./connectDb');
+import Pool from './connectDb.js';
 
-const removeBasketItem = (req, res) => {
+export const removeBasketItem = (req, res) => {
   const { id } = req.body;
   console.log(req.body);
-  pg.Pool.query(`
+  Pool.query(`
     DELETE FROM order_details
     WHERE id = '${id}'
     `, (err) => {
@@ -14,10 +14,10 @@ const removeBasketItem = (req, res) => {
   });
 };
 
-const deleteUser = (req, res) => {
+export const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
   console.log(req.body);
-  pg.Pool.query(`
+  Pool.query(`
     DELETE FROM order_details
     WHERE order_id = '${orderId}';
     
@@ -32,9 +32,4 @@ const deleteUser = (req, res) => {
     }
     res.status(200).send(`User deleted with ID: ${id}`);
   });
-};
-
-module.exports = {
-  removeBasketItem: removeBasketItem,
-  deleteUser: deleteUser,
 };

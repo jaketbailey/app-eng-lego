@@ -1,8 +1,8 @@
-const pg = require('./connectDb');
+import Pool from './connectDb.js';
 
-const updateUser = (req, res) => {
+export const updateUser = (req, res) => {
   const { id, address1, address2, city, country, county, postcode, phone } = req.body;
-  pg.Pool.query(`UPDATE customers SET
+  Pool.query(`UPDATE customers SET
     phone = '${phone}',
     address_line_1 = '${address1}',
     address_line_2 = '${address2}',
@@ -18,11 +18,11 @@ const updateUser = (req, res) => {
   });
 };
 
-const updateStock = (req, res) => {
+export const updateStock = (req, res) => {
   const { id, quantity } = req.body;
   console.log(id);
   console.log(quantity);
-  pg.Pool.query(`
+  Pool.query(`
     UPDATE products SET
       stock = stock - ${quantity}
     WHERE id = '${id}'`, (err) => {
@@ -33,11 +33,11 @@ const updateStock = (req, res) => {
   });
 };
 
-const addToStock = (req, res) => {
+export const addToStock = (req, res) => {
   const { productId, quantity } = req.body;
   console.log(req.body);
   console.log('test');
-  pg.Pool.query(`
+  Pool.query(`
     UPDATE products SET
       stock = stock + ${quantity}
     WHERE id = '${productId}'`, (err) => {
@@ -48,10 +48,10 @@ const addToStock = (req, res) => {
   });
 };
 
-const addTotalCost = (req, res) => {
+export const addTotalCost = (req, res) => {
   const { id, total } = req.body;
   console.log(req.body);
-  pg.Pool.query(`
+  Pool.query(`
     UPDATE orders SET
       total_cost = ${total}
     WHERE id = '${id}'`, (err) => {
@@ -62,10 +62,10 @@ const addTotalCost = (req, res) => {
   });
 };
 
-const addShippingAddress = (req, res) => {
+export const addShippingAddress = (req, res) => {
   const { id, address1, address2, city, county, postcode, country } = req.body;
   console.log(req.body);
-  pg.Pool.query(`
+  Pool.query(`
     UPDATE orders SET
       order_address = '${address1}, ${address2}, ${city}, ${county}, ${postcode}, ${country}'
     WHERE id = '${id}'`, (err) => {
@@ -76,10 +76,10 @@ const addShippingAddress = (req, res) => {
   });
 };
 
-const updateOrder = (req, res) => {
+export const updateOrder = (req, res) => {
   const { id, status } = req.body;
   console.log(req.body);
-  pg.Pool.query(`
+  Pool.query(`
     UPDATE orders SET
       order_status = '${status}'
     WHERE id = '${id}'`, (err) => {
@@ -90,11 +90,11 @@ const updateOrder = (req, res) => {
   });
 };
 
-const updateOrderDetail = (req, res) => {
+export const updateOrderDetail = (req, res) => {
   const { id, productId, price, quantity } = req.body;
   console.log(req.body);
   console.log('why put here');
-  pg.Pool.query(`
+  Pool.query(`
     UPDATE order_details SET
       quantity = '${quantity}',
       price = '${price}'
@@ -104,14 +104,4 @@ const updateOrderDetail = (req, res) => {
     }
     res.status(200).send(`Order updated with orderId: ${id}, ProductId: ${productId}`);
   });
-};
-
-module.exports = {
-  updateUser: updateUser,
-  updateStock: updateStock,
-  addToStock: addToStock,
-  addTotalCost: addTotalCost,
-  addShippingAddress: addShippingAddress,
-  updateOrder: updateOrder,
-  updateOrderDetail: updateOrderDetail,
 };

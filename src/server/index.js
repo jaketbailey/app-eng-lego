@@ -1,5 +1,5 @@
-const Server = require('./webServer.js');
-const API = require('./api.js');
+import initServer from './webServer.js';
+import initAPI from './api.js';
 
-Server.init();
-API.init();
+initServer();
+initAPI();

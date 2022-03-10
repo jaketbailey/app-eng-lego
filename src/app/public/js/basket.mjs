@@ -1,3 +1,5 @@
+import { callServer } from './authentication.mjs';
+
 async function findPrevious() {
   const response = await fetch('/get-previous-order/');
   const result = await response.json();
@@ -43,6 +45,9 @@ export default async function createBasket(user) {
 
 export async function addToBasket(productId) {
   console.log('test');
+  const test = callServer();
+  console.log(test);
+  console.log('wowowowowowo');
   const customerId = localStorage.getItem('customerId');
   const order = await checkExists(customerId);
   const getProduct = await (await fetch(`/shop/item/${productId}`)).json();

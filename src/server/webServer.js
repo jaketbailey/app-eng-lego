@@ -1,9 +1,9 @@
 // Imports the express.js api and sets the port to 8080 as specified in the coursework spec
-const express = require('express');
+import auth0 from './authentication.js';
+import express from 'express';
+import colors from 'colors';
 const port = 8080;
-const auth = require('./authentication');
-const colors = require('colors');
-const app = express();
+export const app = express();
 colors.setTheme({
   boot: 'cyan',
   error: ['red', 'bold'],
@@ -13,9 +13,9 @@ colors.setTheme({
 /*  Function initWebServer is ran from index.js when the program is initially loaded
 this starts the webserver using express and  statically serves the directory for the
 web application  */
-function init() {
+export default function () {
   app.use(express.static('../app/'));
-  auth.auth0(app);
+  auth0(app);
 
   app.listen(port, err => {
     if (err) {
@@ -25,8 +25,3 @@ function init() {
     }
   });
 }
-
-module.exports = {
-  init: init,
-  app: app,
-};

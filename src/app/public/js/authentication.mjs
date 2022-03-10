@@ -11,6 +11,8 @@ let auth0 = null;
 
 async function initialiseClient() {
   const config = await fetchConfig();
+  console.log(config);
+  console.log('this config');
   // eslint-disable-next-line no-undef
   auth0 = await createAuth0Client({
     domain: config.domain,
@@ -60,6 +62,7 @@ async function updateUI() {
 }
 
 async function login() {
+  console.log('test');
   await auth0.loginWithRedirect({
     redirect_uri: window.location.origin,
   });
@@ -98,6 +101,26 @@ async function handleAuth0Redirect() {
 function setupListeners() {
   document.getElementById('authBtn').addEventListener('click', login);
   document.getElementById('authBtnLogout').addEventListener('click', logout);
+}
+
+export async function callServer() {
+  const token = await auth0.getTokenSilently();
+
+  const fetchOptions = {
+    credentials: 'same-origin',
+    method: 'GET',
+    headers: { Authorization: 'Bearer ' + token },
+  };
+  const response = await fetch('/api/hello', fetchOptions);
+  if (!response.ok) {
+    console.log(response.status);
+    return;
+  }
+
+  // handle the response
+  const data = await response.text();
+  console.log(data);
+  return data;
 }
 
 

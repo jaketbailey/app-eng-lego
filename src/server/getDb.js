@@ -1,7 +1,7 @@
-const pg = require('./connectDb');
+import Pool from './connectDb.js';
 
-const getAllProducts = (req, res) => {
-  pg.Pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
+export const getAllProducts = (req, res) => {
+  Pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
     if (err) {
       throw err;
     }
@@ -10,10 +10,10 @@ const getAllProducts = (req, res) => {
   });
 };
 
-const getProductById = (req, res) => {
+export const getProductById = (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!isNaN(id)) {
-    pg.Pool.query('SELECT * FROM products WHERE id = $1', [id], (err, results) => {
+    Pool.query('SELECT * FROM products WHERE id = $1', [id], (err, results) => {
       if (err) {
         throw err;
       }
@@ -22,10 +22,10 @@ const getProductById = (req, res) => {
   }
 };
 
-const getUser = (req, res) => {
+export const getUser = (req, res) => {
   const id = req.params.id;
   console.log(req.params);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       phone,
       address_line_1,
@@ -44,9 +44,9 @@ const getUser = (req, res) => {
   });
 };
 
-const getPreviousOrder = (req, res) => {
+export const getPreviousOrder = (req, res) => {
   console.log(req.params);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       id
     FROM
@@ -61,9 +61,9 @@ const getPreviousOrder = (req, res) => {
   });
 };
 
-const checkExists = (req, res) => {
+export const checkExists = (req, res) => {
   const id = req.params.id;
-  pg.Pool.query(`
+  Pool.query(`
     SELECT * FROM orders WHERE customer_id = '${id}' AND order_status = 'pending'
     `, (err, results) => {
     if (err) {
@@ -73,10 +73,10 @@ const checkExists = (req, res) => {
   });
 };
 
-const getBasketItems = (req, res) => {
+export const getBasketItems = (req, res) => {
   const id = req.params.id;
   console.log(req.params);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       *
     FROM
@@ -90,10 +90,10 @@ const getBasketItems = (req, res) => {
   });
 };
 
-const getStock = (req, res) => {
+export const getStock = (req, res) => {
   const id = req.params.id;
   console.log(req.params);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       stock
     FROM
@@ -107,10 +107,10 @@ const getStock = (req, res) => {
   });
 };
 
-const getTotalCost = (req, res) => {
+export const getTotalCost = (req, res) => {
   const id = req.params.id;
   console.log(req.params);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       total_cost
     FROM
@@ -124,10 +124,10 @@ const getTotalCost = (req, res) => {
   });
 };
 
-const getUserName = (req, res) => {
+export const getUserName = (req, res) => {
   const id = req.params.id;
   console.log(req.params);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       first_name,
       last_name,
@@ -144,9 +144,9 @@ const getUserName = (req, res) => {
   });
 };
 
-const getBasketId = (req, res) => {
+export const getBasketId = (req, res) => {
   const id = req.params.id;
-  pg.Pool.query(`
+  Pool.query(`
   SELECT id
   FROM orders
   WHERE customer_id = '${id}'
@@ -159,7 +159,7 @@ const getBasketId = (req, res) => {
 };
 
 
-const getProductByFilter = (req, res) => {
+export const getProductByFilter = (req, res) => {
   const { filter } = req.params;
   const newFilter = filter.split('_');
   const types = ['brick', 'plate', '1x2', '1x8', '2x2', '2x4', '4x8'];
@@ -183,7 +183,7 @@ const getProductByFilter = (req, res) => {
   const finalResults = [];
   if (check === true) {
     for (let i = 0; i < newFilter.length; i++) {
-      pg.Pool.query(`
+      Pool.query(`
         SELECT
           *
         FROM
@@ -209,7 +209,7 @@ const getProductByFilter = (req, res) => {
   } else {
     for (let i = 0; i < newFilter.length; i++) {
       console.log('heman');
-      pg.Pool.query(`
+      Pool.query(`
       SELECT 
         id,
         product_name,
@@ -239,13 +239,13 @@ const getProductByFilter = (req, res) => {
   }
 };
 
-const checkOrderDetail = (req, res) => {
+export const checkOrderDetail = (req, res) => {
   const id = req.params.id;
   const productId = id.split('-')[0];
   const orderId = id.split('-')[1];
   console.log(req.params);
   console.log(`check details ${productId} ${orderId}`);
-  pg.Pool.query(`
+  Pool.query(`
     SELECT
       quantity
     FROM
@@ -257,20 +257,4 @@ const checkOrderDetail = (req, res) => {
     }
     res.status(200).json(results.rows);
   });
-};
-
-
-module.exports = {
-  getAllProducts: getAllProducts,
-  getProductById: getProductById,
-  getUser: getUser,
-  getPreviousOrder: getPreviousOrder,
-  checkExists: checkExists,
-  getBasketItems: getBasketItems,
-  getStock: getStock,
-  getTotalCost: getTotalCost,
-  getUserName: getUserName,
-  getProductByFilter: getProductByFilter,
-  getBasketId: getBasketId,
-  checkOrderDetail: checkOrderDetail,
 };
