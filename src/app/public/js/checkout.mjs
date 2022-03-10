@@ -166,6 +166,8 @@ async function updateStock(e, id, quantity, basket, removeQuantity, price) {
   console.log(id);
   if (newQuantity === 0) {
     await removeOrderDetail(e, id, basket, newQuantity);
+  } else if (newQuantity < 0) {
+    alert('You cannot remove more than you have in the basket');
   } else {
     await updateOrderDetail(e, id, basket, newQuantity, newPrice);
   }
