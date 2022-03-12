@@ -6,7 +6,7 @@
 GET requests are used to read/get data from the PostgreSQL database.
 
 | Request | Path | Description |
-| - | - | --- |
+| - | --- | ---- |
 | GET | `/shop/all` | Queries the database to select all products currently in stock in the store |
 | GET | `/shop/item/:id` | Queries the database to select a specific product based on its unique id. This is used for generating a page for each individual product. |
 | GET | `/get-user/:id` | Queries the database to select specific user information based on their unique user id. This can be used for the account page and checkout to get user name and address. |
@@ -25,7 +25,7 @@ GET requests are used to read/get data from the PostgreSQL database.
 POST requests are used to insert into/create new data into the PostgreSQL database.
 
 | Request | Path | Description |
-| - | - | --- |
+| - | --- | ---- |
 | POST | `/create-user/` | Whenever a new user is needed to be created, this request is made to insert the user details into the database. |
 | POST | `/create-basket/` | Whenever a new user is created, this request is made to create a corresponding basket for that user. This also applies for when a user completes an order, a new basket is generated for the user. |
 | POST | `/add-to-basket/` | This request is made when a user adds a new item to basket. If the item doesn't exist in the basket already, it is inserted into the basket with the corresponding order id. |
@@ -36,7 +36,7 @@ PUT requests are used to update currently stored data in the PostgreSQL database
 
 
 | Request | Path | Description |
-| - | - | --- |
+| - | --- | ---- |
 | PUT | `/update-user/` | This request queries the database to update user data if and when needed e.g. updating the user's address. |
 | PUT | `/update-stock/` | This request queries the database to update the stock count of a specific product when it has been added to basket (reduces the stock count) |
 | PUT | `/add-to-stock/` | This request queries the database to update the stock count of a specific product when it has been removed from basket (increases the stock count) |
@@ -51,6 +51,6 @@ DELETE requests are used to remove data completely from the PostgreSQL database.
 
 
 | Request | Path | Description |
-| - | - | --- |
+| - | --- | ---- |
 | DELETE | `/remove-basket-item/` | This is used to delete an item completely from the order/basket. Used when the complete quantitity has been removed form basket. |
 | DELETE | `/deleteUser/` | This is used to delete all user data from the database, including orders and user data. |
