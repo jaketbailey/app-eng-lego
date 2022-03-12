@@ -1,5 +1,6 @@
 export default {
   user: 'postgres',
-  port: 5432,
+  password: 'Outdoor23',
   host: 'localhost',
+  port: 5432,
 };

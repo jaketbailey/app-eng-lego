@@ -2,6 +2,7 @@
 import pg from 'pg';
 import dbConfig from './dbConfig.js';
 import * as fs from 'fs';
+
 console.log(dbConfig);
 
 const { Client } = pg;
