@@ -4,13 +4,12 @@
 Before running the application, you must configure the application.
 To do so, you must:
 - Have Postgres installed on your machine [Postgres Install](https://www.postgresql.org/download/)
-- Run `npm run config` to generate the configuration.
-- This will prompt you for postgres details.
-- You must enter the following details:
-  - Database User
-  - Database Password
-  - Database Host
-  - Database Port
+- You need to edit one file which is located in `/src/server/db/dbConfig.js`
+- You need to provide the following:
+  - PostgreSQL user name
+  - PostgreSQL user password
+  - PostgreSQL host address e.g. localhost
+  - PostgreSQL port
 
 The database will then be generated ready for the application to run.
 

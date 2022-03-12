@@ -1,16 +1,20 @@
-const { Client } = require('pg');
-const fs = require('fs');
 
-const dbConfig = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+import pg from 'pg';
+import dbConfig from './dbConfig.js';
+import * as fs from 'fs';
+console.log(dbConfig);
 
-function createTables(password) {
-  const client = new Client({
-    user: dbConfig.user,
-    host: dbConfig.host,
-    database: 'block_shop',
-    password: password,
-    port: dbConfig.port,
-  });
+const { Client } = pg;
+
+const client = new Client({
+  user: dbConfig.user,
+  host: dbConfig.host,
+  database: 'block_shop',
+  password: dbConfig.password,
+  port: dbConfig.port,
+});
+
+export default function () {
   const create = fs.readFileSync('./psql/create_statements.sql', 'utf8');
   client.connect();
   client.query(create, (err, res) => {
@@ -33,9 +37,3 @@ function insertInto(client) {
     console.log(res);
   });
 }
-
-module.exports = {
-  init: (password) => {
-    createTables(password);
-  },
-};

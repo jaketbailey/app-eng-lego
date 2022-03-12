@@ -1,2 +1,2 @@
-const db = require('./init.js');
-db.init();
+import init from './init.js';
+init();
