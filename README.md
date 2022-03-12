@@ -11,6 +11,8 @@ To do so, you must:
   - PostgreSQL host address e.g. localhost
   - PostgreSQL port
 
+  Proceed to run `npm run setup` to configure the application.
+
 The database will then be generated ready for the application to run.
 
 ## Running the application
