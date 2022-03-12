@@ -1,3 +1,5 @@
+// Jacek Kopecky https://github.com/portsoc/auth0-example
+
 import OAuth2JWTBearer from 'express-oauth2-jwt-bearer';
 
 import fetch from 'node-fetch';
