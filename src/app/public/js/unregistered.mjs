@@ -27,7 +27,4 @@ export default async function generateUnregistered() {
     await createUser(unregistered);
     await createBasket(unregistered);
   }
-  // else {
-  //   console.log('Temp user already made');
-  // }
 }
