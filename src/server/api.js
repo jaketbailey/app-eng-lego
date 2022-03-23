@@ -20,6 +20,7 @@ export default function () {
   app.get('/get-basket/:id', getDb.getBasketId);
   app.get('/type-filters/:filter/', getDb.getProductByFilter);
   app.get('/check-order-detail/:id', getDb.checkOrderDetail);
+  app.get('/search-product/:search', getDb.searchProduct);
 
   // All POST requests to add data to the database
   app.post('/create-user/', jsonParser, postDb.createUser);

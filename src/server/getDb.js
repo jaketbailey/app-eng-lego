@@ -258,3 +258,20 @@ export const checkOrderDetail = (req, res) => {
     res.status(200).json(results.rows);
   });
 };
+
+export const searchProduct = (req, res) => {
+  const search = req.params.search;
+  console.log(req.params);
+  Pool.query(`
+    SELECT
+      *
+    FROM
+      products
+    WHERE product_name LIKE '%${search}%'
+    `, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
