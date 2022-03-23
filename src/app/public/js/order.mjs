@@ -31,18 +31,17 @@ function addToPage(customerData, shippingAddress, total) {
   const totalCost = document.createElement('p');
   totalCost.className = 'p_main';
   totalCost.style = 'margin-bottom:10px;';
-  totalCost.innerHTML = `Total Cost: £${total}`;
+  totalCost.textContent = `Total Cost: £${total}`;
   title.appendChild(totalCost);
   const main = document.getElementById('main');
-  const userDetails = document.createElement('div');
+  const userDetails = appendElem(main, 'div', null, null, null, null, null);
+  // const userDetails = document.createElement('div');
   console.log(customerData[0].entries);
   userDetails.className = 'user_details';
-  userDetails.innerHTML = `
-    <p class="p_main" style="margin-bottom: 10px;">Customer Details:</p>
-    <p>${customerData[0].first_name} ${customerData[0].last_name}</p>
-    <p>${customerData[0].email}</p>
-    <p>${customerData[0].phone}</p>
-    `;
+  appendElem(userDetails, 'p', null, 'p_main', 'Customer Details:', null, null);
+  appendElem(userDetails, 'p', null, null, `${customerData[0].first_name} ${customerData[0].last_name}`, null, null);
+  appendElem(userDetails, 'p', null, null, customerData[0].email, null, null);
+  appendElem(userDetails, 'p', null, null, customerData[0].phone, null, null);
   main.appendChild(userDetails);
   const secondary = document.getElementById('secondary');
   const order = document.createElement('div');
