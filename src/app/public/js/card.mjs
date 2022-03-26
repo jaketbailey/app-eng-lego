@@ -2,7 +2,7 @@ import { getData, appendElem } from './store.mjs';
 import { addToBasket } from './basket.mjs';
 import filter from './filters.mjs';
 
-const createCard = (id, name, desc, img, price, stock) => {
+export const createCard = (id, name, desc, img, price, stock, storePage) => {
   const page = document.getElementById('page');
   const outerDiv = document.createElement('div');
   outerDiv.classList.add('outerCard');
@@ -13,6 +13,9 @@ const createCard = (id, name, desc, img, price, stock) => {
   appendElem(card, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
   const innerDiv = appendElem(card, 'div', null, 'card-body', null, null, null);
   appendElem(innerDiv, 'p', null, null, name, null, null);
+  if (storePage === 'item') {
+    appendElem(innerDiv, 'p', null, null, desc, null, null);
+  }
   appendElem(innerDiv, 'p', null, null, `£${price}`, null, null);
   const quantityParagraph = appendElem(innerDiv, 'p', null, null, 'Quantity:', null, null);
   const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity', null, null, null);
@@ -21,7 +24,9 @@ const createCard = (id, name, desc, img, price, stock) => {
   }
   appendElem(innerDiv, 'p', null, 'stock', `Stock: ${stock}`, null, null);
   appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
-  appendElem(card, 'a', null, 'store_btn', 'View Details', `/shop/item/?id=${id}`, null);
+  if (storePage === 'store') {
+    appendElem(card, 'a', null, 'store_btn', 'View Details', `/shop/item/?id=${id}`, null);
+  }
   console.log(card);
   page.lastChild.appendChild(card);
   return card;
@@ -45,7 +50,7 @@ const addCard = (params) => {
     console.log(res.length);
     console.log(res);
     for (let i = 0; i < res.length; i++) {
-      createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock);
+      createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock, 'store');
     }
     checkForAdd();
   });
