@@ -1,6 +1,7 @@
 import config from './auth-config.js';
 import * as auth from 'express-openid-connect';
 import authHelp from './auth0-helpers.js';
+import * as Logger from '../logger.js';
 
 const authConfig = {
   authRequired: false,
@@ -15,12 +16,13 @@ export default function (app) {
   app.use(auth.auth(authConfig));
   app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-    console.log(req.oidc.userinfo);
+    // Logger.Info(req.oidc.userinfo);
   });
 
   const auth0 = authHelp(config);
 
   app.get('/block/api/auth-config', (req, res) => {
+    Logger.Info('Auth-config requested');
     res.json(config);
   });
 
@@ -34,10 +36,11 @@ export default function (app) {
 
     res.send(JSON.stringify(profile, null, 2));
 
-    console.log('successful authenticated request by ' + userId);
+    Logger.Info('Successful authenticated request by ' + userId);
   });
 
   app.get('/authorized', (req, res) => {
+    Logger.Info('Authorised request');
     res.send('Secured Resource');
   });
 }

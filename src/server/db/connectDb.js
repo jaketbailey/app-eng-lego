@@ -1,8 +1,9 @@
 import pg from 'pg';
 import dbConfig from './config/dbConfig.js';
-console.log(dbConfig);
+import * as Logger from '../logger.js';
 const { Pool } = pg;
 
+Logger.Database('Connecting to database');
 export default new Pool({
   user: dbConfig.user,
   host: dbConfig.host,

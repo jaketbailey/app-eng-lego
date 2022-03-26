@@ -1,13 +1,15 @@
 import Pool from './connectDb.js';
+import * as Logger from '../logger.js';
 
 export const removeBasketItem = (req, res) => {
   const { id } = req.body;
-  console.log(req.body);
+  Logger.Info(`Removing basket item ${id}`);
   Pool.query(`
     DELETE FROM order_details
     WHERE id = '${id}'
     `, (err) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).send(`Product removed from basket with ID: ${id}`);
@@ -16,7 +18,7 @@ export const removeBasketItem = (req, res) => {
 
 export const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
-  console.log(req.body);
+  Logger.Info(`Deleting user: ${id}`);
   Pool.query(`
     DELETE FROM order_details
     WHERE order_id = '${orderId}';
@@ -28,6 +30,7 @@ export const deleteUser = (req, res) => {
     WHERE id = '${id}';
     `, (err) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).send(`User deleted with ID: ${id}`);

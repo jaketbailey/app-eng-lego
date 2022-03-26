@@ -1,7 +1,7 @@
 // Jacek Kopecky https://github.com/portsoc/auth0-example
 
 import OAuth2JWTBearer from 'express-oauth2-jwt-bearer';
-
+import * as Logger from '../logger.js';
 import fetch from 'node-fetch';
 
 const status401Errors = [
@@ -55,7 +55,7 @@ export default function setup(authConfig) {
 
       return await response.json();
     } catch (err) {
-      console.error('error getting auth profile', req.auth, err);
+      Logger.Error('error getting auth profile', req.auth, err);
       return null;
     }
   }
