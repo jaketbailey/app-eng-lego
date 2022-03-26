@@ -1,8 +1,8 @@
-import { app } from './webServer.js';
-import * as getDb from './getDb.js';
-import * as postDb from './postDb.js';
-import * as putDb from './putDb.js';
-import * as deleteDb from './deleteDb.js';
+import { app } from '../core/webServer.js';
+import * as getDb from '../db/getDb.js';
+import * as postDb from '../db/postDb.js';
+import * as putDb from '../db/putDb.js';
+import * as deleteDb from '../db/deleteDb.js';
 import bodyParser from 'body-parser';
 
 export default function () {

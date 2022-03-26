@@ -8,7 +8,7 @@
     "test": "jest",
     "start": "cd ./src/server && node .",
     "dev": "cd ./src/server && nodemon .",
-    "setup": "cd ./src/server/db && node ."
+    "setup": "cd ./src/server/db/config && node ."
   },
   "repository": {
     "type": "git",

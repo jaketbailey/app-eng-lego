@@ -1,5 +1,5 @@
-import initServer from './webServer.js';
-import initAPI from './api.js';
+import initServer from './core/webServer.js';
+import initAPI from './api/api.js';
 
 initServer();
 initAPI();
