@@ -1,6 +1,6 @@
 import { getData, appendElem } from './store.mjs';
 import { addToBasket } from './basket.mjs';
-import filter from './filters.mjs';
+import { filter, search } from './filters.mjs';
 
 export const createCard = (id, name, desc, img, price, stock, storePage) => {
   const page = document.getElementById('page');
@@ -35,16 +35,21 @@ export const createCard = (id, name, desc, img, price, stock, storePage) => {
 const addCard = (params) => {
   let cards;
   const filterObj = [];
-  for (const pair of params.entries()) {
-    filterObj.push(pair[1]);
-  }
-  console.log(filterObj);
-  console.log(filterObj.join(','));
-  if (filterObj.length === 0) {
-    cards = getData('/shop/all');
+  if (params.get('search') === null) {
+    for (const pair of params.entries()) {
+      filterObj.push(pair[1]);
+    }
+    console.log(filterObj);
+    console.log(filterObj.join(','));
+    if (filterObj.length === 0) {
+      cards = getData('/shop/all');
+    } else {
+      cards = filter(filterObj);
+    }
   } else {
-    cards = filter(filterObj);
-    console.log(cards);
+    const searchParam = params.get('search');
+    searchParam.replace(/\s/g, '_');
+    cards = search(searchParam);
   }
   cards.then((res) => {
     console.log(res.length);

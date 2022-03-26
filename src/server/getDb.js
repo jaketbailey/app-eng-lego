@@ -44,23 +44,6 @@ export const getUser = (req, res) => {
   });
 };
 
-export const getPreviousOrder = (req, res) => {
-  console.log(req.params);
-  Pool.query(`
-    SELECT
-      id
-    FROM
-      orders
-    ORDER BY id DESC
-    LIMIT 1
-    `, (err, results) => {
-    if (err) {
-      throw err;
-    }
-    res.status(200).json(results.rows);
-  });
-};
-
 export const checkExists = (req, res) => {
   const id = req.params.id;
   Pool.query(`
@@ -260,18 +243,36 @@ export const checkOrderDetail = (req, res) => {
 };
 
 export const searchProduct = (req, res) => {
-  const search = req.params.search;
-  console.log(req.params);
+  let search = req.params.search;
+  console.log(search.includes('_'));
+  if (search.includes('_')) {
+    search = search.replace('_', ' ');
+    console.log(search);
+  }
+  console.log(search);
+  console.log('testsearch');
   Pool.query(`
     SELECT
       *
     FROM
       products
-    WHERE product_name LIKE '%${search}%'
+      JOIN product_colours ON product_colours.product_id = products.id 
+      JOIN colours ON  product_colours.colour_id = colours.colour_id 
+    WHERE 
+      UPPER(product_name) LIKE UPPER('%${search}%')
+      OR
+      UPPER(product_desc) LIKE UPPER('%${search}%')
+      OR
+      UPPER(category) LIKE UPPER('%${search}%')
+      OR
+      UPPER(image_ref) LIKE UPPER('%${search}%')
+      OR
+      UPPER(colours.colour_name) LIKE UPPER('%${search}%')
     `, (err, results) => {
     if (err) {
       throw err;
     }
+    console.log(results.rows);
     res.status(200).json(results.rows);
   });
 };

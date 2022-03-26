@@ -11,7 +11,6 @@ export default function () {
   app.get('/shop/all', getDb.getAllProducts);
   app.get('/shop/item/:id', getDb.getProductById);
   app.get('/get-user/:id', getDb.getUser);
-  app.get('/get-previous-order/', getDb.getPreviousOrder);
   app.get('/check-exists/:id', getDb.checkExists);
   app.get('/get-basket-items/:id', getDb.getBasketItems);
   app.get('/get-stock/:id', getDb.getStock);

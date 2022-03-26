@@ -18,7 +18,7 @@ export const createUser = (req, res) => {
 };
 
 export const createBasket = (req, res) => {
-  const { id, customerId, email } = req.body;
+  const { customerId, email } = req.body;
   console.log(req.body);
   const dateOb = new Date(Date.now());
   const date = dateOb.getDate();
@@ -28,27 +28,26 @@ export const createBasket = (req, res) => {
   console.log(today);
   Pool.query(`
     INSERT INTO orders (
-      id, total_cost, order_address, order_email, order_date, order_status, customer_id
+      total_cost, order_address, order_email, order_date, order_status, customer_id
     ) VALUES (
-      '${id}', 0.00, null, '${email}', '${today}', 'pending', '${customerId}'
+      0.00, null, '${email}', '${today}', 'pending', '${customerId}'
     )`, (err) => {
     if (err) {
       throw err;
     }
-    res.status(201).send(`Basket created with ID: ${id}`);
+    res.status(201).send('Basket created');
   });
 };
 
 export const addToBasket = (req, res) => {
-  const random = Math.floor(Math.random() * (10000000 - 100 + 1)) + 1;
   const { id, productId, price, quantity } = req.body;
   console.log(productId);
   console.log('this teste');
   Pool.query(`
     INSERT INTO order_details (
-      id, price, quantity, order_id, product_id
+      price, quantity, order_id, product_id
     ) VALUES (
-      '${random}', '${price}', ${quantity}, '${id}', '${productId}'
+      '${price}', ${quantity}, '${id}', '${productId}'
     )`, (err) => {
     if (err) {
       throw err;

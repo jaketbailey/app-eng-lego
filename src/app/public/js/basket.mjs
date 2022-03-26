@@ -1,11 +1,5 @@
 import { callServer } from './authentication.mjs';
 
-async function findPrevious() {
-  const response = await fetch('/get-previous-order/');
-  const result = await response.json();
-  return result;
-}
-
 async function checkExists(id) {
   const response = await fetch(`/check-exists/${id}`);
   const result = await response.json();
@@ -13,17 +7,10 @@ async function checkExists(id) {
 }
 
 export default async function createBasket(user) {
-  const previousData = await findPrevious();
   const check = await checkExists(user.sub);
   console.log(check);
-  let id = 0;
-  console.log(previousData);
-  if (previousData.length !== 0) {
-    id = previousData[0].id + 1;
-  }
   if (check.length === 0) {
     const data = {
-      id: id,
       customerId: user.sub,
       email: user.email,
     };

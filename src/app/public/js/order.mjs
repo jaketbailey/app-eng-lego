@@ -22,8 +22,8 @@ async function getOrder(customerId) {
   console.log(customer);
   console.log(shippingAddress);
   console.log(total);
-  addToPage(customer, shippingAddress, total);
   updateOrder(basket[0].id);
+  addToPage(customer, shippingAddress, total);
 }
 
 function addToPage(customerData, shippingAddress, total) {
