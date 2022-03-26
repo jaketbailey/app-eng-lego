@@ -9,20 +9,20 @@ export async function getBasket() {
     customerId = userDetails.sub;
     localStorage.removeItem('customerId');
   }
-  const response = await fetch(`/check-exists/${customerId}`);
+  const response = await fetch(`/block/api/check-exists/${customerId}`);
   const result = await response.json();
   return result;
 }
 
 async function getBasketItems(basket) {
   const basketId = basket[0].id;
-  const response = await fetch(`/get-basket-items/${basketId}`);
+  const response = await fetch(`/block/api/get-basket-items/${basketId}`);
   const result = await response.json();
   return result;
 }
 
 async function getProductById(id) {
-  const response = await fetch(`/shop/item/${id}`);
+  const response = await fetch(`/block/api/shop/item/${id}`);
   const result = await response.json();
   return result;
 }
@@ -32,7 +32,7 @@ async function addTotalCost(id, total) {
     id: id,
     total: total,
   };
-  const response = await fetch('/add-total-cost/', {
+  const response = await fetch('/block/api/add-total-cost/', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -89,7 +89,7 @@ async function getUserAddress() {
 }
 
 async function removeOrderDetail(id, productId, basket, quantity) {
-  const response = await fetch('/remove-basket-item/', {
+  const response = await fetch('/block/api/remove-basket-item/', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -103,7 +103,7 @@ async function removeOrderDetail(id, productId, basket, quantity) {
 
 async function getTotalCost(id, productId, basket, quantity, remove) {
   console.log(basket);
-  const response2 = await fetch(`/get-total-cost/${basket}`);
+  const response2 = await fetch(`/block/api/get-total-cost/${basket}`);
   const result = await response2.json();
   console.log(result);
   const totalCost = result[0].total_cost;
@@ -167,7 +167,7 @@ async function updateStock(e, id, quantity, basket, removeQuantity, price) {
     quantity: removeQuantity,
   };
   console.log(data);
-  const response = await fetch('/add-to-stock/', {
+  const response = await fetch('/block/api/add-to-stock/', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -302,7 +302,7 @@ async function shippingAddress() {
 }
 
 async function storeShippingAddress(shippingAddress) {
-  const response = await fetch('/add-shipping-address/', {
+  const response = await fetch('/block/api/add-shipping-address/', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -320,7 +320,7 @@ async function updateOrderDetail(e, productId, orderId, newQuantity, newPrice) {
     price: newPrice,
     quantity: newQuantity,
   };
-  const response = await fetch('/update-order-detail/', {
+  const response = await fetch('/block/api/update-order-detail/', {
     headers: {
       'Content-Type': 'application/json',
     },

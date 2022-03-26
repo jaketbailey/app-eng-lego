@@ -8,7 +8,7 @@ export async function getData(input) {
   let res;
   if (page === 'all') {
     actualInput = actualInput[2];
-    res = await fetch(`/shop/${page}`);
+    res = await fetch(`/block/api/shop/${page}`);
     const data = await res.json();
     for (let i = 0; i < data.length; i++) {
       finalOutput.push(data[i]);
@@ -21,7 +21,7 @@ export async function getData(input) {
       console.log(`/shop/${page}/${actualInput[i]}`);
       console.log(page);
       console.log(actualInput[i]);
-      res = await fetch(`/shop/${page}/${actualInput[i]}`);
+      res = await fetch(`/block/api/shop/${page}/${actualInput[i]}`);
       const data = await res.json();
       console.log(data);
       for (let i = 0; i < data.length; i++) {

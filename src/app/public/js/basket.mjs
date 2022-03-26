@@ -1,7 +1,7 @@
 import { callServer } from './authentication.mjs';
 
 async function checkExists(id) {
-  const response = await fetch(`/check-exists/${id}`);
+  const response = await fetch(`/block/api/check-exists/${id}`);
   const result = await response.json();
   return result;
 }
@@ -15,7 +15,7 @@ export default async function createBasket(user) {
       email: user.email,
     };
     console.log(data);
-    const response = await fetch('/create-basket/', {
+    const response = await fetch('/block/api/create-basket/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export async function addToBasket(productId) {
     localStorage.removeItem('customerId');
   }
   const order = await checkExists(customerId);
-  const getProduct = await (await fetch(`/shop/item/${productId}`)).json();
+  const getProduct = await (await fetch(`/block/api/shop/item/${productId}`)).json();
   const quantity = document.getElementById(`quantity-${productId}`).value;
   console.log(quantity);
   console.log(getProduct);
@@ -56,7 +56,7 @@ export async function addToBasket(productId) {
   console.log(checkStock);
   console.log(productId);
   if (checkStock[0].stock > 0 && (checkStock[0].stock - quantity) >= 0) {
-    const check = await fetch(`/check-order-detail/${productId}-${data.id}`);
+    const check = await fetch(`/block/api/check-order-detail/${productId}-${data.id}`);
     const orderDetail = await check.json();
     let updateData;
     let response;
@@ -65,7 +65,7 @@ export async function addToBasket(productId) {
       data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
       data.price = (parseFloat(data.price) * parseFloat(data.quantity));
       console.log(`new quantity: ${data.quantity}`);
-      response = await fetch('/update-basket-item/', {
+      response = await fetch('/block/api/update-basket-item/', {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export async function addToBasket(productId) {
         quantity: quantity,
       };
     } else {
-      response = await fetch('/add-to-basket/', {
+      response = await fetch('/block/api/add-to-basket/', {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export async function addToBasket(productId) {
       };
       console.log(updateData);
     }
-    const update = await fetch('/update-stock/', {
+    const update = await fetch('/block/api/update-stock/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ export async function addToBasket(productId) {
 }
 
 async function getStock(productId, update) {
-  const stock = await fetch(`/get-stock/${productId}`);
+  const stock = await fetch(`/block/api/get-stock/${productId}`);
   const result = stock.json();
   result.then((data) => {
     console.log(data[0].stock);
@@ -146,6 +146,6 @@ async function getStock(productId, update) {
 export async function updateBasket(user, productId) {
   console.log(user);
   console.log(productId);
-  const check = await checkExists(user);
+  const check = await fetch(checkExists(user));
   console.log(check);
 }

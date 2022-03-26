@@ -2,7 +2,7 @@ import createBasket from './basket.mjs';
 
 export async function createUser(user) {
   console.log(user.sub);
-  const response = await fetch('/create-user/', {
+  const response = await fetch('/block/api/create-user/', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export async function createUser(user) {
 }
 
 export async function updateUser(address) {
-  const response = await fetch('/update-user/', {
+  const response = await fetch('/block/api/update-user/', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -29,13 +29,13 @@ export async function updateUser(address) {
 }
 
 export async function getUser(id) {
-  const response = await fetch(`/get-user/${id}`);
+  const response = await fetch(`/block/api/get-user/${id}`);
   const result = await response.json();
   return result[0];
 }
 
 export async function getBasketId(id) {
-  const response = await fetch(`/get-basket/${id}`);
+  const response = await fetch(`/block/api/get-basket/${id}`);
   const result = await response.json();
   return result[0];
 }
@@ -43,7 +43,7 @@ export async function getBasketId(id) {
 export async function deleteUser(id, orderId) {
   console.log('Delete');
   if (id.split('-')[0] === 'unregistered') {
-    const response = await fetch('/delete-user', {
+    const response = await fetch('/block/api/delete-user', {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',

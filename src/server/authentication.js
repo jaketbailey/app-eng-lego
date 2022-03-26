@@ -20,7 +20,7 @@ export default function (app) {
 
   const auth0 = authHelp(config);
 
-  app.get('/auth-config', (req, res) => {
+  app.get('/block/api/auth-config', (req, res) => {
     res.json(config);
   });
 

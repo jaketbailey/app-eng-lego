@@ -57,7 +57,7 @@ async function updateOrder(id) {
     id: id,
     status: 'Completed',
   };
-  const response = await fetch('/update-order/', {
+  const response = await fetch('/block/api/update-order/', {
     headers: {
       'Content-Type': 'application/json',
     },
