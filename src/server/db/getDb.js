@@ -1,17 +1,19 @@
 import Pool from './connectDb.js';
+import * as Logger from '../logger.js';
 
 export const getAllProducts = (req, res) => {
+  Logger.Database('Getting all products');
   Pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
     if (err) {
       throw err;
     }
-    console.log(results);
     res.status(200).json(results.rows);
   });
 };
 
 export const getProductById = (req, res) => {
   const id = parseInt(req.params.id, 10);
+  Logger.Database(`Getting product with ID: ${id}`);
   if (!isNaN(id)) {
     Pool.query('SELECT * FROM products WHERE id = $1', [id], (err, results) => {
       if (err) {
@@ -24,7 +26,7 @@ export const getProductById = (req, res) => {
 
 export const getUser = (req, res) => {
   const id = req.params.id;
-  console.log(req.params);
+  Logger.Database(`Getting user with ID: ${id}`);
   Pool.query(`
     SELECT
       phone,
@@ -46,6 +48,7 @@ export const getUser = (req, res) => {
 
 export const checkExists = (req, res) => {
   const id = req.params.id;
+  Logger.Database(`Checking if product with ID: ${id} exists`);
   Pool.query(`
     SELECT * FROM orders WHERE customer_id = '${id}' AND order_status = 'pending'
     `, (err, results) => {
@@ -58,7 +61,7 @@ export const checkExists = (req, res) => {
 
 export const getBasketItems = (req, res) => {
   const id = req.params.id;
-  console.log(req.params);
+  Logger.Database(`Getting basket items for user with ID: ${id}`);
   Pool.query(`
     SELECT
       *
@@ -75,7 +78,7 @@ export const getBasketItems = (req, res) => {
 
 export const getStock = (req, res) => {
   const id = req.params.id;
-  console.log(req.params);
+  Logger.Database(`Getting stock for product with ID: ${id}`);
   Pool.query(`
     SELECT
       stock
@@ -92,7 +95,7 @@ export const getStock = (req, res) => {
 
 export const getTotalCost = (req, res) => {
   const id = req.params.id;
-  console.log(req.params);
+  Logger.Database(`Getting total cost for order with ID: ${id}`);
   Pool.query(`
     SELECT
       total_cost
@@ -109,7 +112,7 @@ export const getTotalCost = (req, res) => {
 
 export const getUserName = (req, res) => {
   const id = req.params.id;
-  console.log(req.params);
+  Logger.Database(`Getting user name for order with ID: ${id}`);
   Pool.query(`
     SELECT
       first_name,
@@ -129,6 +132,7 @@ export const getUserName = (req, res) => {
 
 export const getBasketId = (req, res) => {
   const id = req.params.id;
+  Logger.Database(`Getting basket ID for customer with ID: ${id}`);
   Pool.query(`
   SELECT id
   FROM orders
@@ -144,6 +148,7 @@ export const getBasketId = (req, res) => {
 
 export const getProductByFilter = (req, res) => {
   const { filter } = req.params;
+  Logger.Database(`Getting products with filter: ${filter}`);
   const newFilter = filter.split('_');
   const types = ['brick', 'plate', '1x2', '1x8', '2x2', '2x4', '4x8'];
   let check = false;
@@ -191,7 +196,6 @@ export const getProductByFilter = (req, res) => {
     }
   } else {
     for (let i = 0; i < newFilter.length; i++) {
-      console.log('heman');
       Pool.query(`
       SELECT 
         id,
@@ -208,6 +212,7 @@ export const getProductByFilter = (req, res) => {
       WHERE colours.colour_name = '${newFilter[i]}' OR products.category LIKE '%${newFilter[i]}%';
       `, (err, results) => {
         if (err) {
+          Logger.Error(err);
           throw err;
         }
         for (let j = 0; j < results.rows.length; j++) {
@@ -218,16 +223,14 @@ export const getProductByFilter = (req, res) => {
         }
       });
     }
-    console.log('end fo loop');
   }
 };
 
 export const checkOrderDetail = (req, res) => {
   const id = req.params.id;
+  Logger.Database(`Checking if quantity for a product with ID: ${id} exists`);
   const productId = id.split('-')[0];
   const orderId = id.split('-')[1];
-  console.log(req.params);
-  console.log(`check details ${productId} ${orderId}`);
   Pool.query(`
     SELECT
       quantity
@@ -236,6 +239,7 @@ export const checkOrderDetail = (req, res) => {
     WHERE product_id = '${productId}' AND order_id = '${orderId}'
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -244,13 +248,10 @@ export const checkOrderDetail = (req, res) => {
 
 export const searchProduct = (req, res) => {
   let search = req.params.search;
-  console.log(search.includes('_'));
   if (search.includes('_')) {
     search = search.replace('_', ' ');
-    console.log(search);
   }
-  console.log(search);
-  console.log('testsearch');
+  Logger.Database(`Searching for product similarities to: ${search}`);
   Pool.query(`
     SELECT
       *
@@ -270,9 +271,9 @@ export const searchProduct = (req, res) => {
       UPPER(colours.colour_name) LIKE UPPER('%${search}%')
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
-    console.log(results.rows);
     res.status(200).json(results.rows);
   });
 };

@@ -3,7 +3,7 @@ import * as Logger from '../logger.js';
 
 export const removeBasketItem = (req, res) => {
   const { id } = req.body;
-  Logger.Info(`Removing basket item ${id}`);
+  Logger.Database(`Removing basket item ${id}`);
   Pool.query(`
     DELETE FROM order_details
     WHERE id = '${id}'
@@ -18,7 +18,7 @@ export const removeBasketItem = (req, res) => {
 
 export const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
-  Logger.Info(`Deleting user: ${id}`);
+  Logger.Database(`Deleting user: ${id}`);
   Pool.query(`
     DELETE FROM order_details
     WHERE order_id = '${orderId}';
