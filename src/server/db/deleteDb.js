@@ -12,6 +12,7 @@ export const removeBasketItem = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info(`Product removed from basket with ID: ${id}`);
     res.status(200).send(`Product removed from basket with ID: ${id}`);
   });
 };
@@ -33,6 +34,7 @@ export const deleteUser = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info(`User deleted with ID: ${id}`);
     res.status(200).send(`User deleted with ID: ${id}`);
   });
 };

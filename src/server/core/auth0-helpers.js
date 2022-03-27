@@ -34,6 +34,7 @@ export default function setup(authConfig) {
       if (err && status401Errors.includes(err.name)) {
         res.sendStatus(401);
       } else {
+        Logger.Error(err);
         next(err);
       }
     });

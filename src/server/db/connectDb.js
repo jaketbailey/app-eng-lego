@@ -3,7 +3,7 @@ import dbConfig from './config/dbConfig.js';
 import * as Logger from '../logger.js';
 const { Pool } = pg;
 
-Logger.Database('Connecting to database');
+Logger.Database(`Connecting to database as user: ${dbConfig.user}`);
 export default new Pool({
   user: dbConfig.user,
   host: dbConfig.host,

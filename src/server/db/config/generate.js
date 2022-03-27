@@ -2,8 +2,7 @@
 import pg from 'pg';
 import dbConfig from './dbConfig.js';
 import * as fs from 'fs';
-
-console.log(dbConfig);
+import * as Logger from '../../logger.js';
 
 const { Client } = pg;
 
@@ -18,23 +17,25 @@ const client = new Client({
 export default function () {
   const create = fs.readFileSync('./psql/create_statements.sql', 'utf8');
   client.connect();
-  client.query(create, (err, res) => {
+  client.query(create, (err) => {
     if (err) {
-      console.error(err);
+      Logger.Error(err);
       process.exit(-1);
     }
-    console.log(res);
+    Logger.Database('Create tables successful');
     insertInto(client);
   });
 }
 
 function insertInto(client) {
   const insert = fs.readFileSync('./psql/insert_statements.sql', 'utf8');
-  client.query(insert, (err, res) => {
+  client.query(insert, (err) => {
     if (err) {
-      console.error(err);
+      Logger.Error(err);
       process.exit(-1);
     }
-    console.log(res);
+    Logger.Database('Insert into tables successful');
+    Logger.Database('Database creation successful');
+    process.exit(0);
   });
 }

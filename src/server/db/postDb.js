@@ -14,6 +14,7 @@ export const createUser = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info(`User added with ID: ${sub}`);
     res.status(201).send(`User added with ID: ${sub}`);
   });
 };
@@ -33,8 +34,10 @@ export const createBasket = (req, res) => {
       0.00, null, '${email}', '${today}', 'pending', '${customerId}'
     )`, (err) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
+    Logger.Info(`Basket added for user with ID: ${customerId}`);
     res.status(201).send('Basket created');
   });
 };
@@ -49,8 +52,10 @@ export const addToBasket = (req, res) => {
       '${price}', ${quantity}, '${id}', '${productId}'
     )`, (err) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
-    res.status(201).send(`Product added to basket with ID: ${id}`);
+    Logger.Info(`Product added to basket with order id: ${id}`);
+    res.status(201).send(`Product added to basket with order id: ${id}`);
   });
 };

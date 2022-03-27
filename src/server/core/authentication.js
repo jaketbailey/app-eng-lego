@@ -36,7 +36,7 @@ export default function (app) {
 
     res.send(JSON.stringify(profile, null, 2));
 
-    Logger.Info('Successful authenticated request by ' + userId);
+    Logger.Info('Successful authentication request by ' + userId);
   });
 
   app.get('/authorized', (req, res) => {

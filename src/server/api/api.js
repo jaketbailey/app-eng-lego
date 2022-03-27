@@ -3,9 +3,11 @@ import * as getDb from '../db/getDb.js';
 import * as postDb from '../db/postDb.js';
 import * as putDb from '../db/putDb.js';
 import * as deleteDb from '../db/deleteDb.js';
+import * as Logger from '../logger.js';
 import bodyParser from 'body-parser';
 
 export default function () {
+  Logger.Express('Initialising API routes');
   const jsonParser = bodyParser.json();
   // All GET requests to retrieve data from the database
   app.get('/block/api/shop/all', getDb.getAllProducts);

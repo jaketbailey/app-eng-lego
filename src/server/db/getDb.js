@@ -5,6 +5,7 @@ export const getAllProducts = (req, res) => {
   Logger.Database('Getting all products');
   Pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -17,6 +18,7 @@ export const getProductById = (req, res) => {
   if (!isNaN(id)) {
     Pool.query('SELECT * FROM products WHERE id = $1', [id], (err, results) => {
       if (err) {
+        Logger.Error(err);
         throw err;
       }
       res.status(200).json(results.rows);
@@ -40,6 +42,7 @@ export const getUser = (req, res) => {
       customers 
     WHERE id = '${id}'`, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -48,11 +51,12 @@ export const getUser = (req, res) => {
 
 export const checkExists = (req, res) => {
   const id = req.params.id;
-  Logger.Database(`Checking if product with ID: ${id} exists`);
+  Logger.Database(`Checking if order with customer ID: ${id} exists`);
   Pool.query(`
     SELECT * FROM orders WHERE customer_id = '${id}' AND order_status = 'pending'
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -70,6 +74,7 @@ export const getBasketItems = (req, res) => {
     WHERE order_id = '${id}'
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -87,6 +92,7 @@ export const getStock = (req, res) => {
     WHERE id = '${id}'
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -104,6 +110,7 @@ export const getTotalCost = (req, res) => {
     WHERE id = '${id}'
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -124,6 +131,7 @@ export const getUserName = (req, res) => {
     WHERE id = '${id}'
     `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -139,6 +147,7 @@ export const getBasketId = (req, res) => {
   WHERE customer_id = '${id}'
   `, (err, results) => {
     if (err) {
+      Logger.Error(err);
       throw err;
     }
     res.status(200).json(results.rows);
@@ -153,6 +162,7 @@ export const getProductByFilter = (req, res) => {
   const types = ['brick', 'plate', '1x2', '1x8', '2x2', '2x4', '4x8'];
   let check = false;
   let type;
+  Logger.Info('Creating temporary filter array');
   for (let i = 0; i < types.length; i++) {
     if (newFilter.indexOf(types[i]) > -1) {
       if (newFilter.length === 1) {
@@ -190,6 +200,7 @@ export const getProductByFilter = (req, res) => {
           finalResults.push(results.rows[j]);
         }
         if (i === newFilter.length - 1) {
+          Logger.Info('Sending colour filter results');
           res.status(200).json(finalResults);
         }
       });
@@ -219,6 +230,7 @@ export const getProductByFilter = (req, res) => {
           finalResults.push(results.rows[j]);
         }
         if (i === newFilter.length - 1) {
+          Logger.Info('Returning filter results');
           res.status(200).json(finalResults);
         }
       });
@@ -242,6 +254,7 @@ export const checkOrderDetail = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info('Returning product quantity results');
     res.status(200).json(results.rows);
   });
 };
@@ -274,6 +287,7 @@ export const searchProduct = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info('Returning search results');
     res.status(200).json(results.rows);
   });
 };

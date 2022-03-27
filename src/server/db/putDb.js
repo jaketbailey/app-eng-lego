@@ -17,6 +17,7 @@ export const updateUser = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info(`User updated with ID: ${id}`);
     res.status(200).send(`User updated with ID: ${id}`);
   });
 };
@@ -32,7 +33,8 @@ export const updateStock = (req, res) => {
       Logger.Error(err);
       throw err;
     }
-    res.status(200).send(`Product updated with ID: ${id}`);
+    Logger.Info(`Stock updated for product id: ${id}`);
+    res.status(200).send(`Stock updated for product id: ${id}`);
   });
 };
 
@@ -47,7 +49,8 @@ export const addToStock = (req, res) => {
       Logger.Error(err);
       throw err;
     }
-    res.status(200).send(`Product updated with ID: ${productId}`);
+    Logger.Info(`Stock updated for product id: ${productId}`);
+    res.status(200).send(`Stock updated for product id: ${productId}`);
   });
 };
 
@@ -62,7 +65,8 @@ export const addTotalCost = (req, res) => {
       Logger.Error(err);
       throw err;
     }
-    res.status(200).send(`Total cost updated with ID: ${id}`);
+    Logger.Info(`Order total cost updated for order id: ${id}`);
+    res.status(200).send(`Order total cost updated for order id: ${id}`);
   });
 };
 
@@ -77,6 +81,7 @@ export const addShippingAddress = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info(`Shipping address updated for order id: ${id}`);
     res.status(200).send(`Shipping address updated with ID: ${id}`);
   });
 };
@@ -92,7 +97,8 @@ export const updateOrder = (req, res) => {
       Logger.Error(err);
       throw err;
     }
-    res.status(200).send(`Order updated with ID: ${id}`);
+    Logger.Info(`Order status updated to ${status} for order; ${id}`);
+    res.status(200).send(`Order status updated to ${status} for order; ${id}`);
   });
 };
 
@@ -108,6 +114,7 @@ export const updateOrderDetail = (req, res) => {
       Logger.Error(err);
       throw err;
     }
+    Logger.Info(`Order updated with orderId: ${id}, ProductId: ${productId}`);
     res.status(200).send(`Order updated with orderId: ${id}, ProductId: ${productId}`);
   });
 };
