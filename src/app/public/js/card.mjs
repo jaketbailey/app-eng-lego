@@ -4,29 +4,36 @@ import { filter, search } from './filters.mjs';
 
 export const createCard = (id, name, desc, img, price, stock, storePage) => {
   const page = document.getElementById('page');
+
   const outerDiv = document.createElement('div');
   outerDiv.classList.add('outerCard');
   page.appendChild(outerDiv);
   const card = document.createElement('div');
   card.className = 'card';
   card.id = `card-${id}`;
-  appendElem(card, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
-  const innerDiv = appendElem(card, 'div', null, 'card-body', null, null, null);
+  let innerDiv;
+  if (storePage === 'store') {
+    const a = document.createElement('a');
+    a.href = `/shop/item/?id=${id}`;
+    card.appendChild(a);
+    appendElem(a, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
+    innerDiv = appendElem(a, 'div', null, 'card-body', null, null, null);
+  } else {
+    appendElem(card, 'img', null, 'store', null, `/public/images/store/${img}.jpg`, null);
+    innerDiv = appendElem(card, 'div', null, 'card-body', null, null, null);
+  }
   appendElem(innerDiv, 'p', null, null, name, null, null);
   if (storePage === 'item') {
     appendElem(innerDiv, 'p', null, null, desc, null, null);
+    const quantityParagraph = appendElem(innerDiv, 'p', null, null, 'Quantity:', null, null);
+    const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity', null, null, null);
+    for (let i = 1; i < 5; i++) {
+      appendElem(select, 'option', null, null, i, null, i);
+    }
+    appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
   }
   appendElem(innerDiv, 'p', null, null, `£${price}`, null, null);
-  const quantityParagraph = appendElem(innerDiv, 'p', null, null, 'Quantity:', null, null);
-  const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity', null, null, null);
-  for (let i = 1; i < 5; i++) {
-    appendElem(select, 'option', null, null, i, null, i);
-  }
   appendElem(innerDiv, 'p', null, 'stock', `Stock: ${stock}`, null, null);
-  appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
-  if (storePage === 'store') {
-    appendElem(card, 'a', null, 'store_btn', 'View Details', `/shop/item/?id=${id}`, null);
-  }
   console.log(card);
   page.lastChild.appendChild(card);
   return card;
