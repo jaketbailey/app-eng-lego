@@ -1,6 +1,7 @@
 
 export async function getData(input) {
   let actualInput = input.split('/');
+  console.log('testinput');
   console.log(actualInput);
   const page = actualInput[2];
   console.log(actualInput);

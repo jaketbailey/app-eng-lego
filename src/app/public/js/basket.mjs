@@ -30,8 +30,7 @@ export default async function createBasket(user) {
   }
 }
 
-export async function addToBasket(productId) {
-  console.log('test');
+export async function addToBasket(productId, page) {
   const userDetails = callServer();
   let customerId = localStorage.getItem('customerId');
   if (customerId === null) {
@@ -40,7 +39,12 @@ export async function addToBasket(productId) {
   }
   const order = await checkExists(customerId);
   const getProduct = await (await fetch(`/block/api/shop/item/${productId}`)).json();
-  const quantity = document.getElementById(`quantity-${productId}`).value;
+  let quantity;
+  if (page === 'store') {
+    quantity = 1;
+  } else {
+    quantity = document.getElementById(`quantity-${productId}`).value;
+  }
   console.log(quantity);
   console.log(getProduct);
   console.log(order);
