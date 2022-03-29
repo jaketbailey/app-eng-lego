@@ -122,7 +122,7 @@ async function getTotalCost(id, productId, basket, quantity, remove) {
   console.log(basket);
   try {
     const response = await fetch(`/block/api/get-total-cost/${basket}`);
-    const result = await response.body();
+    const result = await response.json();
     console.log(result);
     const totalCost = result[0].total_cost;
     updatePageCost(id, productId, totalCost, basket, quantity, remove);
