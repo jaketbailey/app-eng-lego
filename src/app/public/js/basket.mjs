@@ -69,7 +69,7 @@ export async function addToBasket(productId, page) {
       data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
       data.price = (parseFloat(data.price) * parseFloat(data.quantity));
       console.log(`new quantity: ${data.quantity}`);
-      response = await fetch('/block/api/update-basket-item/', {
+      response = await fetch('/block/api/update-order-detail/', {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

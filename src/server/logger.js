@@ -6,6 +6,7 @@ colors.setTheme({
   Error: 'red',
   Database: 'cyan',
   Express: 'magenta',
+  Request: 'blue',
 });
 
 export const Info = (...args) => {
@@ -25,5 +26,9 @@ export const Database = (...args) => {
 };
 
 export const Express = (...args) => {
-  console.log(`${'[EXPRESS]'.Express} ${args}`);
+  if (args[1]) {
+    console.log(`${'[EXPRESS]'.Express} ${`[${args[1]}]`.Request} ${args[0]}`);
+  } else {
+    console.log(`${'[EXPRESS]'.Express} ${args[0]}`);
+  }
 };
