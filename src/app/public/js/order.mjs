@@ -1,6 +1,7 @@
 import { getBasket } from './checkout.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
+import errorCheck from './error.mjs';
 
 async function loadFinalCheckout() {
   let customerId = localStorage.getItem('customerId');
@@ -17,13 +18,17 @@ async function getOrder(customerId) {
   console.log(basket);
   const shippingAddress = basket[0].order_address.split(', ');
   const total = basket[0].total_cost;
-  const customerData = await fetch(`/get-user-name/${customerId}`);
-  const customer = await customerData.json();
-  console.log(customer);
-  console.log(shippingAddress);
-  console.log(total);
-  updateOrder(basket[0].id);
-  addToPage(customer, shippingAddress, total);
+  try {
+    const customerData = await fetch(`/get-user-name/${customerId}`);
+    const customer = await customerData.json();
+    console.log(customer);
+    console.log(shippingAddress);
+    console.log(total);
+    updateOrder(basket[0].id);
+    addToPage(customer, shippingAddress, total);
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 function addToPage(customerData, shippingAddress, total) {
@@ -57,15 +62,17 @@ async function updateOrder(id) {
     id: id,
     status: 'Completed',
   };
-  const response = await fetch('/block/api/update-order/', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    method: 'PUT',
-  });
-  const result = await response.json();
-  console.log(result);
+  try {
+    await fetch('/block/api/update-order/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      method: 'PUT',
+    });
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 window.addEventListener('load', loadFinalCheckout);

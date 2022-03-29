@@ -45,49 +45,12 @@
             </h2>
             <div style="text-align: center;">
                 <form id="searchForm" action="/shop/filter" method="GET">
-                    <input style="width: 20%; font-size: 1em;"type="text" name="search" placeholder="Search..">
-                    <button type="submit" class="button" style="font-size: 1em;">Search</button>
+                    <input id="searchBox" type="text" name="search" placeholder="Search..">
+                    <button type="submit" class="button">Search</button>
+                </form>
             </div>
-            <div class="parent_main" id="main" style="align-items: center;">
-                <div id="filter_div"style="width: 10%; align-self: flex-start;">
-                    <h3 class="filter_title" style="text-align: right;">
-                        Filter by:
-                    </h3><br>
-                    <form id="filter-form" action="/shop/filter" method="get">
-                        <label class="filters" for="filter-blue">Blue</label>
-                        <input type="checkbox" id="filter-blue" name="filter" value="blue" unchecked><br><br>
-                        <label class="filters" for="filter-black">Black</label>
-                        <input type="checkbox" id="filter-black" name="filter" value="black" unchecked><br><br>
-                        <label class="filters" for="filter-pink">Pink</label>
-                        <input type="checkbox" id="filter-pink" name="filter" value="pink" unchecked><br><br>
-                        <label class="filters" for="filter-purple">Purple</label>
-                        <input type="checkbox" id="filter-purple" name="filter" value="purple" unchecked><br><br>
-                        <label class="filters" for="filter-white">White</label>
-                        <input type="checkbox" id="filter-white" name="filter" value="white" unchecked><br><br>
-                        <label class="filters" for="filter-grey">Grey</label>
-                        <input type="checkbox" id="filter-grey" name="filter" value="grey" unchecked><br><br>
-                        <label class="filters" for="filter-green">Green</label>
-                        <input type="checkbox" id="filter-green" name="filter" value="green" unchecked><br><br>
-                        <label class="filters" for="filter-brick">Brick</label>
-                        <input type="checkbox" id="filter-brick" name="filter" value="brick" unchecked><br><br>
-                        <label class="filters" for="filter-plate">Plate</label>
-                        <input type="checkbox" id="filter-plate" name="filter" value="plate" unchecked><br><br>
-                        <label class="filters" for="filter-set">Set</label>
-                        <input type="checkbox" id="filter-set" name="filter" value="set" unchecked><br><br>
-                        <label class="filters" for="filter-1x2">1x2</label>
-                        <input type="checkbox" id="filter-1x2" name="filter" value="1x2" unchecked><br><br>
-                        <label class="filters" for="filter-1x8">1x8</label>
-                        <input type="checkbox" id="filter-1x8" name="filter" value="1x8" unchecked><br><br>
-                        <label class="filters" for="filter-2x2">2x2</label>
-                        <input type="checkbox" id="filter-2x2" name="filter" value="2x2" unchecked><br><br>
-                        <label class="filters" for="filter-2x4">2x4</label>
-                        <input type="checkbox" id="filter-2x4" name="filter" value="2x4" unchecked><br><br>
-                        <label class="filters" for="filter-4x8">4x8</label>
-                        <input type="checkbox" id="filter-4x8" name="filter" value="4x8" unchecked><br><br>
-                        <button class="button" id="submit-filter" style="padding: 10px;">Submit</button>
-                    </form>
-                </div>  
-                <div style="width: 90%;">
+            <div class="parent_main" id="main"> 
+                <div>
                     <div class="parent" id="page" style="align-items: center;">                                       
                     </div>      
                 </div> 

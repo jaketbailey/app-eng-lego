@@ -3,6 +3,7 @@ import * as Logger from '../logger.js';
 
 export const removeBasketItem = (req, res) => {
   const { id } = req.body;
+  Logger.Express('/block/api/remove-basket-item/', 'PUT');
   Logger.Database(`Removing basket item ${id}`);
   Pool.query(`
     DELETE FROM order_details
@@ -19,6 +20,7 @@ export const removeBasketItem = (req, res) => {
 
 export const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
+  Logger.Express('/block/api/delete-user/', 'PUT');
   Logger.Database(`Deleting user: ${id}`);
   Pool.query(`
     DELETE FROM order_details

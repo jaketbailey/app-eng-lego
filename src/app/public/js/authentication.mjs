@@ -1,25 +1,33 @@
 import loadAccountPage from './account.mjs';
 import { createUser, getBasketId, deleteUser } from './user.mjs';
 import generateUnregistered from './unregistered.mjs';
+import errorCheck from './error.mjs';
+
 async function fetchConfig() {
-  const response = await fetch('/block/api/auth-config');
-  const config = await response.json();
-  return config;
+  try {
+    const response = await fetch('/block/api/auth-config');
+    const config = await response.json();
+    return config;
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 let auth0 = null;
 
 async function initialiseClient() {
   const config = await fetchConfig();
-  console.log(config);
-  console.log('this config');
-  // eslint-disable-next-line no-undef
-  auth0 = await createAuth0Client({
-    domain: config.domain,
-    client_id: config.clientId,
-    audience: config.audience,
-  });
-  return auth0;
+  try {
+    // eslint-disable-next-line no-undef
+    auth0 = await createAuth0Client({
+      domain: config.domain,
+      client_id: config.clientId,
+      audience: config.audience,
+    });
+    return auth0;
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function updateUI() {
@@ -119,7 +127,7 @@ export async function callServer() {
 
   // handle the response
   const data = await response.json();
-  console.log(data);
+  console.info(data);
   return data;
 }
 

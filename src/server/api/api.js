@@ -35,7 +35,6 @@ export default function () {
   app.put('/block/api/add-total-cost/', jsonParser, putDb.addTotalCost);
   app.put('/block/api/add-shipping-address/', jsonParser, putDb.addShippingAddress);
   app.put('/block/api/update-order/', jsonParser, putDb.updateOrder);
-  app.put('/block/api/update-basket-item/', jsonParser, putDb.updateOrderDetail);
   app.put('/block/api/update-order-detail/', jsonParser, putDb.updateOrderDetail);
 
   // All DELETE requests to delete data from the database

@@ -6,24 +6,29 @@ colors.setTheme({
   Error: 'red',
   Database: 'cyan',
   Express: 'magenta',
+  Request: 'blue',
 });
 
 export const Info = (...args) => {
-  console.log(`[INFO] ${args}`.Info);
+  console.log(`${'[INFO]'.Info} ${args}`);
 };
 
 export const Warn = (...args) => {
-  console.log(`[WARN] ${args}`.Warn);
+  console.log(`${'[WARN]'.Warn} ${args}`);
 };
 
 export const Error = (...args) => {
-  console.log(`[ERROR] ${args}`.Error);
+  console.log(`${'[ERROR]'.Error} ${args}`);
 };
 
 export const Database = (...args) => {
-  console.log(`[DATABASE] ${args}`.Database);
+  console.log(`${'[DATABASE]'.Database} ${args}`);
 };
 
 export const Express = (...args) => {
-  console.log(`[EXPRESS] ${args}`.Express);
+  if (args[1]) {
+    console.log(`${'[EXPRESS]'.Express} ${`[${args[1]}]`.Request} ${args[0]}`);
+  } else {
+    console.log(`${'[EXPRESS]'.Express} ${args[0]}`);
+  }
 };

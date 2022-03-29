@@ -1,7 +1,6 @@
 import { updateUser, getUser } from './user.mjs';
 
 export default function loadAccountPage(user) {
-  console.log(user);
   const main = document.getElementById('main');
   const box = document.getElementById('main_box');
   const image = document.createElement('img');
@@ -18,11 +17,9 @@ export default function loadAccountPage(user) {
   main.prepend(email);
   const address = document.createElement('p');
   address.className = 'p_accounts';
-  console.log(user.sub);
   const userData = getUser(user.sub);
   userData.then((res) => {
     const check = res.address_line_1;
-    console.log(`check: ${check}`);
     if (check !== null) {
       address.appendChild(document.createElement('hr'));
       address.appendChild(document.createTextNode('Address: '));
@@ -78,9 +75,7 @@ function updateAddress(user) {
     }
   }
   if (checkVal) {
-    console.log(address);
     const button = document.getElementById('submit_address');
-    console.log(button);
     button.className = 'button_success';
     button.innerHTML = 'Address Updated';
     setTimeout(function () {

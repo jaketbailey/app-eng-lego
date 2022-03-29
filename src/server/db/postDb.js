@@ -4,6 +4,7 @@ import Pool from './connectDb.js';
 export const createUser = (req, res) => {
   const { sub, name, email } = req.body;
   const names = name.split(' ');
+  Logger.Express('/block/api/create-user/', 'POST');
   Logger.Database(`Creating user: ${sub}`);
   Pool.query(`INSERT INTO customers (
       id, email, first_name, last_name, phone, address_line_1, address_line_2, city, county, postcode, country
@@ -26,6 +27,7 @@ export const createBasket = (req, res) => {
   const month = dateOb.getMonth() + 1;
   const year = dateOb.getFullYear();
   const today = `${year}-${month}-${date}`;
+  Logger.Express('/block/api/create-basket/', 'POST');
   Logger.Database(`Creating basket for user: ${customerId}`);
   Pool.query(`
     INSERT INTO orders (
@@ -44,6 +46,7 @@ export const createBasket = (req, res) => {
 
 export const addToBasket = (req, res) => {
   const { id, productId, price, quantity } = req.body;
+  Logger.Express('/block/api/add-to-basket/', 'POST');
   Logger.Database(`Adding ${quantity} of product (${productId}) to basket (${id})`);
   Pool.query(`
     INSERT INTO order_details (

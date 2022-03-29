@@ -2,6 +2,7 @@
 import auth0 from './authentication.js';
 import express from 'express';
 import * as Logger from '../logger.js';
+import bodyParser from 'body-parser';
 
 const port = 8080;
 export const app = express();
@@ -10,7 +11,15 @@ export const app = express();
 this starts the webserver using express and  statically serves the directory for the
 web application  */
 export default function () {
+  const jsonParser = bodyParser.json();
   app.use(express.static('../app/'));
+
+  app.post('/block/api/error/', jsonParser, (req, res) => {
+    const { message, stack } = req.body;
+    Logger.Error(`Message: ${message}, Stack: ${stack}`);
+    res.status(201).send(req.body);
+  });
+
   auth0(app);
 
   app.listen(port, err => {

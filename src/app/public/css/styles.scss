@@ -186,7 +186,7 @@ a {
     background-color: #111122;
     padding: 0.7em;
     color: #F5F5F5;
-    border-radius: 0.2em;
+    border-radius: 0.1em;
     font-family: 'Sen', sans-serif;
     font-size: 0.5em;
 }
@@ -239,12 +239,13 @@ a {
     font-family: 'Sen', sans-serif;
     font-size: 0.8em;
     color: #31393c;
-    background-color: #d3d3d3;
+    border: #d3d3d3 solid 1px;
+    // border-color: #d3d3d3;
     padding: 1em;
-    border-radius: 0.5em;
-    margin-bottom: 1em;
-    height: auto;
-    width: 12em;
+    // border-radius: 0.5em;
+    // margin-bottom: 1em;
+    height: 100%;
+    width: auto;
 }
 
 .card-body, .page-body {
@@ -312,7 +313,7 @@ p {
     border-style: dashed;
     border-color: #fff;
     border-radius: 7px;
-    width: 9em;
+    width: 11em;
 }
 
 .checkout {
@@ -322,7 +323,7 @@ p {
     width: 3em;
 }
 
-.store_btn, .add_btn {
+.store_btn{
     background-color: #111122;
     padding: 0.7em;
     color: #F5F5F5;
@@ -334,13 +335,27 @@ p {
     font-weight: 100; 
 }
 
+.add_btn {
+    background-color: #111122;
+    padding: 0.7em;
+    color: #F5F5F5;
+    border-radius: 0.2em;
+    font-size: 0.6em;
+    margin-top: 0.3em;
+    color: #F5F5F5;
+    font-family: 'Sen', sans-serif;
+    font-weight: 100; 
+    width: 100%;
+}
+
 .add_btn_fail {
     background-color: #490101;
     padding: 0.7em;
     color: #F5F5F5;
     border-radius: 0.2em;
     font-size: 0.6em;
-    margin: 0.7em;
+    width: 100%;
+    margin-top: 0.3em;
     color: #F5F5F5;
     font-family: 'Sen', sans-serif;
     font-weight: 100; 
@@ -352,7 +367,8 @@ p {
     color: #F5F5F5;
     border-radius: 0.2em;
     font-size: 0.6em;
-    margin: 0.7em;
+    width: 100%;
+    margin-top: 0.3em;
     color: #F5F5F5;
     font-family: 'Sen', sans-serif;
     font-weight: 100; 
@@ -490,6 +506,10 @@ input[type=text], select {
     }
 }
 
+#searchBox {
+    width: 20%; 
+    font-size: 1em;
+}
 
 @media screen and (max-width:1400px) {
 
@@ -501,7 +521,11 @@ input[type=text], select {
         height: auto;
     }
     
-    
+    #searchBox {
+        width: 70%; 
+        font-size: 2em;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -544,9 +568,13 @@ input[type=text], select {
     }
 
     .store_btn, .add_btn, .add_btn_success, .add_btn_fail {
-        font-size: 1em;
+        font-size: 0.5em;
         padding: 0.5em;
-        width: 8em;
+        width: 100%;
+    }
+
+    .store {
+        width: 35em;
     }
 
     .parent {
@@ -625,9 +653,10 @@ input[type=text], select {
         background-color: #111122;
         // padding: 20px;
         color: #F5F5F5;
-        border-radius: 1rem;
+        border-radius: 0.3rem;
+        padding: 1.2em;
         font-family: 'Sen', sans-serif;
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
     .button_remove_success {
@@ -647,13 +676,9 @@ input[type=text], select {
         font-family: 'Sen', sans-serif;
         font-size: 2em;
         color: #31393c;
-        background-color: #d3d3d3;
-        padding: 1em;
-        border-radius: 0.5em;
-        margin-bottom: 1em;
-        margin-left: 2em;
+        border: #d3d3d3 solid 1px;
         height: auto;
-        width: 12em;
+        width: auto;
     }
 
     .parent2 {
@@ -680,23 +705,6 @@ input[type=text], select {
         margin-bottom: 1em;
     }
 
-    input[type=text], select {
-        width: 100%;
-        font-family: 'Sen', sans-serif;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 0.9em;
-    }
-
-    input[type=checkbox] {
-        width: 2em;
-        height: 2em;
-    }
-
     .p_basket, .p_accounts, .p_basket_2 {
         font-size: 1.2em;
     }
@@ -718,8 +726,8 @@ input[type=text], select {
         text-align: center;
     }
     #filter_div{
-        margin-right: 2.2em;
-        text-align: center;
+        visibility: hidden; 
+        display: none;
     }
 
     .p_main {
