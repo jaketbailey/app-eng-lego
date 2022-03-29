@@ -1,6 +1,5 @@
 import { getData, appendElem } from './store.mjs';
 import checkForAdd from './add.mjs';
-import errorCheck from './error.mjs';
 
 const load = () => {
   console.log('test');

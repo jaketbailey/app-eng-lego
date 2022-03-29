@@ -8,31 +8,35 @@ export async function getData(input) {
   console.log(actualInput);
   const finalOutput = [];
   let res;
-  if (page === 'all') {
-    actualInput = actualInput[2];
-    res = await fetch(`/block/api/shop/${page}`);
-    const data = await res.json();
-    for (let i = 0; i < data.length; i++) {
-      finalOutput.push(data[i]);
-    }
-  } else {
-    actualInput = actualInput[3];
-    actualInput = actualInput.split(',');
-    for (let i = 0; i < actualInput.length; i++) {
-      console.log(actualInput.length);
-      console.log(`/shop/${page}/${actualInput[i]}`);
-      console.log(page);
-      console.log(actualInput[i]);
-      res = await fetch(`/block/api/shop/${page}/${actualInput[i]}`);
+  try {
+    if (page === 'all') {
+      actualInput = actualInput[2];
+      res = await fetch(`/block/api/shop/${page}`);
       const data = await res.json();
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
         finalOutput.push(data[i]);
       }
+    } else {
+      actualInput = actualInput[3];
+      actualInput = actualInput.split(',');
+      for (let i = 0; i < actualInput.length; i++) {
+        console.log(actualInput.length);
+        console.log(`/shop/${page}/${actualInput[i]}`);
+        console.log(page);
+        console.log(actualInput[i]);
+        res = await fetch(`/block/api/shop/${page}/${actualInput[i]}`);
+        const data = await res.json();
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          finalOutput.push(data[i]);
+        }
+      }
+      console.log(finalOutput);
     }
-    console.log(finalOutput);
+    return finalOutput;
+  } catch (err) {
+    errorCheck(err);
   }
-  return finalOutput;
 }
 
 export function appendElem(parent, type, id, className, text, src, value) {
