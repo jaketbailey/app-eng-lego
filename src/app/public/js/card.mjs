@@ -1,12 +1,9 @@
 import { getData, appendElem } from './store.mjs';
 import checkForAdd from './add.mjs';
 import { filter, search } from './filters.mjs';
-import errorCheck from './error.mjs';
 
 export const createCard = (id, name, desc, img, price, stock) => {
-  // throw new Error('Not implemented');
   const page = document.getElementById('page');
-  
   const outerDiv = document.createElement('div');
   outerDiv.classList.add('outerCard');
   page.appendChild(outerDiv);

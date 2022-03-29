@@ -1,5 +1,4 @@
 import { updateUser, getUser } from './user.mjs';
-import errorCheck from './error.mjs';
 
 export default function loadAccountPage(user) {
   const main = document.getElementById('main');

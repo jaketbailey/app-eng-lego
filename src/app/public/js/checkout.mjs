@@ -10,22 +10,34 @@ export async function getBasket() {
     customerId = userDetails.sub;
     localStorage.removeItem('customerId');
   }
-  const response = await fetch(`/block/api/check-exists/${customerId}`);
-  const result = await response.json();
-  return result;
+  try {
+    const response = await fetch(`/block/api/check-exists/${customerId}`);
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function getBasketItems(basket) {
   const basketId = basket[0].id;
-  const response = await fetch(`/block/api/get-basket-items/${basketId}`);
-  const result = await response.json();
-  return result;
+  try {
+    const response = await fetch(`/block/api/get-basket-items/${basketId}`);
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function getProductById(id) {
-  const response = await fetch(`/block/api/shop/item/${id}`);
-  const result = await response.json();
-  return result;
+  try {
+    const response = await fetch(`/block/api/shop/item/${id}`);
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function addTotalCost(id, total) {
@@ -33,15 +45,17 @@ async function addTotalCost(id, total) {
     id: id,
     total: total,
   };
-  const response = await fetch('/block/api/add-total-cost/', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    method: 'PUT',
-  });
-  const result = await response.json();
-  console.log(result);
+  try {
+    await fetch('/block/api/add-total-cost/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      method: 'PUT',
+    });
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 function addCheckoutItem(product, id, quantity) {
@@ -90,25 +104,31 @@ async function getUserAddress() {
 }
 
 async function removeOrderDetail(id, productId, basket, quantity) {
-  const response = await fetch('/block/api/remove-basket-item/', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: id }),
-    method: 'DELETE',
-  });
-  await getTotalCost(id, productId, basket, quantity, true);
-  const result = await response.json();
-  console.log(result);
+  try {
+    await fetch('/block/api/remove-basket-item/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id }),
+      method: 'DELETE',
+    });
+    await getTotalCost(id, productId, basket, quantity, true);
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function getTotalCost(id, productId, basket, quantity, remove) {
   console.log(basket);
-  const response2 = await fetch(`/block/api/get-total-cost/${basket}`);
-  const result = await response2.json();
-  console.log(result);
-  const totalCost = result[0].total_cost;
-  updatePageCost(id, productId, totalCost, basket, quantity, remove);
+  try {
+    const response = await fetch(`/block/api/get-total-cost/${basket}`);
+    const result = await response.body();
+    console.log(result);
+    const totalCost = result[0].total_cost;
+    updatePageCost(id, productId, totalCost, basket, quantity, remove);
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
@@ -154,15 +174,8 @@ function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
 }
 
 async function updateStock(e, id, quantity, basket, removeQuantity, price) {
-  console.log(parseFloat(removeQuantity, 10));
-  console.log(quantity);
-  console.log(parseFloat(price));
   const newQuantity = parseFloat(quantity) - parseFloat(removeQuantity);
   const newPrice = (parseFloat(price) / parseFloat(quantity)) * parseFloat(newQuantity);
-
-  console.log(`${newQuantity} £${newPrice}`);
-  console.log(newQuantity);
-  console.log(newPrice);
   const data = {
     productId: id,
     quantity: removeQuantity,
@@ -179,17 +192,18 @@ async function updateStock(e, id, quantity, basket, removeQuantity, price) {
   }
 }
 
-async function addToStock(data, id) {
-  const response = await fetch('/block/api/add-to-stock/', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    method: 'PUT',
-  });
-  console.log(id);
-  const result = await response.json();
-  console.log(result);
+async function addToStock(data) {
+  try {
+    await fetch('/block/api/add-to-stock/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      method: 'PUT',
+    });
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function basketLoad() {
@@ -198,7 +212,6 @@ async function basketLoad() {
   let totalCost = 0;
   for (let i = 0; i < basketItems.length; i++) {
     const product = await getProductById(basketItems[i].product_id);
-    console.log(product);
     addCheckoutItem(product, basketItems[i].id, basketItems[i].quantity);
     totalCost = ((totalCost * 1000) + ((product[0].price * 1000) * basketItems[i].quantity)) / 1000;
   }
@@ -214,34 +227,23 @@ async function basketLoad() {
   getUserAddress();
   const remove = document.querySelectorAll('.button_remove');
   let quantity = 0;
-  let productId;
-  let item;
-  let basketId;
-  let price;
-  let removeQuantity;
+  let productId, item, basketId, price, removeQuantity;
   for (let i = 0; i < remove.length; i++) {
     remove[i].addEventListener('click', async () => {
       const basketItemsNew = await getBasketItems(basket);
       for (let j = 0; j < basketItemsNew.length; j++) {
         if (basketItemsNew[j].id === parseInt(remove[i].id)) {
           item = remove[i].id;
-          console.log(item);
           removeQuantity = document.getElementById(`quantity-${item}`).value;
-          console.log(item);
-          console.log('random stuff here test');
           price = basketItemsNew[j].price;
           quantity = basketItemsNew[j].quantity;
-          console.log(`${price} ${quantity}`);
-          console.log(removeQuantity);
           productId = basketItemsNew[j].product_id;
           basketId = basket[0].id;
         }
       }
       await updateStock(item, productId, quantity, basketId, removeQuantity, price);
     });
-    console.log(item);
   }
-  console.log('hellotest');
   await shippingAddress();
 }
 
@@ -299,7 +301,6 @@ async function shippingAddress() {
         };
       }
     }
-    console.log(shippingAddress);
     addressBtn.textContent = 'Shipping Address Updated';
     addressBtn.className = 'button_success';
     addressBtn.setAttribute('disabled', 'true');
@@ -308,15 +309,17 @@ async function shippingAddress() {
 }
 
 async function storeShippingAddress(shippingAddress) {
-  const response = await fetch('/block/api/add-shipping-address/', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(shippingAddress),
-    method: 'PUT',
-  });
-  const result = await response.json();
-  console.log(result);
+  try {
+    await fetch('/block/api/add-shipping-address/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(shippingAddress),
+      method: 'PUT',
+    });
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 async function updateOrderDetail(e, productId, orderId, newQuantity, newPrice) {
@@ -326,16 +329,18 @@ async function updateOrderDetail(e, productId, orderId, newQuantity, newPrice) {
     price: newPrice,
     quantity: newQuantity,
   };
-  const response = await fetch('/block/api/update-order-detail/', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    method: 'PUT',
-  });
-  await getTotalCost(e, productId, orderId, newQuantity, false);
-  const result = await response.json();
-  console.log(result);
+  try {
+    await fetch('/block/api/update-order-detail/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      method: 'PUT',
+    });
+    await getTotalCost(e, productId, orderId, newQuantity, false);
+  } catch (err) {
+    errorCheck(err);
+  }
 }
 
 window.addEventListener('load', basketLoad);
