@@ -1,6 +1,7 @@
 import { createUser } from './user.mjs';
 import createBasket from './basket.mjs';
 import { callServer } from './authentication.mjs';
+import errorCheck from './error.mjs';
 
 const charList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const charLength = charList.length;

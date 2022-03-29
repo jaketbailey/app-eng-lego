@@ -1,4 +1,5 @@
 import { addToBasket } from './basket.mjs';
+import errorCheck from './error.mjs';
 
 export default function (page) {
   const addBtn = document.querySelectorAll('.add_btn');

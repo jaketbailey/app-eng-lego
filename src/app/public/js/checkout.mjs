@@ -1,6 +1,7 @@
 import { getUser } from './user.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
+import errorCheck from './error.mjs';
 
 export async function getBasket() {
   const userDetails = callServer();

@@ -1,4 +1,5 @@
 import { callServer } from './authentication.mjs';
+import errorCheck from './error.mjs';
 
 async function checkExists(id) {
   const response = await fetch(`/block/api/check-exists/${id}`);
@@ -45,23 +46,28 @@ export async function addToBasket(productId, page) {
   } else {
     quantity = document.getElementById(`quantity-${productId}`).value;
   }
-  console.log(quantity);
-  console.log(getProduct);
-  console.log(order);
   let data = {};
-  console.log(order[0].id);
-  data = {
-    id: order[0].id,
-    productId: productId,
-    price: getProduct[0].price,
-    quantity: quantity,
-  };
+  try {
+    data = {
+      id: order[0].id,
+      productId: productId,
+      price: getProduct[0].price,
+      quantity: quantity,
+    };
+  } catch (err) {
+    errorCheck(err);
+  }
   const checkStock = await getStock(productId, false);
   console.log(checkStock);
   console.log(productId);
   if (checkStock[0].stock > 0 && (checkStock[0].stock - quantity) >= 0) {
     const check = await fetch(`/block/api/check-order-detail/${productId}-${data.id}`);
-    const orderDetail = await check.json();
+    let orderDetail;
+    try {
+      orderDetail = await check.json();
+    } catch (err) {
+      errorCheck(err);
+    }
     let updateData;
     let response;
     console.log(orderDetail);

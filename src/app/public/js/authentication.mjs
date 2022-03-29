@@ -1,6 +1,8 @@
 import loadAccountPage from './account.mjs';
 import { createUser, getBasketId, deleteUser } from './user.mjs';
 import generateUnregistered from './unregistered.mjs';
+import errorCheck from './error.mjs';
+
 async function fetchConfig() {
   const response = await fetch('/block/api/auth-config');
   const config = await response.json();

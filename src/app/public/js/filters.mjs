@@ -1,3 +1,5 @@
+import errorCheck from './error.mjs';
+
 export async function filter(filter) {
   const response = await fetch(`/block/api/type-filters/${filter.join('_')}/`);
   const result = await response.json();

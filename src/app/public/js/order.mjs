@@ -1,6 +1,7 @@
 import { getBasket } from './checkout.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
+import errorCheck from './error.mjs';
 
 async function loadFinalCheckout() {
   let customerId = localStorage.getItem('customerId');

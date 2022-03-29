@@ -1,3 +1,4 @@
+import errorCheck from './error.mjs';
 
 export async function getData(input) {
   let actualInput = input.split('/');
