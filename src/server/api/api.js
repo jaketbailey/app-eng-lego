@@ -1,8 +1,8 @@
 const Server = require('../core/webServer.js');
-const getDb = require('../db/getDb.js');
-const postDb = require('../db/postDb.js');
-const putDb = require('../db/putDb.js');
-const deleteDb = require('../db/deleteDb.js');
+const getDb = require('./getDb.js');
+const postDb = require('./postDb.js');
+const putDb = require('./putDb.js');
+const deleteDb = require('./deleteDb.js');
 const Logger = require('../logger.js');
 const bodyParser = require('body-parser');
 

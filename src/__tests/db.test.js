@@ -1,27 +1,30 @@
 /* eslint-disable */ 
-import * as getDb from '../server/db/getDb.js';
+const getDb = require('../server/db/getDb.js');
 
 test('Sanity Check', () => {
   expect(1 + 1).toBe(2);
 });
 
-test('Get User', async () => {
-  const id = 'testuser-testuser';
-  const expected = {
-    phone: '07712345678',
-    address_line_1: '1 Test Street',
-    address_line_2: 'Testland',
-    city: 'Testington',
-    county: 'Testington',
-    postcode: 'TE11ST',
-    country: 'Testland',
-  };
-  const req = { params: { id } }; 
-  const response = getDb.getUser(req);
-  // console.log(response);
-  const result = response;
-  expect(result).toBe(expected);
-
+describe('getDb', () => {
+  const id = 'testuser-testuser'; 
+  test('Get User', () => {
+    const req = { params: { id }  }; 
+    const res = { json: '',
+      status: function (input) { this.json = input }
+    }
+    const expected = {
+      phone: '07712345678',
+      address_line_1: '1 Test Street',
+      address_line_2: 'Testland',
+      city: 'Testington',
+      county: 'Testington',
+      postcode: 'TE11ST',
+      country: 'Testland',
+    };
+    getDb.getUser(req, res);
+    // const result = response.text;
+    expect(res.json).toBe(expected);
+  });
 });
 
 // const DoMaths = (a, b) => a + b;

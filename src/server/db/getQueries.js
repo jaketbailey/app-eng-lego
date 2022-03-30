@@ -1,38 +1,45 @@
 const Pool = require('./connectDb.js');
 const Logger = require('../logger.js');
 
-const getAllProducts = (req, res) => {
-  Logger.Express('/block/api/shop/all', 'GET');
+const getAllProducts = async () => {
   Logger.Database('Getting all products');
-  Pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
-    if (err) {
+  const data = [];
+  await Pool.query('SELECT * FROM products ORDER BY price DESC')
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const getProductById = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  Logger.Express(`/block/api/shop/item/${id}`, 'GET');
+const getProductById = async (id) => {
+  id = parseInt(id, 10);
   Logger.Database(`Getting product with ID: ${id}`);
+  const data = [];
   if (!isNaN(id)) {
-    Pool.query('SELECT * FROM products WHERE id = $1', [id], (err, results) => {
-      if (err) {
+    await Pool.query('SELECT * FROM products WHERE id = $1', [id])
+      .then((results) => {
+        for (const item of results.rows) {
+          data.push(item);
+        }
+      })
+      .catch((err) => {
         Logger.Error(err);
         throw err;
-      }
-      res.status(200).json(results.rows);
-    });
+      });
+    return data;
   }
 };
 
-const getUser = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/get-user/${id}`, 'GET');
+const getUser = async (id) => {
   Logger.Database(`Getting user with ID: ${id}`);
-  Pool.query(`
+  const data = [];
+  await Pool.query(`
     SELECT
       phone,
       address_line_1,
@@ -43,93 +50,107 @@ const getUser = (req, res) => {
       country
     FROM 
       customers 
-    WHERE id = '${id}'`, (err, results) => {
-    if (err) {
+    WHERE id = '${id}'`)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-    return results.rows;
-  });
+    });
+  return data;
 };
 
-const checkExists = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/check-exists/${id}`, 'GET');
+const checkExists = async (id) => {
   Logger.Database(`Checking if order with customer ID: ${id} exists`);
-  Pool.query(`
+  const data = [];
+  await Pool.query(`
     SELECT * FROM orders WHERE customer_id = '${id}' AND order_status = 'pending'
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const getBasketItems = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/get-basket-items/${id}`, 'GET');
+const getBasketItems = async (id) => {
   Logger.Database(`Getting basket items for user with ID: ${id}`);
-  Pool.query(`
+  const data = [];
+  await Pool.query(`
     SELECT
       *
     FROM
       order_details
     WHERE order_id = '${id}'
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const getStock = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/get-stock/${id}`, 'GET');
+const getStock = async (id) => {
   Logger.Database(`Getting stock for product with ID: ${id}`);
-  Pool.query(`
+  const data = [];
+  await Pool.query(`
     SELECT
       stock
     FROM
       products
     WHERE id = '${id}'
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const getTotalCost = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/get-total-cost/${id}`, 'GET');
+const getTotalCost = async (id) => {
   Logger.Database(`Getting total cost for order with ID: ${id}`);
-  Pool.query(`
+  const data = [];
+  await Pool.query(`
     SELECT
       total_cost
     FROM
       orders
     WHERE id = '${id}'
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const getUserName = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/get-user-name/${id}`, 'GET');
+const getUserName = async (id) => {
   Logger.Database(`Getting user name for order with ID: ${id}`);
-  Pool.query(`
+  const data = [];
+  await Pool.query(`
     SELECT
       first_name,
       last_name,
@@ -138,37 +159,43 @@ const getUserName = (req, res) => {
     FROM
       customers
     WHERE id = '${id}'
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const getBasketId = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/get-basket/${id}`, 'GET');
+const getBasketId = async (id) => {
   Logger.Database(`Getting basket ID for customer with ID: ${id}`);
-  Pool.query(`
-  SELECT id
-  FROM orders
-  WHERE customer_id = '${id}'
-  `, (err, results) => {
-    if (err) {
+  const data = [];
+  await Pool.query(`
+    SELECT id
+    FROM orders
+    WHERE customer_id = '${id}'
+  `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
 
-const getProductByFilter = (req, res) => {
-  const { filter } = req.params;
-  Logger.Express(`/block/api/type-filters/${filter}`, 'GET');
+const getProductByFilter = async (filter) => {
   Logger.Database(`Getting products with filter: ${filter}`);
+  let data;
   const newFilter = filter.split('_');
   const types = ['brick', 'plate', '1x2', '1x8', '2x2', '2x4', '4x8'];
   let check = false;
@@ -188,11 +215,10 @@ const getProductByFilter = (req, res) => {
       check = false;
     }
   }
-
   const finalResults = [];
   if (check === true) {
     for (let i = 0; i < newFilter.length; i++) {
-      Pool.query(`
+      data = await Pool.query(`
         SELECT
           *
         FROM
@@ -203,22 +229,24 @@ const getProductByFilter = (req, res) => {
           colours.colour_name = '${newFilter[i]}'
         AND 
           category LIKE '%${type}%'
-        `, (err, results) => {
-        if (err) {
+        `)
+        .then((results) => {
+          for (let j = 0; j < results.rows.length; j++) {
+            finalResults.push(results.rows[j]);
+          }
+          if (i === newFilter.length - 1) {
+            Logger.Info('Sending colour filter results');
+            return finalResults;
+          }
+        })
+        .catch((err) => {
+          Logger.Error(err);
           throw err;
-        }
-        for (let j = 0; j < results.rows.length; j++) {
-          finalResults.push(results.rows[j]);
-        }
-        if (i === newFilter.length - 1) {
-          Logger.Info('Sending colour filter results');
-          res.status(200).json(finalResults);
-        }
-      });
+        });
     }
   } else {
     for (let i = 0; i < newFilter.length; i++) {
-      Pool.query(`
+      data = await Pool.query(`
       SELECT 
         id,
         product_name,
@@ -232,52 +260,55 @@ const getProductByFilter = (req, res) => {
         JOIN colours ON  product_colours.colour_id = colours.colour_id 
     
       WHERE colours.colour_name = '${newFilter[i]}' OR products.category LIKE '%${newFilter[i]}%';
-      `, (err, results) => {
-        if (err) {
+      `)
+        .then((results) => {
+          for (let j = 0; j < results.rows.length; j++) {
+            finalResults.push(results.rows[j]);
+          }
+          if (i === newFilter.length - 1) {
+            Logger.Info('Returning filter results');
+            return finalResults;
+          }
+        })
+        .catch((err) => {
           Logger.Error(err);
           throw err;
-        }
-        for (let j = 0; j < results.rows.length; j++) {
-          finalResults.push(results.rows[j]);
-        }
-        if (i === newFilter.length - 1) {
-          Logger.Info('Returning filter results');
-          res.status(200).json(finalResults);
-        }
-      });
+        });
     }
   }
+  return data;
 };
 
-const checkOrderDetail = (req, res) => {
-  const id = req.params.id;
-  Logger.Express(`/block/api/check-order-detail/${id}`, 'GET');
+const checkOrderDetail = async (id) => {
   Logger.Database(`Checking if quantity for a product with ID: ${id} exists`);
+  const data = [];
   const productId = id.split('-')[0];
   const orderId = id.split('-')[1];
-  Pool.query(`
+  await Pool.query(`
     SELECT
       quantity
     FROM
       order_details
     WHERE product_id = '${productId}' AND order_id = '${orderId}'
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    Logger.Info('Returning product quantity results');
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
-const searchProduct = (req, res) => {
-  let search = req.params.search;
-  Logger.Express(`/block/api/search-product/${search}`, 'GET');
+const searchProduct = (search) => {
   if (search.includes('_')) {
     search = search.replace('_', ' ');
   }
   Logger.Database(`Searching for product similarities to: ${search}`);
+  const data = [];
   Pool.query(`
     SELECT
       *
@@ -295,14 +326,17 @@ const searchProduct = (req, res) => {
       UPPER(image_ref) LIKE UPPER('%${search}%')
       OR
       UPPER(colours.colour_name) LIKE UPPER('%${search}%')
-    `, (err, results) => {
-    if (err) {
+    `)
+    .then((results) => {
+      for (const item of results.rows) {
+        data.push(item);
+      }
+    })
+    .catch((err) => {
       Logger.Error(err);
       throw err;
-    }
-    Logger.Info('Returning search results');
-    res.status(200).json(results.rows);
-  });
+    });
+  return data;
 };
 
 module.exports = {
