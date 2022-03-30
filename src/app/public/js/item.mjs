@@ -19,10 +19,14 @@ const load = () => {
     appendElem(innerDiv, 'p', null, null, product.product_desc, null, null);
     appendElem(innerDiv, 'p', null, 'stock', `Stock: ${product.stock}`, null, null);
     const quantityParagraph = appendElem(innerDiv, 'p', null, null, 'Quantity:', null, null);
-    const select = appendElem(quantityParagraph, 'select', `quantity-${product.id}`, 'quantity', null, null, null);
-    for (let i = 1; i < 5; i++) {
-      appendElem(select, 'option', null, null, i, null, i);
-    }
+    const quantityInput = document.createElement('input');
+    quantityInput.setAttribute('type', 'number');
+    quantityInput.setAttribute('min', '1');
+    quantityInput.setAttribute('max', '10');
+    quantityInput.setAttribute('value', '1');
+    quantityInput.setAttribute('id', `quantity-${product.id}`);
+    quantityInput.setAttribute('class', 'quantity');
+    quantityParagraph.appendChild(quantityInput);
     appendElem(item, 'button', `add-${product.id}`, 'add_btn', 'Add to Basket', null, null);
     const img = document.createElement('img');
     img.src = `/public/images/store/${product.image_ref}.jpg`;
@@ -31,3 +35,4 @@ const load = () => {
 };
 
 window.addEventListener('load', load);
+// appendElem(parent, type, id, className, text, src, value)

@@ -68,10 +68,14 @@ function addCheckoutItem(product, id, quantity) {
   appendElem(innerDiv2, 'p', null, null, `Quantity: ${quantity}`, null, null);
   appendElem(innerDiv2, 'p', null, null, `£${parseFloat(product[0].price) * parseFloat(quantity)}`, null, null);
   const quantityParagraph = appendElem(innerDiv2, 'p', null, 'q-remove', 'Remove:', null, null);
-  const select = appendElem(quantityParagraph, 'select', `quantity-${id}`, 'quantity-remove', null, null, null);
-  for (let i = 1; i < 5; i++) {
-    appendElem(select, 'option', null, null, i, null, i);
-  }
+  const quantityInput = document.createElement('input');
+  quantityInput.setAttribute('type', 'number');
+  quantityInput.setAttribute('min', '1');
+  quantityInput.setAttribute('max', '10');
+  quantityInput.setAttribute('value', '1');
+  quantityInput.setAttribute('id', `quantity-${id}`);
+  quantityInput.setAttribute('class', 'quantity-remove');
+  quantityParagraph.appendChild(quantityInput);
   appendElem(innerDiv2, 'button', id, 'button_remove', 'Remove', null, null);
   basketItem.appendChild(document.createElement('hr'));
   page.appendChild(basketItem);
