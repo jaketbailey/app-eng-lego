@@ -112,3 +112,5 @@ insert into product_colours (colour_id, product_id) values (8, 41);
 insert into product_colours (colour_id, product_id) values (8, 42);
 insert into product_colours (colour_id, product_id) values (8, 43);
 insert into product_colours (colour_id, product_id) values (8, 44);
+
+insert into customers (id, email, first_name, last_name, phone, address_line_1, address_line_2, city, county, postcode, country) values ('testuser-testuser', 'test@gmail.com', 'Test', 'User', '07712345678', '1 Test Street', 'Testland', 'Testington', 'Testington', 'TE11ST', 'Testland');

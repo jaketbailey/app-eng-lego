@@ -49,6 +49,7 @@ export const getUser = (req, res) => {
       throw err;
     }
     res.status(200).json(results.rows);
+    return results.rows;
   });
 };
 
