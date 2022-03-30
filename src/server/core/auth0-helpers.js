@@ -1,15 +1,15 @@
 // Jacek Kopecky https://github.com/portsoc/auth0-example
 
-import OAuth2JWTBearer from 'express-oauth2-jwt-bearer';
-import * as Logger from '../logger.js';
-import fetch from 'node-fetch';
+const OAuth2JWTBearer = require('express-oauth2-jwt-bearer');
+const Logger = require('../logger.js');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const status401Errors = [
   'UnauthorizedError',
   'InvalidTokenError',
 ];
 
-export default function setup(authConfig) {
+function setup(authConfig) {
   const checker = OAuth2JWTBearer.auth({
     audience: authConfig.audience,
     issuerBaseURL: `https://${authConfig.domain}`,
@@ -61,3 +61,5 @@ export default function setup(authConfig) {
     }
   }
 }
+
+module.exports = setup;

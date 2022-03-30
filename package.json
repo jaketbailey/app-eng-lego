@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Lego store website coursework",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "start": "cd ./src/server && node .",

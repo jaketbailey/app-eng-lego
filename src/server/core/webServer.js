@@ -1,16 +1,16 @@
 // Imports the express.js api and sets the port to 8080 as specified in the coursework spec
-import auth0 from './authentication.js';
-import express from 'express';
-import * as Logger from '../logger.js';
-import bodyParser from 'body-parser';
+const auth0 = require('./authentication.js');
+const express = require('express');
+const Logger = require('../logger.js');
+const bodyParser = require('body-parser');
 
 const port = 8080;
-export const app = express();
+const app = express();
 
 /*  Function initWebServer is ran from index.js when the program is initially loaded
 this starts the webserver using express and  statically serves the directory for the
 web application  */
-export default function () {
+function Init() {
   const jsonParser = bodyParser.json();
   app.use(express.static('../app/'));
 
@@ -30,3 +30,9 @@ export default function () {
     }
   });
 }
+
+
+module.exports = {
+  Init,
+  App: app,
+};

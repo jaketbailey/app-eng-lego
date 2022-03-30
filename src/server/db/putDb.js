@@ -1,7 +1,7 @@
-import * as Logger from '../logger.js';
-import Pool from './connectDb.js';
+const Logger = require('../logger.js');
+const Pool = require('./connectDb.js');
 
-export const updateUser = (req, res) => {
+const updateUser = (req, res) => {
   const { id, address1, address2, city, country, county, postcode, phone } = req.body;
   Logger.Express('/block/api/update-user/', 'PUT');
   Logger.Database(`Updating address and phone of user with ID: ${id}`);
@@ -23,7 +23,7 @@ export const updateUser = (req, res) => {
   });
 };
 
-export const updateStock = (req, res) => {
+const updateStock = (req, res) => {
   const { id, quantity } = req.body;
   Logger.Express('/block/api/update-stock/', 'PUT');
   Logger.Database(`Removing ${quantity} to stock of product with ID: ${id}`);
@@ -40,7 +40,7 @@ export const updateStock = (req, res) => {
   });
 };
 
-export const addToStock = (req, res) => {
+const addToStock = (req, res) => {
   const { productId, quantity } = req.body;
   Logger.Express('/block/api/add-to-stock/', 'PUT');
   Logger.Database(`Adding ${quantity} to stock of product with ID: ${productId}`);
@@ -57,7 +57,7 @@ export const addToStock = (req, res) => {
   });
 };
 
-export const addTotalCost = (req, res) => {
+const addTotalCost = (req, res) => {
   const { id, total } = req.body;
   Logger.Express('/block/api/add-total-cost/', 'PUT');
   Logger.Database(`Adding total cost of order with ID: ${id}`);
@@ -74,7 +74,7 @@ export const addTotalCost = (req, res) => {
   });
 };
 
-export const addShippingAddress = (req, res) => {
+const addShippingAddress = (req, res) => {
   const { id, address1, address2, city, county, postcode, country } = req.body;
   Logger.Express('/block/api/add-shipping-address/', 'PUT');
   Logger.Database(`Adding shipping address to order with ID: ${id}`);
@@ -91,7 +91,7 @@ export const addShippingAddress = (req, res) => {
   });
 };
 
-export const updateOrder = (req, res) => {
+const updateOrder = (req, res) => {
   const { id, status } = req.body;
   Logger.Express('/block/api/update-order/', 'PUT');
   Logger.Database(`Updating order with ID: ${id} to status: ${status}`);
@@ -108,7 +108,7 @@ export const updateOrder = (req, res) => {
   });
 };
 
-export const updateOrderDetail = (req, res) => {
+const updateOrderDetail = (req, res) => {
   const { id, productId, price, quantity } = req.body;
   Logger.Express('/block/api/update-order-detail/', 'PUT');
   Logger.Database(`Updating order detail with ID: ${id}`);
@@ -124,4 +124,14 @@ export const updateOrderDetail = (req, res) => {
     Logger.Info(`Order updated with orderId: ${id}, ProductId: ${productId}`);
     res.status(200).send(`Order updated with orderId: ${id}, ProductId: ${productId}`);
   });
+};
+
+module.exports = {
+  updateUser,
+  updateStock,
+  addToStock,
+  addTotalCost,
+  addShippingAddress,
+  updateOrder,
+  updateOrderDetail,
 };

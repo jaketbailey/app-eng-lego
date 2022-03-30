@@ -1,16 +1,19 @@
-import * as pgtools from 'pgtools';
-import Init from './generate.js';
-import dbConfig from './dbConfig.js';
-import * as Logger from '../../logger.js';
+const pgtools = require('pgtools');
+const generate = require('./generate.js');
+const Logger = require('../../logger.js');
+const dbConfig = require('./dbConfig.js');
 
-export default function () {
-  console.log(dbConfig);
+function Init() {
   pgtools.createdb(dbConfig, 'block_shop', (err) => {
     if (err) {
       Logger.Error(err);
       process.exit(-1);
     }
     Logger.Database('Created database: block_shop');
-    Init();
+    generate.Init();
   });
 }
+
+module.exports = {
+  Init,
+};

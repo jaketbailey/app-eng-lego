@@ -1,7 +1,7 @@
-import Pool from './connectDb.js';
-import * as Logger from '../logger.js';
+const Pool = require('./connectDb.js');
+const Logger = require('../logger.js');
 
-export const getAllProducts = (req, res) => {
+const getAllProducts = (req, res) => {
   Logger.Express('/block/api/shop/all', 'GET');
   Logger.Database('Getting all products');
   Pool.query('SELECT * FROM products ORDER BY price DESC', (err, results) => {
@@ -13,7 +13,7 @@ export const getAllProducts = (req, res) => {
   });
 };
 
-export const getProductById = (req, res) => {
+const getProductById = (req, res) => {
   const id = parseInt(req.params.id, 10);
   Logger.Express(`/block/api/shop/item/${id}`, 'GET');
   Logger.Database(`Getting product with ID: ${id}`);
@@ -28,7 +28,7 @@ export const getProductById = (req, res) => {
   }
 };
 
-export const getUser = (req, res) => {
+const getUser = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/get-user/${id}`, 'GET');
   Logger.Database(`Getting user with ID: ${id}`);
@@ -53,7 +53,7 @@ export const getUser = (req, res) => {
   });
 };
 
-export const checkExists = (req, res) => {
+const checkExists = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/check-exists/${id}`, 'GET');
   Logger.Database(`Checking if order with customer ID: ${id} exists`);
@@ -68,7 +68,7 @@ export const checkExists = (req, res) => {
   });
 };
 
-export const getBasketItems = (req, res) => {
+const getBasketItems = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/get-basket-items/${id}`, 'GET');
   Logger.Database(`Getting basket items for user with ID: ${id}`);
@@ -87,7 +87,7 @@ export const getBasketItems = (req, res) => {
   });
 };
 
-export const getStock = (req, res) => {
+const getStock = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/get-stock/${id}`, 'GET');
   Logger.Database(`Getting stock for product with ID: ${id}`);
@@ -106,7 +106,7 @@ export const getStock = (req, res) => {
   });
 };
 
-export const getTotalCost = (req, res) => {
+const getTotalCost = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/get-total-cost/${id}`, 'GET');
   Logger.Database(`Getting total cost for order with ID: ${id}`);
@@ -125,7 +125,7 @@ export const getTotalCost = (req, res) => {
   });
 };
 
-export const getUserName = (req, res) => {
+const getUserName = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/get-user-name/${id}`, 'GET');
   Logger.Database(`Getting user name for order with ID: ${id}`);
@@ -147,7 +147,7 @@ export const getUserName = (req, res) => {
   });
 };
 
-export const getBasketId = (req, res) => {
+const getBasketId = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/get-basket/${id}`, 'GET');
   Logger.Database(`Getting basket ID for customer with ID: ${id}`);
@@ -165,7 +165,7 @@ export const getBasketId = (req, res) => {
 };
 
 
-export const getProductByFilter = (req, res) => {
+const getProductByFilter = (req, res) => {
   const { filter } = req.params;
   Logger.Express(`/block/api/type-filters/${filter}`, 'GET');
   Logger.Database(`Getting products with filter: ${filter}`);
@@ -249,7 +249,7 @@ export const getProductByFilter = (req, res) => {
   }
 };
 
-export const checkOrderDetail = (req, res) => {
+const checkOrderDetail = (req, res) => {
   const id = req.params.id;
   Logger.Express(`/block/api/check-order-detail/${id}`, 'GET');
   Logger.Database(`Checking if quantity for a product with ID: ${id} exists`);
@@ -271,7 +271,7 @@ export const checkOrderDetail = (req, res) => {
   });
 };
 
-export const searchProduct = (req, res) => {
+const searchProduct = (req, res) => {
   let search = req.params.search;
   Logger.Express(`/block/api/search-product/${search}`, 'GET');
   if (search.includes('_')) {
@@ -303,4 +303,19 @@ export const searchProduct = (req, res) => {
     Logger.Info('Returning search results');
     res.status(200).json(results.rows);
   });
+};
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  getUser,
+  checkExists,
+  getBasketItems,
+  getStock,
+  getTotalCost,
+  getUserName,
+  getBasketId,
+  getProductByFilter,
+  checkOrderDetail,
+  searchProduct,
 };

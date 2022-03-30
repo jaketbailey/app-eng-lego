@@ -1,5 +1,5 @@
-import initServer from './core/webServer.js';
-import initAPI from './api/api.js';
+const Server = require('./core/webServer.js');
+const API = require('./api/api.js');
 
-initServer();
-initAPI();
+Server.Init();
+API.Init();

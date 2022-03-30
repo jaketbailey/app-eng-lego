@@ -1,7 +1,8 @@
-import config from './auth-config.js';
-import * as auth from 'express-openid-connect';
-import authHelp from './auth0-helpers.js';
-import * as Logger from '../logger.js';
+
+const config = require('./auth-config.js');
+const auth = require('express-openid-connect');
+const authHelp = require('./auth0-helpers.js');
+const Logger = require('../logger.js');
 
 const authConfig = {
   authRequired: false,
@@ -12,7 +13,7 @@ const authConfig = {
   issuerBaseURL: `https://${config.domain}`,
 };
 
-export default function (app) {
+function auth0(app) {
   app.use(auth.auth(authConfig));
   app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
@@ -44,3 +45,5 @@ export default function (app) {
     res.send('Secured Resource');
   });
 }
+
+module.exports = auth0;

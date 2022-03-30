@@ -1,7 +1,7 @@
-import Pool from './connectDb.js';
-import * as Logger from '../logger.js';
+const Pool = require('./connectDb.js');
+const Logger = require('../logger.js');
 
-export const removeBasketItem = (req, res) => {
+const removeBasketItem = (req, res) => {
   const { id } = req.body;
   Logger.Express('/block/api/remove-basket-item/', 'PUT');
   Logger.Database(`Removing basket item ${id}`);
@@ -18,7 +18,7 @@ export const removeBasketItem = (req, res) => {
   });
 };
 
-export const deleteUser = (req, res) => {
+const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
   Logger.Express('/block/api/delete-user/', 'PUT');
   Logger.Database(`Deleting user: ${id}`);
@@ -33,10 +33,16 @@ export const deleteUser = (req, res) => {
     WHERE id = '${id}';
     `, (err) => {
     if (err) {
-      Logger.Error(err);
+      Logger.Error(err.stack);
       throw err;
+    } else {
+      Logger.Info(`User deleted with ID: ${id}`);
+      res.status(200).send(`User deleted with ID: ${id}`);
     }
-    Logger.Info(`User deleted with ID: ${id}`);
-    res.status(200).send(`User deleted with ID: ${id}`);
   });
+};
+
+module.exports = {
+  removeBasketItem,
+  deleteUser,
 };

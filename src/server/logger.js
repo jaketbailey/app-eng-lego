@@ -1,4 +1,4 @@
-import colors from 'colors';
+const colors = require('colors');
 
 function getDate() {
   const dateObj = new Date();
@@ -21,26 +21,34 @@ colors.setTheme({
   Request: 'blue',
 });
 
-export const Info = (...args) => {
+const Info = (...args) => {
   console.log(`[${getDate()}] ${'[INFO]'.Info} ${args}`);
 };
 
-export const Warn = (...args) => {
+const Warn = (...args) => {
   console.log(`[${getDate()}] ${'[WARN]'.Warn} ${args}`);
 };
 
-export const Error = (...args) => {
+const Error = (...args) => {
   console.log(`[${getDate()}] ${'[ERROR]'.Error} ${args}`);
 };
 
-export const Database = (...args) => {
+const Database = (...args) => {
   console.log(`[${getDate()}] ${'[DATABASE]'.Database} ${args}`);
 };
 
-export const Express = (...args) => {
+const Express = (...args) => {
   if (args[1]) {
     console.log(`[${getDate()}] ${'[EXPRESS]'.Express} ${`[${args[1]}]`.Request} ${args[0]}`);
   } else {
     console.log(`[${getDate()}] ${'[EXPRESS]'.Express} ${args[0]}`);
   }
+};
+
+module.exports = {
+  Info,
+  Warn,
+  Error,
+  Database,
+  Express,
 };

@@ -1,8 +1,7 @@
-
-import pg from 'pg';
-import dbConfig from './dbConfig.js';
-import * as fs from 'fs';
-import * as Logger from '../../logger.js';
+const pg = require('pg');
+const dbConfig = require('./dbConfig.js');
+const Logger = require('../../logger.js');
+const fs = require('fs');
 
 const { Client } = pg;
 

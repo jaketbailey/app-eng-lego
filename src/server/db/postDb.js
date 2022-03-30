@@ -1,7 +1,7 @@
-import * as Logger from '../logger.js';
-import Pool from './connectDb.js';
+const Logger = require('../logger.js');
+const Pool = require('./connectDb.js');
 
-export const createUser = (req, res) => {
+const createUser = (req, res) => {
   const { sub, name, email } = req.body;
   const names = name.split(' ');
   Logger.Express('/block/api/create-user/', 'POST');
@@ -20,7 +20,7 @@ export const createUser = (req, res) => {
   });
 };
 
-export const createBasket = (req, res) => {
+const createBasket = (req, res) => {
   const { customerId, email } = req.body;
   const dateOb = new Date(Date.now());
   const date = dateOb.getDate();
@@ -44,7 +44,7 @@ export const createBasket = (req, res) => {
   });
 };
 
-export const addToBasket = (req, res) => {
+const addToBasket = (req, res) => {
   const { id, productId, price, quantity } = req.body;
   Logger.Express('/block/api/add-to-basket/', 'POST');
   Logger.Database(`Adding ${quantity} of product (${productId}) to basket (${id})`);
@@ -61,4 +61,10 @@ export const addToBasket = (req, res) => {
     Logger.Info(`Product added to basket with order id: ${id}`);
     res.status(201).send(`Product added to basket with order id: ${id}`);
   });
+};
+
+module.exports = {
+  createUser,
+  createBasket,
+  addToBasket,
 };
