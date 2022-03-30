@@ -1,11 +1,22 @@
 /* eslint-disable */ 
 const getQuery = require('../server/db/getQueries.js');
+const insertQuery = require('../server/db/insertQueries.js');
+const deleteQuery = require('../server/db/deleteQueries.js');
 
 test('Sanity Check', () => {
   expect(1 + 1).toBe(2);
 });
 
 describe('getDb', () => {
+
+  test('Add User', async () => {
+    await insertQuery.createUser('testuser2-testuser2', 'Test User', 'test2@gmail.com');
+    await getQuery.getUserName('testuser2-testuser2')
+      .then((data) => {
+        expect(data).toBeDefined();
+      });
+  });
+
   test('Get User', async () => {
     const id = 'testuser-testuser'; 
     const expected = [{
