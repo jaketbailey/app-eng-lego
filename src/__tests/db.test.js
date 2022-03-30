@@ -1,29 +1,26 @@
 /* eslint-disable */ 
-const getDb = require('../server/db/getDb.js');
+const getQuery = require('../server/db/getQueries.js');
 
 test('Sanity Check', () => {
   expect(1 + 1).toBe(2);
 });
 
 describe('getDb', () => {
-  const id = 'testuser-testuser'; 
-  test('Get User', () => {
-    const req = { params: { id }  }; 
-    const res = { json: '',
-      status: function (input) { this.json = input }
-    }
-    const expected = {
-      phone: '07712345678',
+  test('Get User', async () => {
+    const id = 'testuser-testuser'; 
+    const expected = [{
       address_line_1: '1 Test Street',
       address_line_2: 'Testland',
       city: 'Testington',
-      county: 'Testington',
-      postcode: 'TE11ST',
       country: 'Testland',
-    };
-    getDb.getUser(req, res);
-    // const result = response.text;
-    expect(res.json).toBe(expected);
+      county: 'Testington',
+      phone: '07712345678',
+      postcode: 'TE11ST',
+    }];
+    await getQuery.getUser(id)
+      .then(data => {
+        expect(data).toEqual(expected);
+      });
   });
 });
 
