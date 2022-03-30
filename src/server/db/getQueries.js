@@ -303,13 +303,13 @@ const checkOrderDetail = async (id) => {
   return data;
 };
 
-const searchProduct = (search) => {
+const searchProduct = async (search) => {
   if (search.includes('_')) {
     search = search.replace('_', ' ');
   }
   Logger.Database(`Searching for product similarities to: ${search}`);
   const data = [];
-  Pool.query(`
+  await Pool.query(`
     SELECT
       *
     FROM
@@ -336,6 +336,7 @@ const searchProduct = (search) => {
       Logger.Error(err);
       throw err;
     });
+  console.log(data);
   return data;
 };
 
