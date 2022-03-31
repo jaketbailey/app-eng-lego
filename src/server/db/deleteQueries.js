@@ -1,9 +1,9 @@
-const Pool = require('./connectDb.js');
+const db = require('./connectDb.js');
 const Logger = require('../logger.js');
 
 const removeBasketItem = async (id) => {
   Logger.Database(`Removing basket item ${id}`);
-  await Pool.query(`
+  await db.Pool.query(`
     DELETE FROM order_details
     WHERE id = '${id}'
     `)
@@ -16,17 +16,17 @@ const removeBasketItem = async (id) => {
 
 const deleteUser = async (id, orderId) => {
   Logger.Database(`Deleting user: ${id}`);
-  await Pool.query(`
+  await db.Pool.query(`
     DELETE FROM order_details
     WHERE order_id = '${orderId}';
     `)
     .then(async () => {
-      await Pool.query(`
+      await db.Pool.query(`
         DELETE FROM orders
         WHERE customer_id = '${id}';
         `)
         .then(async () => {
-          await Pool.query(`
+          await db.Pool.query(`
             DELETE FROM customers
             WHERE id = '${id}';
             `)

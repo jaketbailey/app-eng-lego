@@ -1,10 +1,10 @@
-const Pool = require('./connectDb.js');
+const db = require('./connectDb.js');
 const Logger = require('../logger.js');
 
 const getAllProducts = async () => {
   Logger.Database('Getting all products');
   const data = [];
-  await Pool.query('SELECT * FROM products ORDER BY price DESC')
+  await db.Pool.query('SELECT * FROM products ORDER BY price DESC')
     .then((results) => {
       for (const item of results.rows) {
         data.push(item);
@@ -22,7 +22,7 @@ const getProductById = async (id) => {
   Logger.Database(`Getting product with ID: ${id}`);
   const data = [];
   if (!isNaN(id)) {
-    await Pool.query('SELECT * FROM products WHERE id = $1', [id])
+    await db.Pool.query('SELECT * FROM products WHERE id = $1', [id])
       .then((results) => {
         for (const item of results.rows) {
           data.push(item);
@@ -39,7 +39,7 @@ const getProductById = async (id) => {
 const getUser = async (id) => {
   Logger.Database(`Getting user with ID: ${id}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       phone,
       address_line_1,
@@ -66,7 +66,7 @@ const getUser = async (id) => {
 const checkExists = async (id) => {
   Logger.Database(`Checking if order with customer ID: ${id} exists`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT * FROM orders WHERE customer_id = '${id}' AND order_status = 'pending'
     `)
     .then((results) => {
@@ -84,7 +84,7 @@ const checkExists = async (id) => {
 const getBasketItems = async (id) => {
   Logger.Database(`Getting basket items for user with ID: ${id}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       *
     FROM
@@ -106,7 +106,7 @@ const getBasketItems = async (id) => {
 const getStock = async (id) => {
   Logger.Database(`Getting stock for product with ID: ${id}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       stock
     FROM
@@ -128,7 +128,7 @@ const getStock = async (id) => {
 const getTotalCost = async (id) => {
   Logger.Database(`Getting total cost for order with ID: ${id}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       total_cost
     FROM
@@ -150,7 +150,7 @@ const getTotalCost = async (id) => {
 const getUserName = async (id) => {
   Logger.Database(`Getting user name for order with ID: ${id}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       first_name,
       last_name,
@@ -175,7 +175,7 @@ const getUserName = async (id) => {
 const getBasketId = async (id) => {
   Logger.Database(`Getting basket ID for customer with ID: ${id}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT id
     FROM orders
     WHERE customer_id = '${id}'
@@ -218,7 +218,7 @@ const getProductByFilter = async (filter) => {
   const finalResults = [];
   if (check === true) {
     for (let i = 0; i < newFilter.length; i++) {
-      data = await Pool.query(`
+      data = await db.Pool.query(`
         SELECT
           *
         FROM
@@ -246,7 +246,7 @@ const getProductByFilter = async (filter) => {
     }
   } else {
     for (let i = 0; i < newFilter.length; i++) {
-      data = await Pool.query(`
+      data = await db.Pool.query(`
       SELECT 
         id,
         product_name,
@@ -284,7 +284,7 @@ const checkOrderDetail = async (id) => {
   const data = [];
   const productId = id.split('-')[0];
   const orderId = id.split('-')[1];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       quantity
     FROM
@@ -309,7 +309,7 @@ const searchProduct = async (search) => {
   }
   Logger.Database(`Searching for product similarities to: ${search}`);
   const data = [];
-  await Pool.query(`
+  await db.Pool.query(`
     SELECT
       *
     FROM

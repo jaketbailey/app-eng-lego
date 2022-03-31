@@ -1,9 +1,9 @@
 const Logger = require('../logger.js');
-const Pool = require('./connectDb.js');
+const db = require('./connectDb.js');
 
 const updateUser = async (id, address1, address2, city, country, county, postcode, phone) => {
   Logger.Database(`Updating address and phone of user with ID: ${id}`);
-  await Pool.query(`UPDATE customers SET
+  await db.Pool.query(`UPDATE customers SET
     phone = '${phone}',
     address_line_1 = '${address1}',
     address_line_2 = '${address2}',
@@ -22,7 +22,7 @@ const updateUser = async (id, address1, address2, city, country, county, postcod
 const updateStock = async (id, quantity) => {
   Logger.Express('/block/api/update-stock/', 'PUT');
   Logger.Database(`Removing ${quantity} to stock of product with ID: ${id}`);
-  await Pool.query(`
+  await db.Pool.query(`
     UPDATE products SET
       stock = stock - ${quantity}
     WHERE id = '${id}'`)
@@ -35,7 +35,7 @@ const updateStock = async (id, quantity) => {
 
 const addToStock = async (productId, quantity) => {
   Logger.Database(`Adding ${quantity} to stock of product with ID: ${productId}`);
-  await Pool.query(`
+  await db.Pool.query(`
     UPDATE products SET
       stock = stock + ${quantity}
     WHERE id = '${productId}'`)
@@ -48,7 +48,7 @@ const addToStock = async (productId, quantity) => {
 
 const addTotalCost = async (id, total) => {
   Logger.Database(`Adding total cost of order with ID: ${id}`);
-  await Pool.query(`
+  await db.Pool.query(`
     UPDATE orders SET
       total_cost = ${total}
     WHERE id = '${id}'`)
@@ -61,7 +61,7 @@ const addTotalCost = async (id, total) => {
 
 const addShippingAddress = async (id, address1, address2, city, county, postcode, country) => {
   Logger.Database(`Adding shipping address to order with ID: ${id}`);
-  await Pool.query(`
+  await db.Pool.query(`
     UPDATE orders SET
       order_address = '${address1}, ${address2}, ${city}, ${county}, ${postcode}, ${country}'
     WHERE id = '${id}'`)
@@ -74,7 +74,7 @@ const addShippingAddress = async (id, address1, address2, city, county, postcode
 
 const updateOrder = async (id, status) => {
   Logger.Database(`Updating order with ID: ${id} to status: ${status}`);
-  await Pool.query(`
+  await db.Pool.query(`
     UPDATE orders SET
       order_status = '${status}'
     WHERE id = '${id}'`)
@@ -87,7 +87,7 @@ const updateOrder = async (id, status) => {
 
 const updateOrderDetail = (id, productId, price, quantity) => {
   Logger.Database(`Updating order detail with ID: ${id}`);
-  Pool.query(`
+  db.Pool.query(`
     UPDATE order_details SET
       quantity = '${quantity}',
       price = '${price}'

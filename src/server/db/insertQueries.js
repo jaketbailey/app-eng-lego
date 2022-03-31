@@ -1,10 +1,10 @@
 const Logger = require('../logger.js');
-const Pool = require('./connectDb.js');
+const db = require('./connectDb.js');
 
 const createUser = async (sub, name, email) => {
   const names = name.split(' ');
   Logger.Database(`Creating user: ${sub}`);
-  await Pool.query(`INSERT INTO customers (
+  await db.Pool.query(`INSERT INTO customers (
       id, email, first_name, last_name, phone, address_line_1, address_line_2, city, county, postcode, country
     ) VALUES (
       '${sub}', '${email}', '${names[0]}', '${names[1]}', null, null, null, null, null, null, null
@@ -23,7 +23,7 @@ const createBasket = (customerId, email) => {
   const year = dateOb.getFullYear();
   const today = `${year}-${month}-${date}`;
   Logger.Database(`Creating basket for user: ${customerId}`);
-  Pool.query(`
+  db.Pool.query(`
     INSERT INTO orders (
       total_cost, order_address, order_email, order_date, order_status, customer_id
     ) VALUES (
@@ -38,7 +38,7 @@ const createBasket = (customerId, email) => {
 
 const addToBasket = (id, productId, price, quantity) => {
   Logger.Database(`Adding ${quantity} of product (${productId}) to basket (${id})`);
-  Pool.query(`
+  db.Pool.query(`
     INSERT INTO order_details (
       price, quantity, order_id, product_id
     ) VALUES (
