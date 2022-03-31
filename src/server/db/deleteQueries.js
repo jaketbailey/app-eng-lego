@@ -20,22 +20,26 @@ const deleteUser = async (id, orderId) => {
     DELETE FROM order_details
     WHERE order_id = '${orderId}';
     `)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
-  await Pool.query(`
-    DELETE FROM orders
-    WHERE customer_id = '${id}';
-    `)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
-  await Pool.query(`
-    DELETE FROM customers
-    WHERE id = '${id}';
-    `)
+    .then(async () => {
+      await Pool.query(`
+        DELETE FROM orders
+        WHERE customer_id = '${id}';
+        `)
+        .then(async () => {
+          await Pool.query(`
+            DELETE FROM customers
+            WHERE id = '${id}';
+            `)
+            .catch((err) => {
+              Logger.Error(err);
+              throw err;
+            });
+        })
+        .catch((err) => {
+          Logger.Error(err);
+          throw err;
+        });
+    })
     .catch((err) => {
       Logger.Error(err);
       throw err;

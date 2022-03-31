@@ -1,4 +1,4 @@
-name: Jest
+name: Run Jest
 
 on: [push]
 
