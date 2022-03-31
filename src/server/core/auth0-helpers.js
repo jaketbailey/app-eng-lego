@@ -1,4 +1,4 @@
-// Jacek Kopecky https://github.com/portsoc/auth0-example
+// (Example of Authentication with Auth0, 2021/2021)
 
 const OAuth2JWTBearer = require('express-oauth2-jwt-bearer');
 const Logger = require('../logger.js');

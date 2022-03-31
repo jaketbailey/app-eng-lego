@@ -1,3 +1,4 @@
+// (Example of Authentication with Auth0, 2021/2021)
 
 const config = require('./auth-config.js');
 const auth = require('express-openid-connect');
@@ -17,7 +18,7 @@ function auth0(app) {
   app.use(auth.auth(authConfig));
   app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-    // Logger.Info(req.oidc.userinfo);
+    Logger.Info(req.oidc.userinfo);
   });
 
   const auth0 = authHelp(config);
