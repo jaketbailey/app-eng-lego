@@ -53,8 +53,6 @@ async function updateUI() {
       await createUser(res);
     });
 
-    console.log(login);
-    console.log(logout);
     login.style.display = 'none';
     logout.style.display = 'block';
 
@@ -62,7 +60,6 @@ async function updateUI() {
     account.style.display = 'block';
 
     const basketId = await getBasketId(unregisteredId);
-    console.log(basketId);
     await deleteUser(unregisteredId, basketId.id);
   } else {
     generateUnregistered();
@@ -70,7 +67,6 @@ async function updateUI() {
 }
 
 async function login() {
-  console.log('test');
   await auth0.loginWithRedirect({
     redirect_uri: window.location.origin,
   });

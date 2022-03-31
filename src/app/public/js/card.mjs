@@ -19,7 +19,6 @@ export const createCard = (id, name, desc, img, price, stock) => {
   appendElem(card, 'button', `add-${id}`, 'add_btn', 'Add to Basket', null, null);
   appendElem(innerDiv, 'p', null, null, `£${price}`, null, null);
   appendElem(innerDiv, 'p', null, 'stock', `Stock: ${stock}`, null, null);
-  console.log(card);
   page.lastChild.appendChild(card);
   return card;
 };
@@ -31,8 +30,6 @@ const addCard = (params) => {
     for (const pair of params.entries()) {
       filterObj.push(pair[1]);
     }
-    console.log(filterObj);
-    console.log(filterObj.join(','));
     if (filterObj.length === 0) {
       cards = getData('/shop/all');
     } else {
@@ -44,8 +41,6 @@ const addCard = (params) => {
     cards = search(searchParam);
   }
   cards.then((res) => {
-    console.log(res.length);
-    console.log(res);
     for (let i = 0; i < res.length; i++) {
       createCard(res[i].id, res[i].product_name, res[i].product_desc, res[i].image_ref, res[i].price, res[i].stock);
     }
@@ -55,7 +50,6 @@ const addCard = (params) => {
 
 const load = () => {
   const params = new URLSearchParams(window.location.search);
-  console.log(params);
   addCard(params);
 };
 

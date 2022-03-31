@@ -91,7 +91,6 @@ async function getUserAddress() {
   const user = await getUser(id);
   const addressBox = document.getElementById('address_box');
   if (id === null || (user.address_line_1 !== null && id.split('-')[0] !== 'unregistered')) {
-    console.log(user);
     const address = document.createElement('div');
     const addressData = [user.address_line_1, user.address_line_2, user.city, user.county, user.postcode, user.country];
     for (const item of addressData) {
@@ -100,7 +99,6 @@ async function getUserAddress() {
     addressBox.appendChild(address);
   } else {
     const text = document.getElementById('shipping_text');
-    console.log(text);
     text.textContent = 'Enter the shipping address below:';
     addressBox.remove();
   }
@@ -123,11 +121,9 @@ async function removeOrderDetail(id, productId, basket, quantity) {
 }
 
 async function getTotalCost(id, productId, basket, quantity, remove) {
-  console.log(basket);
   try {
     const response = await fetch(`/block/api/get-total-cost/${basket}`);
     const result = await response.json();
-    console.log(result);
     const totalCost = result[0].total_cost;
     updatePageCost(id, productId, totalCost, basket, quantity, remove);
   } catch (err) {
@@ -138,17 +134,12 @@ async function getTotalCost(id, productId, basket, quantity, remove) {
 function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
   const quantitySelect = document.getElementById(`quantity-${id}`);
   const e = document.getElementById(id);
-  console.log(productId);
   const price = getProductById(productId);
-  console.log(price);
   let total;
   let itemCost;
   price.then(async (res) => {
-    console.log(res);
-    console.log(totalCost);
     itemCost = (res[0].price * 1000) * parseFloat(quantity) / 1000;
     total = ((totalCost * 1000) - ((res[0].price * 1000) * parseFloat(quantitySelect.value))) / 1000;
-    console.log(total);
     const cost = document.getElementById('totalCost');
     const elem = document.createElement('p');
     elem.className = 'p_basket';
@@ -158,14 +149,12 @@ function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
     elem.innerHTML = `Total: £${total}`;
     main.removeChild(cost);
     main.appendChild(elem);
-    console.log(main);
     if (remove) {
       e.parentElement.parentElement.remove();
     } else {
       e.parentElement.parentElement.childNodes[1].childNodes[1].textContent = `Quantity: ${quantity}`;
       e.parentElement.parentElement.childNodes[1].childNodes[2].textContent = `£${itemCost}`;
       const button = document.getElementById(id);
-      console.log(button);
       button.className = 'button_remove_success';
       button.innerHTML = `Removed x${quantitySelect.value}`;
       setTimeout(function () {
@@ -184,7 +173,6 @@ async function updateStock(e, id, quantity, basket, removeQuantity, price) {
     productId: id,
     quantity: removeQuantity,
   };
-  console.log(data);
   if (newQuantity === 0) {
     await removeOrderDetail(e, id, basket, newQuantity);
     addToStock(data, id);
@@ -253,14 +241,12 @@ async function basketLoad() {
 
 async function shippingAddress() {
   const basket = await getBasket();
-  console.log(basket);
   const userDetails = callServer();
   let userId = localStorage.getItem('customerId');
   if (userId === null) {
     userId = userDetails.sub;
   }
   const user = await getUser(userId);
-  console.log(user);
   let shippingAddress = {
     id: basket[0].id,
     address1: user.address_line_1,
@@ -271,7 +257,6 @@ async function shippingAddress() {
     country: user.country,
   };
   const checkout = document.getElementById('checkout');
-  console.log(checkout);
   checkout.addEventListener('click', () => {
     if (shippingAddress.address1 === null) {
       alert('Please enter your shipping address');

@@ -2,7 +2,6 @@ import createBasket from './basket.mjs';
 import errorCheck from './error.mjs';
 
 export async function createUser(user) {
-  console.log(user.sub);
   try {
     await fetch('/block/api/create-user/', {
       headers: {

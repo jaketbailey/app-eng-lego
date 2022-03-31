@@ -9,21 +9,16 @@ async function loadFinalCheckout() {
     const userDetails = callServer();
     customerId = userDetails.sub;
   }
-  console.log(customerId);
   await getOrder(customerId);
 }
 
 async function getOrder(customerId) {
   const basket = await getBasket();
-  console.log(basket);
   const shippingAddress = basket[0].order_address.split(', ');
   const total = basket[0].total_cost;
   try {
     const customerData = await fetch(`/get-user-name/${customerId}`);
     const customer = await customerData.json();
-    console.log(customer);
-    console.log(shippingAddress);
-    console.log(total);
     updateOrder(basket[0].id);
     addToPage(customer, shippingAddress, total);
   } catch (err) {
@@ -41,7 +36,6 @@ function addToPage(customerData, shippingAddress, total) {
   const main = document.getElementById('main');
   const userDetails = appendElem(main, 'div', null, null, null, null, null);
   // const userDetails = document.createElement('div');
-  console.log(customerData[0].entries);
   userDetails.className = 'user_details';
   appendElem(userDetails, 'p', null, 'p_main', 'Customer Details:', null, null);
   appendElem(userDetails, 'p', null, null, `${customerData[0].first_name} ${customerData[0].last_name}`, null, null);

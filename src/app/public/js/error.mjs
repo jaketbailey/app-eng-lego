@@ -3,7 +3,6 @@ export default async function (error) {
     message: error.message,
     stack: error.stack,
   };
-  console.log(JSON.stringify(data));
   await fetch('/block/api/error/', {
     headers: {
       'Content-Type': 'application/json',
