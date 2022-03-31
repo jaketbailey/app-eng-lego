@@ -19,28 +19,32 @@ const Init = async () => {
       Logger.Error(err);
       throw err;
     });
-};
+  process.stdin.resume();
 
-process.on('SIGINT', () => {
-  disconnectDb();
-}).on('SIGTERM', () => {
-  disconnectDb();
-}).on('SIGUSR2', () => {
-  disconnectDb();
-}).on('exit', () => {
-  disconnectDb();
-});
-
-
-const disconnectDb = async () => {
-  await pool.end()
-    .then(() => {
-      Logger.Info('Disconnected from database');
-    }).catch((err) => {
-      Logger.Error(err);
-      throw err;
+  process
+    .on('exit', () => {
+      disconnectDb('exit');
+    }).on('SIGTERM', () => {
+      disconnectDb('SIGTERM');
+    }).on('SIGUSR2', () => {
+      disconnectDb('SIGUSR2');
+    }).on('SIGINT', () => {
+      disconnectDb('SIGINT');
     });
 };
+
+const disconnectDb = (eventType) => {
+  Logger.Info(`Detected a ${eventType} event. Closing database connection.`);
+  pool.end()
+    .then(() => {
+      Logger.Info('Disconnected from database');
+    })
+    .catch(() => {
+      Logger.Info('Database already disconnected');
+    });
+  process.exit();
+};
+
 
 module.exports = {
   Init,
