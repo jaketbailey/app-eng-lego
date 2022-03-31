@@ -29,8 +29,7 @@ const load = () => {
     quantityInput.setAttribute('id', `quantity-${product.id}`);
     quantityInput.setAttribute('class', 'quantity');
     quantityParagraph.appendChild(quantityInput);
-    const addBtn = appendElem(item, 'button', `add-${product.id}`, 'add_btn', 'Add to Basket', null, null);
-    // addBtn.classList.add('item-btn');
+    appendElem(item, 'button', `add-${product.id}`, 'add_btn', 'Add to Basket', null, null);
     const img = document.createElement('img');
     img.src = `/public/images/store/${product.image_ref}.jpg`;
     checkForAdd('item');
