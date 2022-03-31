@@ -1,4 +1,5 @@
 /* eslint-disable */ 
+const connectDb = require('../server/db/connectDb');
 const getQuery = require('../server/db/getQueries.js');
 const insertQuery = require('../server/db/insertQueries.js');
 const updateQuery = require('../server/db/updateQueries.js');
@@ -9,6 +10,7 @@ test('Sanity Check', () => {
 });
 
 describe('User Tests', () => {
+  connectDb.Init();
 
   test('Add User', async () => {
     await insertQuery.createUser('testuser2-testuser2', 'Test User', 'test2@gmail.com');
@@ -61,4 +63,5 @@ describe('User Tests', () => {
         expect(data).toEqual(expected);
       });
   });
+
 });
