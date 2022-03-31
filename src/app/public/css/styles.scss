@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+.main-page, .item-page {
+    height: 80vh;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -18,6 +22,11 @@ body {
 
 #account {
     display:none
+}
+
+.main_img {
+    width: 15em;
+    height: auto;
 }
 
 .hamburger {
@@ -64,7 +73,7 @@ body {
     background-attachment: fixed;
     align-content: center;
     background-color: #F5F5F5;
-    height: auto;
+    // height: auto;
 }
 
 .footer {
@@ -112,7 +121,7 @@ body {
 
 .title_main {
     font-family: 'Sen', sans-serif;
-    font-size: 3em;
+    font-size: 3rem;
     font-weight: 900;
     color: #31393c;
     margin-top: 0;
@@ -182,7 +191,7 @@ a {
     text-decoration: none;
 }
 
-.button, .button_remove {
+.button, .button_remove, .button_main, .submit-button, .address_button {
     background-color: #111122;
     padding: 0.7em;
     color: #F5F5F5;
@@ -240,10 +249,7 @@ a {
     font-size: 0.8em;
     color: #31393c;
     border: #d3d3d3 solid 1px;
-    // border-color: #d3d3d3;
     padding: 1em;
-    // border-radius: 0.5em;
-    // margin-bottom: 1em;
     height: 100%;
     width: auto;
 }
@@ -291,7 +297,7 @@ p {
     flex-flow: row;
     width: 60%;
     align-content: center;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     justify-items: center;
     margin-right: auto;
@@ -314,6 +320,11 @@ p {
     border-color: #fff;
     border-radius: 7px;
     width: 11em;
+}
+
+#page {
+    margin-left: 4.5vw;
+    margin-right: 2vw;
 }
 
 .checkout {
@@ -468,8 +479,9 @@ input[type=text], .quantity {
     justify-content: center;
     justify-items: center;
     margin-right: auto;
-    margin-left: auto;
-    height: 70%;
+    // margin-left: auto;
+    // height: 70vh
+    // height: 70%;
 }
 
 .parent > div {
@@ -509,6 +521,8 @@ input[type=text], .quantity {
 #searchBox {
     width: 20%; 
     font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 @media screen and (max-width:1400px) {
@@ -522,8 +536,8 @@ input[type=text], .quantity {
     }
     
     #searchBox {
-        width: 70%; 
-        font-size: 2em;
+        width: 60vw; 
+        font-size: 4em;
     }
 
     * {
@@ -565,21 +579,34 @@ input[type=text], .quantity {
 
     .auth_button {
         font-size: 3em;
+        margin-bottom: 1.5em;
     }
 
     .store_btn, .add_btn, .add_btn_success, .add_btn_fail {
-        font-size: 0.5em;
+        font-size: 2.5rem;
         padding: 0.5em;
         width: 100%;
     }
+
+    // .item-add, .item-add-success {
+    //     font-size: 2.5em;
+    //     padding: 0.5em;
+    //     width: 100%;
+    // }
 
     .store {
         width: 35em;
     }
 
+    .item-image {
+        width: 40vh;
+    }
+
     .parent {
         height: auto;
-        margin-left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 3em;
     }
 
     .navbar {
@@ -599,37 +626,60 @@ input[type=text], .quantity {
         transition: all 0.3s ease-in-out;
         background-color: white;
     }
-    
-    .nav-menu {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .nav-item {
-        margin-top: 2px;
-        margin-bottom: 2px;
+
+    #address_box, input[type=text], #shipping_text {
+        width: 100%;
+        font-size: 3rem;
     }
 
+    input[type=number] {
+        font-size: 3rem;
+    }
+
+    // input[type=text], .quantity {
+    //     width: 100%;
+    //     font-family: 'Sen', sans-serif;
+    //     padding: 12px 20px;
+    //     margin: 8px 0;
+    //     display: inline-block;
+    //     border: 1px solid #ccc;
+    //     border-radius: 4px;
+    //     box-sizing: border-box;
+    //     font-size: 0.5em;
+    // }
+
+    
+    // .nav-menu {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: center;
+    // }
+    
+    .nav-item {
+        margin-top: 4em;
+        margin-bottom: 0.1em;
+    }
+    
     .nav-menu {
         position: fixed;
         right: -100%;
-        top: 8rem;
+        top: 0rem;
         flex-direction: column;
         background-color: #03A29C;
         width: 100%;
         text-align: center;
         transition: 0.3s;
-        height: 40em;
+        height: 60em;
         padding: 1rem;
     }
 
     h1.title {
         font-size: 4.5em;
     }
-
+    
     .nav-menu.active {
         right: 0;
+        padding-bottom: 1000em;
     }
 
     .hamburger {
@@ -649,14 +699,32 @@ input[type=text], .quantity {
         transform: translateY(-1.45em) rotate(-45deg);
     }
 
-    .button, .button_remove {
-        background-color: #111122;
-        // padding: 20px;
-        color: #F5F5F5;
+    .address_button, .button_remove {
+        font-size: 3rem;
+        padding: 1.2rem;
+    }
+    
+    .button {
         border-radius: 0.3rem;
         padding: 1.2em;
         font-family: 'Sen', sans-serif;
         font-size: 1rem;
+    }
+
+
+    .submit-button {
+        font-size: 2.2rem;
+        border-radius: 0.3rem;
+        font-family: 'Sen', sans-serif;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .button_main {
+        border-radius: 0.3rem;
+        padding: 1.2em;
+        font-family: 'Sen', sans-serif;
+        font-size: 3rem;
     }
 
     .button_remove_success {
@@ -668,9 +736,18 @@ input[type=text], .quantity {
         font-size: 2rem;
     }
 
+    .main_img {
+        width: 25em;
+        height: auto;
+    }
+
     .title_main {
         font-size: 4em;
     }
+
+    .q-remove {
+        font-size: 3rem;
+    }    
 
     .card {
         font-family: 'Sen', sans-serif;
@@ -681,6 +758,10 @@ input[type=text], .quantity {
         width: auto;
     }
 
+    .card-body {
+        font-size: 3em;
+    }
+
     .parent2 {
         width: 100%;
         flex-flow: row wrap;
@@ -688,17 +769,17 @@ input[type=text], .quantity {
     }
 
     .checkout-card {
-        font-size: 1em;
+        font-size: 3rem;
         height: auto;
-        width: 25em;
+        width: 80vw;
     }
 
     .checkout {
-        width: 23em;
+        width: 75vw;
     }
 
     #first {
-        width: 25em;
+        width: 80vw;
     }
 
     .button_remove {
@@ -731,6 +812,10 @@ input[type=text], .quantity {
     }
 
     .p_main {
-        font-size: 2em;
+        font-size: 1em;
+    }
+
+    .item-inner {
+        font-size: 2.5em;
     }
 }

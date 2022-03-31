@@ -13,8 +13,10 @@ const load = () => {
     const product = res[0];
     page.appendChild(document.createElement('div'));
     const item = appendElem(page.lastChild, 'div', `card-${product.id}`, 'itemPage', null, null, null);
-    appendElem(item, 'img', null, 'store', null, `/public/images/store/${product.image_ref}.jpg`, `item-${product.id}`);
+    const image = appendElem(item, 'img', null, 'store', null, `/public/images/store/${product.image_ref}.jpg`, `item-${product.id}`);
+    image.classList.add('item-image');
     const innerDiv = appendElem(item, 'div', null, 'card-body', null, null, null);
+    innerDiv.classList.add('item-inner');
     appendElem(innerDiv, 'p', null, null, product.product_name, null, null);
     appendElem(innerDiv, 'p', null, null, product.product_desc, null, null);
     appendElem(innerDiv, 'p', null, 'stock', `Stock: ${product.stock}`, null, null);
@@ -27,7 +29,8 @@ const load = () => {
     quantityInput.setAttribute('id', `quantity-${product.id}`);
     quantityInput.setAttribute('class', 'quantity');
     quantityParagraph.appendChild(quantityInput);
-    appendElem(item, 'button', `add-${product.id}`, 'add_btn', 'Add to Basket', null, null);
+    const addBtn = appendElem(item, 'button', `add-${product.id}`, 'add_btn', 'Add to Basket', null, null);
+    // addBtn.classList.add('item-btn');
     const img = document.createElement('img');
     img.src = `/public/images/store/${product.image_ref}.jpg`;
     checkForAdd('item');
