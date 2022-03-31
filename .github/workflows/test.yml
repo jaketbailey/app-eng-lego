@@ -1,4 +1,5 @@
-name: CI
+# (Run Jest - GitHub Marketplace, n.d.)
+name: Jest
 on: push
 jobs:
   build:
