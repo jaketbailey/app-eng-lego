@@ -49,7 +49,8 @@ export async function addToBasket(productId, page) {
   if (page === 'store') {
     quantity = 1;
   } else {
-    quantity = document.getElementById(`quantity-${productId}`).value;
+    const pageQuantity = document.getElementById(`quantity-${productId}`);
+    quantity = parseInt(pageQuantity.value, 10);
   }
   let data = {};
   try {

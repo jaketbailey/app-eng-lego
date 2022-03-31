@@ -20,3 +20,9 @@ The database will then be generated ready for the application to run.
 - To start the application simply run `npm start`.
 - This will start up the webserver and will listen on port 8080
 - The application will then run on http://localhost:8080.
+
+## Testing the application
+
+  - To test the application, run `npm test`.
+  - This will run the tests and will report the results.
+  - The tests will run using jest with default configuration.

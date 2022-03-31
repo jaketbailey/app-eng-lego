@@ -42,7 +42,6 @@ const disconnectDb = (eventType) => {
     .catch(() => {
       Logger.Info('Database already disconnected');
     });
-  process.exit();
 };
 
 
