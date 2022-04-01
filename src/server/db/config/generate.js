@@ -1,3 +1,9 @@
+/**
+ * @file generate.js
+ * @author UP2002753
+ * @description Creates tables and inserts into the tables.
+ */
+
 const pg = require('pg');
 const dbConfig = require('./dbConfig.js');
 const Logger = require('../../logger.js');
@@ -5,6 +11,16 @@ const fs = require('fs');
 
 const { Client } = pg;
 
+/**
+ * @type {Client}
+ * @memberof DatabaseConfig
+ * @description The client to the database.
+ * @property {string} user - The username for the database.
+ * @property {string} host - The host of the database.
+ * @property {string} database - The database name.
+ * @property {string} password - The password for the database.
+ * @property {string} port - The port of the database.
+ */
 const client = new Client({
   user: dbConfig.user,
   host: dbConfig.host,
@@ -13,6 +29,11 @@ const client = new Client({
   port: dbConfig.port,
 });
 
+/**
+ * @function Init
+ * @memberof DatabaseConfig
+ * @description Connects to the psql server and creates all the tables in the database.
+ */
 export default function () {
   const create = fs.readFileSync('./psql/create_statements.sql', 'utf8');
   client.connect();
@@ -26,6 +47,12 @@ export default function () {
   });
 }
 
+/**
+ * @function insertInto
+ * @memberof DatabaseConfig
+ * @description Inserts all products into the database.
+ * @param {Client} client - The client to the database.
+ */
 function insertInto(client) {
   const insert = fs.readFileSync('./psql/insert_statements.sql', 'utf8');
   client.query(insert, (err) => {
