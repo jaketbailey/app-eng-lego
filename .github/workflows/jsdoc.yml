@@ -19,18 +19,26 @@ jobs:
         output_dir: ./jsdoc
         recurse: true
       
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: jsdoc
-        path: jsdoc/
+    - name: Add & Commit
+      uses: EndBug/add-and-commit@v9.0.0
+        add: 'jsdoc'
+        author_name: UP2002753
+        author_email: up2002753@myport.ac.uk
+        committer_name: UP2002753
+        committer_email: up2002753@myport.ac.uk
+        message: 'JSDoc'
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: jsdoc
+    #     path: jsdoc/
 
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v3.0.0
-      with:
-        name: jsdoc
-        path: jsdoc/
+    # - name: Download a Build Artifact
+    #   uses: actions/download-artifact@v3.0.0
+    #   with:
+    #     name: jsdoc
+    #     path: jsdoc/
 
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: jsdoc/
+    # - name: Display structure of downloaded files
+    #   run: ls -R
+    #   working-directory: jsdoc/
