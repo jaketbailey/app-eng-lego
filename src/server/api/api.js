@@ -1,3 +1,10 @@
+/**
+ * @file api.js
+ * @author UP2002753
+ * @description Api Routes
+ * @namespace Api
+ */
+
 const Server = require('../core/webServer.js');
 const getDb = require('./getDb.js');
 const postDb = require('./postDb.js');
@@ -9,7 +16,10 @@ const bodyParser = require('body-parser');
 function Init() {
   Logger.Express('Initialising API routes');
   const jsonParser = bodyParser.json();
-  // All GET requests to retrieve data from the database
+  /**
+   * All GET requests to retrieve data from the database
+   * @memberof Api
+   * */
   Server.App.get('/block/api/shop/all', getDb.getAllProducts);
   Server.App.get('/block/api/shop/item/:id', getDb.getProductById);
   Server.App.get('/block/api/get-user/:id', getDb.getUser);
@@ -23,12 +33,18 @@ function Init() {
   Server.App.get('/block/api/check-order-detail/:id', getDb.checkOrderDetail);
   Server.App.get('/block/api/search-product/:search', getDb.searchProduct);
 
-  // All POST requests to add data to the database
+  /**
+   * All POST requests to add data to the database
+   * @memberof Api
+   */
   Server.App.post('/block/api/create-user/', jsonParser, postDb.createUser);
   Server.App.post('/block/api/create-basket/', jsonParser, postDb.createBasket);
   Server.App.post('/block/api/add-to-basket/', jsonParser, postDb.addToBasket);
 
-  // All PUT requests to update data in the database
+  /**
+   * All PUT requests to update data in the database
+   * @memberof Api
+   */
   Server.App.put('/block/api/update-user/', jsonParser, putDb.updateUser);
   Server.App.put('/block/api/update-stock/', jsonParser, putDb.updateStock);
   Server.App.put('/block/api/add-to-stock/', jsonParser, putDb.addToStock);
@@ -37,7 +53,10 @@ function Init() {
   Server.App.put('/block/api/update-order/', jsonParser, putDb.updateOrder);
   Server.App.put('/block/api/update-order-detail/', jsonParser, putDb.updateOrderDetail);
 
-  // All DELETE requests to delete data from the database
+  /**
+   * All DELETE requests to delete data from the database
+   * @memberof Api
+   */
   Server.App.delete('/block/api/remove-basket-item/', jsonParser, deleteDb.removeBasketItem);
   Server.App.delete('/block/api/delete-user/', jsonParser, deleteDb.deleteUser);
 }
