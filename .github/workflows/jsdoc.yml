@@ -18,3 +18,9 @@ jobs:
         source_dir: ./src
         output_dir: ./jsdoc
         recurse: true
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: jsdoc
+        path: jsdoc/**
