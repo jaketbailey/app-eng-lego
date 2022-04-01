@@ -1,10 +1,25 @@
 // (Example of Authentication with Auth0, 2021/2021)
 
+/**
+ * @file authentication.js
+ * @author UP2002753, portsoc
+ * @description auth0 authentication middleware
+ */
+
 const config = require('./auth-config.js');
 const auth = require('express-openid-connect');
 const authHelp = require('./auth0-helpers.js');
 const Logger = require('../logger.js');
 
+/**
+ * @type {Object}
+ * @property {boolean} authRequired - Whether or not authentication is required.
+ * @property {auth0Logout} auth0Logout
+ * @property {secret} - The client secret.
+ * @property {baseURL} - The base URL of the webserver.
+ * @property {clientID} - The client ID.
+ * @property {issuerBaseURL} - The issuer base URL.
+ */
 const authConfig = {
   authRequired: false,
   auth0Logout: true,
@@ -14,12 +29,17 @@ const authConfig = {
   issuerBaseURL: `https://${config.domain}`,
 };
 
+/**
+ * Auth0 Init function
+ * @param {app} app - The express app.
+ */
 function auth0(app) {
   app.use(auth.auth(authConfig));
   app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
     Logger.Info(req.oidc.userinfo);
   });
+
 
   const auth0 = authHelp(config);
 
@@ -30,6 +50,9 @@ function auth0(app) {
 
   app.use('/api', auth0.checkJwt);
 
+  /**
+   * Get router for auth0
+   */
   app.get('/api/hello', async (req, res) => {
     const userId = auth0.getUserID(req);
 

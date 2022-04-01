@@ -1,5 +1,11 @@
 // (Example of Authentication with Auth0, 2021/2021)
 
+/**
+ * @file auth0-helpers.js
+ * @author portsoc
+ * @description auth0 authentication helpers
+ */
+
 const OAuth2JWTBearer = require('express-oauth2-jwt-bearer');
 const Logger = require('../logger.js');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
