@@ -9,6 +9,7 @@ const Logger = require('../logger.js');
 
 /**
  * @function removeBasketItem
+ * @memberof Database
  * @description Removes an item from the basket.
  * @param {string} id - The ID of the user to delete.
  */
@@ -27,6 +28,7 @@ const removeBasketItem = async (id) => {
 
 /**
  * @function deleteUser
+ * @memberof Database
  * @description Deletes a user and all of their relevant data from the database.
  * @param {string} id - The ID of the user to delete.
  * @param {string} orderId - The ID of the order to delete.

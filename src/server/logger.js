@@ -2,10 +2,15 @@
  * @file logger.js
  * @author UP2002753
  * @description Basic console logger set up for the Block Shop store.
+ * @namespace Logger
  */
 const colors = require('colors');
 
-/** Function getDate to return the current date and time on execution */
+/**
+ * @function getDate
+ * @memberof Logger
+ * Function getDate to return the current date and time on execution
+ */
 function getDate() {
   const dateObj = new Date();
   const day = dateObj.getDate();
@@ -20,6 +25,7 @@ function getDate() {
 
 /**
  * @type {Object}
+ * @memberof Logger
  * @description The colour theme object.
  * @property {string} Info - The colour theme for info messages.
  * @property {string} Warn - The colour theme for warning messages.
@@ -39,6 +45,7 @@ colors.setTheme({
 
 /**
  * @function Info
+ * @memberof Logger
  * @param  {...any} args - The arguments to be logged.
  */
 const Info = (...args) => {
@@ -47,6 +54,7 @@ const Info = (...args) => {
 
 /**
  * @function Warn
+ * @memberof Logger
  * @param  {...any} args - The arguments to be logged.
  */
 const Warn = (...args) => {
@@ -55,6 +63,7 @@ const Warn = (...args) => {
 
 /**
  * @function Error
+ * @memberof Logger
  * @param  {...any} args - The arguments to be logged.
  */
 const Error = (...args) => {
@@ -63,6 +72,7 @@ const Error = (...args) => {
 
 /**
  * @function Database
+ * @memberof Logger
  * @param  {...any} args - The arguments to be logged.
  */
 const Database = (...args) => {
@@ -71,6 +81,7 @@ const Database = (...args) => {
 
 /**
  * @function Express
+ * @memberof Logger
  * @param  {...any} args - The arguments to be logged.
  */
 const Express = (...args) => {

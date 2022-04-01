@@ -4,6 +4,7 @@
  * @file authentication.js
  * @author UP2002753, portsoc
  * @description auth0 authentication middleware
+ * @namespace Authentication
  */
 
 const config = require('./auth-config.js');
@@ -13,6 +14,7 @@ const Logger = require('../logger.js');
 
 /**
  * @type {Object}
+ * @memberof Authentication
  * @property {boolean} authRequired - Whether or not authentication is required.
  * @property {auth0Logout} auth0Logout
  * @property {secret} - The client secret.
@@ -31,6 +33,7 @@ const authConfig = {
 
 /**
  * Auth0 Init function
+ * @memberof Authentication
  * @param {app} app - The express app.
  */
 function auth0(app) {

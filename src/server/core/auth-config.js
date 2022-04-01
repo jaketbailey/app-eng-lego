@@ -6,6 +6,7 @@
 
 /**
  * type {Object}
+ * @memberof Authentication
  * @property {string} domain - auth0 application domain.
  * @property {string} clientId - auth0 application client id.
  * @property {string} audience - auth0 api audience for api calls.

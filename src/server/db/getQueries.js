@@ -9,6 +9,7 @@ const Logger = require('../logger.js');
 
 /**
  * @function getAllProducts
+ * @memberof Database
  * @description Gets all products from the database.
  * @returns {Promise<Array>} - Returns an array of all the products in the database.
  */
@@ -30,7 +31,9 @@ const getAllProducts = async () => {
 
 /**
  * @function getProductById
+ * @memberof Database
  * @description Gets a product from the database.
+ * @param {number} id - The ID of the product to be retrieved.
  * @returns {Promise<Array>} - Returns an array of the products requested in the database.
  */
 const getProductById = async (id) => {
@@ -52,6 +55,13 @@ const getProductById = async (id) => {
   }
 };
 
+/**
+ * @function getUser
+ * @memberof Database
+ * @description Gets user address and phone number detail.
+ * @param {string} id - The ID of the user to be retrieved.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getUser = async (id) => {
   Logger.Database(`Getting user with ID: ${id}`);
   const data = [];
@@ -79,6 +89,13 @@ const getUser = async (id) => {
   return data;
 };
 
+/**
+ * @function checkExists
+ * @memberof Database
+ * @description Checks whether a database exists for a user which is pending i.e. current order.
+ * @param {number} id - The ID of the customer who's order is to be retrieved.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const checkExists = async (id) => {
   Logger.Database(`Checking if order with customer ID: ${id} exists`);
   const data = [];
@@ -97,6 +114,13 @@ const checkExists = async (id) => {
   return data;
 };
 
+/**
+ * @function getBasketItems
+ * @memberof Database
+ * @description Getting all items within a certain basket/order.
+ * @param {number} id - The ID of the order/basket to retrieve the items within.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getBasketItems = async (id) => {
   Logger.Database(`Getting basket items for user with ID: ${id}`);
   const data = [];
@@ -119,6 +143,13 @@ const getBasketItems = async (id) => {
   return data;
 };
 
+/**
+ * @function getProductById
+ * @memberof Database
+ * @description Gets a product from the database.
+ * @param {number} id - The ID of the product to be retrieved.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getStock = async (id) => {
   Logger.Database(`Getting stock for product with ID: ${id}`);
   const data = [];
@@ -141,6 +172,13 @@ const getStock = async (id) => {
   return data;
 };
 
+/**
+ * @function getTotalCost
+ * @memberof Database
+ * @description Gets the total cost of a specific order.
+ * @param {number} id - The ID of the order to be retrieved.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getTotalCost = async (id) => {
   Logger.Database(`Getting total cost for order with ID: ${id}`);
   const data = [];
@@ -163,6 +201,13 @@ const getTotalCost = async (id) => {
   return data;
 };
 
+/**
+ * @function getUserName
+ * @memberof Database
+ * @description Gets the user's name, email and phone details from the database.
+ * @param {number} id - The ID of the user to be retrieved.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getUserName = async (id) => {
   Logger.Database(`Getting user name for order with ID: ${id}`);
   const data = [];
@@ -188,6 +233,13 @@ const getUserName = async (id) => {
   return data;
 };
 
+/**
+ * @function getBasketId
+ * @memberof Database
+ * @description Gets the id of a basket for a certain user/customer.
+ * @param {number} id - The ID of the customer who's order is to be retrieved.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getBasketId = async (id) => {
   Logger.Database(`Getting basket ID for customer with ID: ${id}`);
   const data = [];
@@ -208,7 +260,13 @@ const getBasketId = async (id) => {
   return data;
 };
 
-
+/**
+ * @function getProductByFilter
+ * @memberof Database
+ * @description Gets all products from the database based on the filter criteria.
+ * @param {string} filter - The filter parameters for the query.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getProductByFilter = async (filter) => {
   Logger.Database(`Getting products with filter: ${filter}`);
   let data;
@@ -234,6 +292,7 @@ const getProductByFilter = async (filter) => {
   const finalResults = [];
   if (check === true) {
     for (let i = 0; i < newFilter.length; i++) {
+      /** Query for multiple colours selected */
       data = await db.Pool.query(`
         SELECT
           *
@@ -262,6 +321,7 @@ const getProductByFilter = async (filter) => {
     }
   } else {
     for (let i = 0; i < newFilter.length; i++) {
+      /** Query for colour or category */
       data = await db.Pool.query(`
       SELECT 
         id,
@@ -295,6 +355,13 @@ const getProductByFilter = async (filter) => {
   return data;
 };
 
+/**
+ * @function checkOrderDetail
+ * @memberof Database
+ * @description Checks whether an item already exists in the basket (to increase quantity or add new item).
+ * @param {number} id - The ID of the product to be retrieved from the order.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const checkOrderDetail = async (id) => {
   Logger.Database(`Checking if quantity for a product with ID: ${id} exists`);
   const data = [];
@@ -319,6 +386,13 @@ const checkOrderDetail = async (id) => {
   return data;
 };
 
+/**
+ * @function searchProduct
+ * @memberof Database
+ * @description Gets products in the database based on the search criteria.
+ * @param {string} search - The search paramters for the query.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const searchProduct = async (search) => {
   if (search.includes('_')) {
     search = search.replace('_', ' ');

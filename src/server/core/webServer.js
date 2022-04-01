@@ -2,6 +2,7 @@
  * @file webServer.js
  * @author UP2002753
  * @description Express.js webserver to host the Block Shop store.
+ * @namespace Webserver
  */
 
 // Imports the express.js api and sets the port to 8080 as specified in the coursework spec
@@ -24,6 +25,7 @@ function Init() {
   app.post('/block/api/error/', jsonParser, (req, res) => {
     /**
      * @type{Object}
+     * @memberof Webserver
      *  @property {string} message - The error message.
      *  @property {string} stack - The error stack.
      */
