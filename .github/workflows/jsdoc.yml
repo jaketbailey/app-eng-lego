@@ -1,19 +1,19 @@
-# (JSDoc Action - GitHub Marketplace, n.d.)
-# - name: Build
-#   uses: andstor/jsdoc-action@v1
-#   with:
-#     source_dir: ./src
-#     recurse: true
-#     output_dir: ./jsdoc
+# (Documentation.Js Action, 2020/2022)
+name: jsdoc
+on:
+ push:
+   branches:
+     - main
 
-name: JSDoc
-on: push
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: andstor/jsdoc-action@v1
+    - uses: actions/checkout@v1
+
+    - name: Build
+      uses: codevise/documentation-js-action@v1
       with:
-    source_dir: ./src
-    recurse: true
-    output_dir: ./jsdoc
+        input: ./src
+        output: ./jsdoc
