@@ -1,23 +1,8 @@
 import { getUser } from './user.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
+import { getBasket } from './basket.mjs';
 import errorCheck from './error.mjs';
-
-export async function getBasket() {
-  const userDetails = callServer();
-  let customerId = localStorage.getItem('customerId');
-  if (customerId === null) {
-    customerId = userDetails.sub;
-    localStorage.removeItem('customerId');
-  }
-  try {
-    const response = await fetch(`/block/api/check-exists/${customerId}`);
-    const result = await response.json();
-    return result;
-  } catch (err) {
-    errorCheck(err);
-  }
-}
 
 async function getBasketItems(basket) {
   const basketId = basket[0].id;

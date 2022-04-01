@@ -1,6 +1,22 @@
 import { callServer } from './authentication.mjs';
 import errorCheck from './error.mjs';
 
+export async function getBasket() {
+  const userDetails = callServer();
+  let customerId = localStorage.getItem('customerId');
+  if (customerId === null) {
+    customerId = userDetails.sub;
+    localStorage.removeItem('customerId');
+  }
+  try {
+    const response = await fetch(`/block/api/check-exists/${customerId}`);
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    errorCheck(err);
+  }
+}
+
 async function checkExists(id) {
   try {
     const response = await fetch(`/block/api/check-exists/${id}`);

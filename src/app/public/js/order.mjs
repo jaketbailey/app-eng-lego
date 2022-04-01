@@ -1,11 +1,11 @@
-import { getBasket } from './checkout.mjs';
+import { getBasket } from './basket.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
 import errorCheck from './error.mjs';
 
 async function loadFinalCheckout() {
   let customerId = localStorage.getItem('customerId');
-  if (customerId !== null) {
+  if (customerId === null) {
     const userDetails = callServer();
     customerId = userDetails.sub;
   }
@@ -17,7 +17,7 @@ async function getOrder(customerId) {
   const shippingAddress = basket[0].order_address.split(', ');
   const total = basket[0].total_cost;
   try {
-    const customerData = await fetch(`/get-user-name/${customerId}`);
+    const customerData = await fetch(`/block/api/get-user-name/${customerId}`);
     const customer = await customerData.json();
     updateOrder(basket[0].id);
     addToPage(customer, shippingAddress, total);
