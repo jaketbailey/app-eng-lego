@@ -1,6 +1,17 @@
+/**
+ * @file getQueries.js
+ * @author UP2002753
+ * @description Contains all the SELECT queries for the database.
+ */
+
 const db = require('./connectDb.js');
 const Logger = require('../logger.js');
 
+/**
+ * @function getAllProducts
+ * @description Gets all products from the database.
+ * @returns {Promise<Array>} - Returns an array of all the products in the database.
+ */
 const getAllProducts = async () => {
   Logger.Database('Getting all products');
   const data = [];
@@ -17,6 +28,11 @@ const getAllProducts = async () => {
   return data;
 };
 
+/**
+ * @function getProductById
+ * @description Gets a product from the database.
+ * @returns {Promise<Array>} - Returns an array of the products requested in the database.
+ */
 const getProductById = async (id) => {
   id = parseInt(id, 10);
   Logger.Database(`Getting product with ID: ${id}`);

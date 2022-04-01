@@ -1,8 +1,22 @@
+/**
+ * @file connectDb.js
+ * @author UP2002753
+ * @description Connections to the database. Including connect and disconnect functions.
+ */
 const pg = require('pg');
 const dbConfig = require('./config/dbConfig.js');
 const Logger = require('../logger.js');
 const { Pool } = pg;
 
+/**
+ * @type {Pool}
+ * @description The connection pool to the database.
+ * @property {string} user - The username for the database.
+ * @property {string} host - The host of the database.
+ * @property {string} database - The database name.
+ * @property {string} password - The password for the database.
+ * @property {string} port - The port of the database.
+ */
 const pool = new Pool({
   user: dbConfig.user,
   host: dbConfig.host,
@@ -11,6 +25,10 @@ const pool = new Pool({
   port: dbConfig.port,
 });
 
+/**
+ * @function Init
+ * @description Initialises the database connection. It also handles exit events to disconnect from the db.
+ */
 const Init = async () => {
   await pool.connect()
     .then(() => {
@@ -33,6 +51,10 @@ const Init = async () => {
     });
 };
 
+/**
+ * @function disconnectDb
+ * @description Disconnects from the database.
+ */
 const disconnectDb = (eventType) => {
   Logger.Info(`Detected a ${eventType} event. Closing database connection.`);
   pool.end()
