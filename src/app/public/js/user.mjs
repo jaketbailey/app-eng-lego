@@ -10,7 +10,7 @@ import errorCheck from './error.mjs';
 
 /**
  * @function createUser
- * @param {object} user;
+ * @param {object} user
  * @description Creates a user in the database.
  * @memberof User
  */
@@ -32,7 +32,7 @@ export async function createUser(user) {
 
 /**
  * @function updateUser
- * @param {object} address;
+ * @param {object} address
  * @description Sends new address to be updated in the database.
  * @memberof User
  */
@@ -53,7 +53,7 @@ export async function updateUser(address) {
 
 /**
  * @function getUser
- * @param {string} id;
+ * @param {string} id
  * @description Requests relevant user data from the database.
  * @memberof User
  */
@@ -69,7 +69,7 @@ export async function getUser(id) {
 
 /**
  * @function getBasketId
- * @param {string} id;
+ * @param {string} id
  * @description Requests the id of a basket with customerid (id).
  * @memberof User
  */
@@ -85,7 +85,7 @@ export async function getBasketId(id) {
 
 /**
  * @function deleteUser
- * @param {string} id;
+ * @param {string} id
  * @param {number} orderId
  * @description Sends a request to the api to delete all user data and order data for a user.
  * @memberof User
