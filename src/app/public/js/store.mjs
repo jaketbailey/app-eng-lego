@@ -1,5 +1,19 @@
+/**
+ * @file store.mjs
+ * @author UP2002753
+ * @description Basic store functions
+ * @namespace Store
+ */
 import errorCheck from './error.mjs';
 
+/**
+ * @function getData
+ * @memberof Store
+ * @description Get main store data from the database
+ * @description Used for all products and filters
+ * @param {string} - Contains filter data/no filter
+ * @returns {array} - Contains all products based on filter or all products
+*/
 export async function getData(input) {
   let actualInput = input.split('/');
   const page = actualInput[2];
@@ -30,6 +44,20 @@ export async function getData(input) {
   }
 }
 
+/**
+ * @function appendElem
+ * @memberof Store
+ * @description Append an element to the DOM
+ * @description This function is used to append an multiple types of elements to the DOM.
+ * @param {string} parent
+ * @param {string} type
+ * @param {string} id
+ * @param {string} className
+ * @param {string} text
+ * @param {string} src
+ * @param {string} value
+ * @returns {element} - Returns the element to be appended to the DOM
+ */
 export function appendElem(parent, type, id, className, text, src, value) {
   const elem = document.createElement(type);
   if (id !== null) elem.id = id;
