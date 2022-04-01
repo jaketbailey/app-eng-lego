@@ -1,0 +1,7 @@
+# (JSDoc Action - GitHub Marketplace, n.d.)
+- name: Build
+  uses: andstor/jsdoc-action@v1
+  with:
+    source_dir: ./src
+    recurse: true
+    output_dir: ./jsdoc
