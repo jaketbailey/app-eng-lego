@@ -1,6 +1,19 @@
+/**
+ * @file basket.mjs
+ * @author UP2002753
+ * @description The functions to call the api for basket data
+ * @namespace Basket
+ */
+
 import { callServer } from './authentication.mjs';
 import errorCheck from './error.mjs';
 
+/**
+ * @function getBasket
+ * @memberof Basket
+ * @returns {array} - Contains all products in the basket
+ * @description Gets the basket items from the server
+ */
 export async function getBasket() {
   const userDetails = callServer();
   let customerId = localStorage.getItem('customerId');
@@ -17,6 +30,12 @@ export async function getBasket() {
   }
 }
 
+/**
+ * @function checkExists
+ * @memberof Basket
+ * @returns {array} - Contains one item from the basket
+ * @description Checks if the basket exists in the server
+ */
 async function checkExists(id) {
   try {
     const response = await fetch(`/block/api/check-exists/${id}`);
@@ -27,6 +46,12 @@ async function checkExists(id) {
   }
 }
 
+/**
+ * @function createBasket
+ * @memberof Basket
+ * @param {object} user - Contains the user details
+ * @description Creates a new basket for the user
+ */
 export default async function createBasket(user) {
   const check = await checkExists(user.sub);
   if (check.length === 0) {
@@ -51,6 +76,13 @@ export default async function createBasket(user) {
   }
 }
 
+/**
+ * @function addToBasket
+ * @memberof Basket
+ * @param {number} - ProductId
+ * @param {element} - Div element, to be retrieve quantity
+ * @description Calls the api to add the quantity to the basket/order
+ */
 export async function addToBasket(productId, page) {
   const userDetails = callServer();
   let customerId = localStorage.getItem('customerId');
@@ -161,6 +193,13 @@ export async function addToBasket(productId, page) {
   }
 }
 
+/**
+ * @function getStock
+ * @memberof Basket
+ * @param {number} - Product's id
+ * @param {boolean} - If true, will update the stock
+ * @description Updates the live stock count on the page
+ */
 async function getStock(productId, update) {
   try {
     const stock = await fetch(`/block/api/get-stock/${productId}`);
@@ -178,6 +217,12 @@ async function getStock(productId, update) {
   }
 }
 
+/**
+ * @function checkExists
+ * @memberof Basket
+ * @param {object} user - Contains the user details
+ * @description Checks if the user has a basket already, if so uodates the basket
+ */
 export async function updateBasket(user) {
   try {
     await fetch(checkExists(user));

@@ -1,8 +1,23 @@
+// (Example of Authentication with Auth0, 2021/2021)
+
+/**
+ * @file authentication.mjs
+ * @author UP2002753, portsoc
+ * @description Client-side authentication handlers and UI updates
+ * @namespace AuthenticationClient
+ */
+
 import loadAccountPage from './account.mjs';
 import { createUser, getBasketId, deleteUser } from './user.mjs';
 import generateUnregistered from './unregistered.mjs';
 import errorCheck from './error.mjs';
 
+/**
+ * @function fetchConfig
+ * @returns {object} - Contains all auth config variables
+ * @memberof AuthenticationClient
+ * @description Fetches auth config variables from server
+ */
 async function fetchConfig() {
   try {
     const response = await fetch('/block/api/auth-config');
@@ -15,6 +30,11 @@ async function fetchConfig() {
 
 let auth0 = null;
 
+/**
+ * @function initialiseClient
+ * @memberof AuthenticationClient
+ * @returns {function} - Initialises auth0 client
+ */
 async function initialiseClient() {
   const config = await fetchConfig();
   try {
@@ -30,6 +50,11 @@ async function initialiseClient() {
   }
 }
 
+/**
+ * @function updateUI
+ * @memberof AuthenticationClient
+ * @description Updates the UI based on the current user status (logged in or out)
+ */
 async function updateUI() {
   const unregisteredId = localStorage.getItem('customerId');
   const isAuthenticated = await auth0.isAuthenticated();
@@ -66,12 +91,22 @@ async function updateUI() {
   }
 }
 
+/**
+ * @function login
+ * @memberof AuthenticationClient
+ * @description Logs in the user
+ */
 async function login() {
   await auth0.loginWithRedirect({
     redirect_uri: window.location.origin,
   });
 }
 
+/**
+ * @function logout
+ * @memberof AuthenticationClient
+ * @description Logs out the user
+ */
 function logout() {
   localStorage.removeItem('customerId');
   auth0.logout({
@@ -80,6 +115,11 @@ function logout() {
 }
 
 // check for the code and state parameters from Auth0 login redirect
+/**
+ * @function handleAuth0Redirect
+ * @memberof AuthenticationClient
+ * @description Handles redirect from Auth0 login
+ */
 async function handleAuth0Redirect() {
   const isAuthenticated = await auth0.isAuthenticated();
 
@@ -102,11 +142,22 @@ async function handleAuth0Redirect() {
   }
 }
 
+/**
+ * @function setupListeners
+ * @memberof AuthenticationClient
+ * @description Sets up listeners for auth0 logout/login button clicks
+ */
 function setupListeners() {
   document.getElementById('authBtn').addEventListener('click', login);
   document.getElementById('authBtnLogout').addEventListener('click', logout);
 }
 
+/**
+ * function callServer
+ * @memberof AuthenticationClient
+ * @description Calls the Auth0 API to get the user's profile
+ * @returns {promise} - Promise containing the user's profile
+ */
 export async function callServer() {
   const token = await auth0.getTokenSilently();
 
@@ -127,7 +178,11 @@ export async function callServer() {
   return data;
 }
 
-
+/**
+ * @function init
+ * @memberof AuthenticationClient
+ * @description Initialises the authentication client
+ */
 async function init() {
   await initialiseClient();
   await setupListeners();

@@ -1,5 +1,19 @@
+/**
+ * @file account.mjs
+ * @author UP2002753
+ * @description Api calls for account and updates to the accounts profile page
+ * @namespace Account
+ */
+
 import { updateUser, getUser } from './user.mjs';
 
+/**
+ * @function loadAccountPage
+ * @memberof Account
+ * @param {object} user - Auth0 user object
+ * @description Loads the account page
+ * and appends the user's details to the page
+ */
 export default function loadAccountPage(user) {
   const main = document.getElementById('main');
   const box = document.getElementById('main_box');
@@ -48,6 +62,12 @@ export default function loadAccountPage(user) {
   });
 }
 
+/**
+ * @function updateAddress
+ * @memberof Account
+ * @param {object} user - Auth0 user object
+ * @description Makes an api call to update the user's address
+*/
 function updateAddress(user) {
   const input = document.getElementsByClassName('update');
   const address = {
