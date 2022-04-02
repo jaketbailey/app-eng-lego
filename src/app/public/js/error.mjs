@@ -1,3 +1,16 @@
+/**
+ * @file error.mjs
+ * @author UP2002753
+ * @description Api calls to log errors on the server
+ * @namespace Error
+ */
+
+/**
+ * @function errorCheck
+ * @memberof Error
+ * @param {object} error
+ * @description Sends error to the server
+ */
 export default async function (error) {
   const data = {
     message: error.message,

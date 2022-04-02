@@ -1,9 +1,22 @@
+/**
+ * @file checkout.mjs
+ * @author UP2002753
+ * @description Functions for the checkout/basket page
+ * @namespace Checkout
+ */
+
 import { getUser } from './user.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
 import { getBasket } from './basket.mjs';
 import errorCheck from './error.mjs';
 
+/**
+ * @function getBasketItems
+ * @memberof Checkout
+ * @param {array} basket - Array of baskets from the specified user
+ * @returns {array} - All items in the basket with requested basket id
+ */
 async function getBasketItems(basket) {
   const basketId = basket[0].id;
   try {
@@ -15,6 +28,12 @@ async function getBasketItems(basket) {
   }
 }
 
+/**
+ * @function getProductById
+ * @memberof Checkout
+ * @param {number} id - Product id
+ * @returns {array} - Array of products with the specified id
+ */
 async function getProductById(id) {
   try {
     const response = await fetch(`/block/api/shop/item/${id}`);
@@ -25,6 +44,12 @@ async function getProductById(id) {
   }
 }
 
+/**
+ * @function addTotalCost
+ * @memberof Checkout
+ * @param {number} id - Product id
+ * @param {number} total - New total cost of this product in the basket
+ */
 async function addTotalCost(id, total) {
   const data = {
     id: id,
@@ -43,6 +68,13 @@ async function addTotalCost(id, total) {
   }
 }
 
+/**
+ * @function addCheckoutItem
+ * @memberof Checkout
+ * @param {array} product - Array of products with the specified id
+ * @param {number} id - Product id
+ * @param {number} quantity - Quantity of the product
+ */
 function addCheckoutItem(product, id, quantity) {
   const page = document.querySelector('.checkout-card');
   const basketItem = document.createElement('div');
@@ -66,6 +98,12 @@ function addCheckoutItem(product, id, quantity) {
   page.appendChild(basketItem);
 }
 
+/**
+ * @function getUserAddress
+ * @memberof Checkout
+ * @description Requests the api for the user details (address and phone number)
+ * @description and updates the page with the details
+ */
 async function getUserAddress() {
   const userDetails = callServer();
   let id = localStorage.getItem('customerId');
@@ -90,6 +128,15 @@ async function getUserAddress() {
   addressBox.appendChild(document.createElement('hr'));
 }
 
+/**
+ * @function removeOrderDetail
+ * @memberof Checkout
+ * @param {number} id - Product id
+ * @param {number} productId - Product id
+ * @param {number} basket - Basket id
+ * @param {number} quantity - Quantity of the product
+ * @description Deletes the item from the basket/order.
+ */
 async function removeOrderDetail(id, productId, basket, quantity) {
   try {
     await fetch('/block/api/remove-basket-item/', {
@@ -105,6 +152,16 @@ async function removeOrderDetail(id, productId, basket, quantity) {
   }
 }
 
+/**
+ * @function getTotalCost
+ * @memberof Checkout
+ * @param {number} id - Product id
+ * @param {number} productId - Product id
+ * @param {number} basket - Basket id
+ * @param {number} quantity - Quantity of the product
+ * @param {boolean} remove - If the item is being removed from the basket
+ * @description Requests the api to retrieve the current total from the db.
+ */
 async function getTotalCost(id, productId, basket, quantity, remove) {
   try {
     const response = await fetch(`/block/api/get-total-cost/${basket}`);
@@ -116,6 +173,17 @@ async function getTotalCost(id, productId, basket, quantity, remove) {
   }
 }
 
+/**
+ * @function updatePageCost
+ * @memberof Checkout
+ * @param {number} id - Product id
+ * @param {number} productId - Product id
+ * @param {number} totalCost - Total cost of the basket
+ * @param {number} basket - Basket id
+ * @param {number} quantity - Quantity of the product
+ * @param {boolean} remove - If the item is being removed from the basket
+ * @description Updates the page with the new total cost.
+ */
 function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
   const quantitySelect = document.getElementById(`quantity-${id}`);
   const e = document.getElementById(id);
@@ -151,6 +219,17 @@ function updatePageCost(id, productId, totalCost, basket, quantity, remove) {
   });
 }
 
+/**
+ * @function updateStock
+ * @memberof Checkout
+ * @param {element} e - The element that was clicked
+ * @param {number} id - Product id
+ * @param {number} productId - Product id
+ * @param {number} basket - Basket id
+ * @param {number} removeQuantity - Quantity of the product to be removed from basket
+ * @param {number} price - Price of the product
+ * @description Updates the stock levels when items are removed from the basket.
+ */
 async function updateStock(e, id, quantity, basket, removeQuantity, price) {
   const newQuantity = parseFloat(quantity) - parseFloat(removeQuantity);
   const newPrice = (parseFloat(price) / parseFloat(quantity)) * parseFloat(newQuantity);
@@ -169,6 +248,12 @@ async function updateStock(e, id, quantity, basket, removeQuantity, price) {
   }
 }
 
+/**
+ * @function addToStock
+ * @memberof Checkout
+ * @param {object} data - Product id and quantity
+ * @description Calls the api to update the db with new stock count.
+ */
 async function addToStock(data) {
   try {
     await fetch('/block/api/add-to-stock/', {
@@ -183,6 +268,13 @@ async function addToStock(data) {
   }
 }
 
+/**
+ * @function basketLoad
+ * @memberof Checkout
+ * @description Function called when the page loads.
+ * Calls the api to retrieve the basket and the products in the basket.
+ * Appends the products to the DOM.
+ */
 async function basketLoad() {
   const basket = await getBasket();
   const basketItems = await getBasketItems(basket);
@@ -205,6 +297,10 @@ async function basketLoad() {
   const remove = document.querySelectorAll('.button_remove');
   let quantity = 0;
   let productId, item, basketId, price, removeQuantity;
+  /**
+   * Event listener for remove button click
+   * @memberof Checkout
+   */
   for (let i = 0; i < remove.length; i++) {
     remove[i].addEventListener('click', async () => {
       const basketItemsNew = await getBasketItems(basket);
@@ -224,6 +320,13 @@ async function basketLoad() {
   await shippingAddress();
 }
 
+/**
+ * @function shippingAddress
+ * @memberof Checkout
+ * @description Checks the database for the user's shipping address.
+ * If the user has not set an address, it will prompt them to set one in order to continue to checkout.
+ * If the user has set an address, it will display it in the DOM.
+ */
 async function shippingAddress() {
   const basket = await getBasket();
   const userDetails = callServer();
@@ -282,6 +385,12 @@ async function shippingAddress() {
   });
 }
 
+/**
+ * @function removeOrderDetail
+ * @memberof Checkout
+ * @param {object} shippingAddress - Shipping address object
+ * @description Calls the api to update the shipping address of the order in the db.
+ */
 async function storeShippingAddress(shippingAddress) {
   try {
     await fetch('/block/api/add-shipping-address/', {
@@ -296,6 +405,16 @@ async function storeShippingAddress(shippingAddress) {
   }
 }
 
+/**
+ * @function updateOrderDetail
+ * @memberof Checkout
+ * @param {element} e - The element that was clicked
+ * @param {number} productId - The product id
+ * @param {number} orderId - The order id
+ * @param {number} newQuantity - The new quantity of the product
+ * @param {number} newprice - The new price of the product
+ * @description Calls the api to update the quantity and price of the product in the db.
+ */
 async function updateOrderDetail(e, productId, orderId, newQuantity, newPrice) {
   const data = {
     id: orderId,

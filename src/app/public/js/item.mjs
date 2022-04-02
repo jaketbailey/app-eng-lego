@@ -1,6 +1,19 @@
+/**
+ * @file item.mjs
+ * @author UP2002753
+ * @description Page generation for individual item pages
+ * @namespace Item
+ */
+
 import { getData, appendElem } from './store.mjs';
 import checkForAdd from './add.mjs';
 
+/**
+ * @function load
+ * @memberof Item
+ * @description Load the item page
+ * @description This collates all the data received from the api and appends it to the DOM
+ */
 const load = () => {
   const page = document.getElementById('page');
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -36,4 +49,3 @@ const load = () => {
 };
 
 window.addEventListener('load', load);
-// appendElem(parent, type, id, className, text, src, value)
