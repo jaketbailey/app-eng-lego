@@ -29,7 +29,7 @@ describe('User Tests', () => {
     await getQuery.getBasketId('testuser2-testuser2')
       .then( async (data) => {
         insertQuery.addToBasket(data[0].id, 1, 3.88, 1);
-        await getQuery.checkOrderDetail(`1-${data[0].id}`)
+        await getQuery.checkOrderDetail(`1-${data[0].id}`) 
           .then((data) => {
             expect(data).toBeDefined();
           });

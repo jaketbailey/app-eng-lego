@@ -38,27 +38,13 @@ const deleteUser = async (id, orderId) => {
   await db.Pool.query(`
     DELETE FROM order_details
     WHERE order_id = '${orderId}';
+    
+    DELETE FROM orders
+    WHERE customer_id = '${id}';
+
+    DELETE FROM customers
+    WHERE id = '${id}';
     `)
-    .then(async () => {
-      await db.Pool.query(`
-        DELETE FROM ordersz\
-        WHERE customer_id = '${id}';
-        `)
-        .then(async () => {
-          await db.Pool.query(`
-            DELETE FROM customers
-            WHERE id = '${id}';
-            `)
-            .catch((err) => {
-              Logger.Error(err);
-              throw err;
-            });
-        })
-        .catch((err) => {
-          Logger.Error(err);
-          throw err;
-        });
-    })
     .catch((err) => {
       Logger.Error(err);
       throw err;
