@@ -2,14 +2,14 @@
  * @file filters.mjs
  * @author UP2002753
  * @description Api calls for filters and searches
- * @namespace filter
+ * @namespace Filter
  */
 
 import errorCheck from './error.mjs';
 
 /**
  * @function filter
- * @memberof filter
+ * @memberof Filter
  * @param {string} filter
  * @returns {array} - Contains all products based on filter
  */
@@ -25,7 +25,7 @@ export async function filter(filter) {
 
 /**
  * @function search
- * @memberof filter
+ * @memberof Filter
  * @param {string} search
  * @returns {array} - Contains all products based on search
  */
