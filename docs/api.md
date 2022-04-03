@@ -1,5 +1,5 @@
 
-# CRUD Rest API Documentation
+# API Documentation
 
 ## GET requests
 
