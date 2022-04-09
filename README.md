@@ -32,3 +32,7 @@ The database will then be generated ready for the application to run.
   - This will generate the documentation in the `jsdoc` folder.
   - Other documentation (non jsdoc) will be in the `docs` folder.
   
+## References
+
+- See citations throughout the code.
+- See the [bibliography.md](bibliography.md) for more information.
