@@ -28,6 +28,7 @@ The database will then be generated ready for the application to run.
   - The tests will run using jest with default configuration.
 
 ## Documentation
+
   - Run `npm run docs` to generate the documentation.
   - This will generate the documentation in the `jsdoc` folder.
   - Other documentation (non jsdoc) will be in the `docs` folder.
