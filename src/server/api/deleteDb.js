@@ -2,7 +2,6 @@
  * @file deleteDb.js
  * @author UP2002753
  * @description Delete Api Endpoints
- * @namespace Api
  */
 
 const Logger = require('../logger.js');
