@@ -18,7 +18,7 @@ The database will then be generated ready for the application to run.
 ## Running the application
 
 - To start the application simply run `npm start`.
-- This will start up the webserver and will listen on port 8080
+- This will start up the express webserver (Express - Node.Js Web Application Framework, n.d.) and will listen on port 8080
 - The application will then run on http://localhost:8080.
 
 ## Testing the application
@@ -32,7 +32,7 @@ The database will then be generated ready for the application to run.
   - Run `npm run docs` to generate the documentation.
   - This will generate the documentation in the `jsdoc` folder.
   - Other documentation (non jsdoc) will be in the `docs` folder.
-  
+  - See the database documentation [database.md](docs/database.md)
 ## References
 
 - See citations throughout the code.
