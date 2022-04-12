@@ -296,10 +296,10 @@ p {
     background-color: transparent;
     flex-flow: row;
     width: 60%;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    justify-items: flex-start;
     margin-right: auto;
     margin-left: auto;
     height: auto;
@@ -479,7 +479,7 @@ input[type=text], .quantity {
     justify-content: center;
     justify-items: center;
     margin-right: auto;
-    // margin-left: auto;
+    margin-left: auto;
     // height: 70vh
     // height: 70%;
 }
@@ -659,6 +659,10 @@ input[type=text], .quantity {
         margin-top: 4em;
         margin-bottom: 0.1em;
     }
+
+    .main-page {
+        height: auto;
+    }
     
     .nav-menu {
         position: fixed;
@@ -766,6 +770,10 @@ input[type=text], .quantity {
         width: 100%;
         flex-flow: row wrap;
         width: 100%;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
     }
 
     .checkout-card {
