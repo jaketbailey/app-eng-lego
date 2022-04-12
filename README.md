@@ -24,7 +24,7 @@ The database will then be generated ready for the application to run.
 ## Testing the application
 
   - To test the application, run `npm test`.
-  - This will run the tests and will report the results.
+  - This will run the tests using Jest (Jest · 🃏 Delightful JavaScript Testing, n.d.) and will report the results.
   - The tests will run using jest with default configuration.
 
 ## Documentation
