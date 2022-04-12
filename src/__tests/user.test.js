@@ -7,10 +7,6 @@ const insertQuery = require('../server/db/insertQueries.js');
 const updateQuery = require('../server/db/updateQueries.js');
 const deleteQuery = require('../server/db/deleteQueries.js');
 
-test('Sanity Check', () => {
-  expect(1 + 1).toBe(2);
-});
-
 describe('User Tests', () => {
   connectDb.Init();
 
