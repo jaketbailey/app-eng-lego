@@ -1,3 +1,5 @@
+// (Jest · 🃏 Delightful JavaScript Testing, n.d.)
+
 /* eslint-disable */ 
 const connectDb = require('../server/db/connectDb');
 const getQuery = require('../server/db/getQueries.js');
