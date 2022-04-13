@@ -35,7 +35,7 @@ const updateUser = async (id, address1, address2, city, country, county, postcod
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`User updated with ID: ${id}`);
+  Logger.Database(`User updated with ID: ${id}`);
 };
 
 /**
@@ -56,7 +56,7 @@ const updateStock = async (id, quantity) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Stock updated for product id: ${id}`);
+  Logger.Database(`Stock updated for product id: ${id}`);
 };
 
 /**
@@ -76,7 +76,7 @@ const addToStock = async (productId, quantity) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Stock updated for product id: ${productId}`);
+  Logger.Database(`Stock updated for product id: ${productId}`);
 };
 
 /**
@@ -96,7 +96,7 @@ const addTotalCost = async (id, total) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Order total cost updated for order id: ${id}`);
+  Logger.Database(`Order total cost updated for order id: ${id}`);
 };
 
 /**
@@ -121,7 +121,7 @@ const addShippingAddress = async (id, address1, address2, city, county, postcode
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Shipping address updated for order id: ${id}`);
+  Logger.Database(`Shipping address updated for order id: ${id}`);
 };
 
 /**
@@ -141,7 +141,7 @@ const updateOrder = async (id, status) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Order status updated to ${status} for order; ${id}`);
+  Logger.Database(`Order status updated to ${status} for order; ${id}`);
 };
 
 /**
@@ -164,7 +164,7 @@ const updateOrderDetail = (id, productId, price, quantity) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Order updated with orderId: ${id}, ProductId: ${productId}`);
+  Logger.Database(`Order updated with orderId: ${id}, ProductId: ${productId}`);
 };
 
 module.exports = {

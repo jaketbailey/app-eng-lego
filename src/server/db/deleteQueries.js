@@ -23,7 +23,8 @@ const removeBasketItem = async (id) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Product removed from basket with ID: ${id}`);
+  Logger.Database(`Product removed from basket with ID: ${id}`);
+  return `Product removed from basket with ID: ${id}`;
 };
 
 /**
@@ -49,7 +50,8 @@ const deleteUser = async (id, orderId) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`User deleted with ID: ${id}`);
+  Logger.Database(`User deleted with ID: ${id}`);
+  return `User deleted with ID: ${id}`;
 };
 
 module.exports = {

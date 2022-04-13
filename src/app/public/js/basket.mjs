@@ -83,6 +83,22 @@ export default async function createBasket(user) {
  * @param {element} - Div element, to be retrieve quantity
  * @description Calls the api to add the quantity to the basket/order
  */
+
+async function updateOrderDetail(updateData, data) {
+  await fetch('/block/api/update-order-detail/', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+  updateData = {
+    id: data.productId,
+    quantity: quantity,
+  }
+}
+
 export async function addToBasket(productId, page) {
   const userDetails = callServer();
   let customerId = localStorage.getItem('customerId');
@@ -123,6 +139,7 @@ export async function addToBasket(productId, page) {
     if (orderDetail.length !== 0) {
       data.quantity = parseInt(data.quantity, 10) + parseInt(orderDetail[0].quantity, 10);
       data.price = (parseFloat(data.price) * parseFloat(data.quantity));
+      await updateOrderDetail(updateData, data)
       try {
         await fetch('/block/api/update-order-detail/', {
           headers: {

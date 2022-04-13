@@ -310,7 +310,7 @@ const getProductByFilter = async (filter) => {
             finalResults.push(results.rows[j]);
           }
           if (i === newFilter.length - 1) {
-            Logger.Info('Sending colour filter results');
+            Logger.Database('Sending colour filter results');
             return finalResults;
           }
         })
@@ -342,7 +342,7 @@ const getProductByFilter = async (filter) => {
             finalResults.push(results.rows[j]);
           }
           if (i === newFilter.length - 1) {
-            Logger.Info('Returning filter results');
+            Logger.Database('Returning filter results');
             return finalResults;
           }
         })

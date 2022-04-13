@@ -23,11 +23,13 @@ const createUser = async (sub, name, email) => {
     ) VALUES (
       '${sub}', '${email}', '${names[0]}', '${names[1]}', null, null, null, null, null, null, null
     ) ON CONFLICT (id) DO NOTHING`)
+    .then(() => {
+    })
     .catch((err) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`User added with ID: ${sub}`);
+  Logger.Database(`User added with ID: ${sub}`);
 };
 
 /**
@@ -54,7 +56,7 @@ const createBasket = (customerId, email) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Basket added for user with ID: ${customerId}`);
+  Logger.Database(`Basket added for user with ID: ${customerId}`);
 };
 
 /**
@@ -78,7 +80,7 @@ const addToBasket = (id, productId, price, quantity) => {
       Logger.Error(err);
       throw err;
     });
-  Logger.Info(`Product added to basket with order id: ${id}`);
+  Logger.Database(`Product added to basket with order id: ${id}`);
 };
 
 module.exports = {

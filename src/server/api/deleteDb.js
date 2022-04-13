@@ -23,7 +23,7 @@ const removeBasketItem = (req, res) => {
     res.status.send(`Error: ${err}`);
     throw err;
   });
-  res.status(200).send(`Product removed from basket with ID: ${id}`);
+  res.status(204).send(`Product removed from basket with ID: ${id}`);
   // });
 };
 
@@ -43,7 +43,7 @@ const deleteUser = (req, res) => {
     res.status.send(`Error: ${err}`);
     throw err;
   });
-  res.status(200).send(`User deleted with ID: ${id}`);
+  res.status(204).send(`User deleted with ID: ${id}`);
 };
 
 module.exports = {
