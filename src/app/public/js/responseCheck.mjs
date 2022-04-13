@@ -7,7 +7,7 @@
 
 export default function (response) {
   if (response.status === 200) {
-    return ('OK');
+    return ('Ok');
   } else if (response.status === 201) {
     return ('Created');
   } else if (response.status === 204) {
