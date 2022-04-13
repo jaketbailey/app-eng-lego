@@ -5,6 +5,8 @@
  * @namespace Error
  */
 
+import resCheck from './responseCheck.mjs';
+
 /**
  * @function errorCheck
  * @memberof Error
@@ -22,6 +24,7 @@ export default async function (error) {
     },
     method: 'POST',
     body: JSON.stringify(data),
-  });
+  })
+    .then(response => console.log(resCheck(response)));
   throw error;
 }

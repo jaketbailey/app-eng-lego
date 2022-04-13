@@ -7,6 +7,7 @@
 
 import createBasket from './basket.mjs';
 import errorCheck from './error.mjs';
+import resCheck from './responseCheck.mjs';
 
 /**
  * @function createUser
@@ -23,7 +24,8 @@ export async function createUser(user) {
       },
       method: 'POST',
       body: JSON.stringify(user),
-    });
+    })
+      .then(response => console.log(resCheck(response)));
     await createBasket(user);
   } catch (err) {
     errorCheck(err);
@@ -45,7 +47,8 @@ export async function updateUser(address) {
       },
       method: 'PUT',
       body: JSON.stringify(address),
-    });
+    })
+      .then(response => console.log(resCheck(response)));
   } catch (err) {
     errorCheck(err);
   }
@@ -101,7 +104,8 @@ export async function deleteUser(id, orderId) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ id: id, orderId: orderId }),
-      });
+      })
+        .then(response => console.log(resCheck(response)));
     } catch (err) {
       errorCheck(err);
     }

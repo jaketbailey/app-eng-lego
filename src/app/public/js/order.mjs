@@ -9,6 +9,7 @@ import { getBasket } from './basket.mjs';
 import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
 import errorCheck from './error.mjs';
+import resCheck from './responseCheck.mjs';
 
 /**
  * @function loadFinalCheckout
@@ -93,7 +94,8 @@ async function updateOrder(id) {
       },
       body: JSON.stringify(data),
       method: 'PUT',
-    });
+    })
+      .then(response => console.log(resCheck(response)));
   } catch (err) {
     errorCheck(err);
   }

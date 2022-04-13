@@ -10,6 +10,7 @@ import { appendElem } from './store.mjs';
 import { callServer } from './authentication.mjs';
 import { getBasket } from './basket.mjs';
 import errorCheck from './error.mjs';
+import resCheck from './responseCheck.mjs';
 
 /**
  * @function getBasketItems
@@ -62,7 +63,8 @@ async function addTotalCost(id, total) {
       },
       body: JSON.stringify(data),
       method: 'PUT',
-    });
+    })
+      .then(response => console.log(resCheck(response)));
   } catch (err) {
     errorCheck(err);
   }
@@ -145,7 +147,8 @@ async function removeOrderDetail(id, productId, basket, quantity) {
       },
       body: JSON.stringify({ id: id }),
       method: 'DELETE',
-    });
+    })
+      .then(response => console.log(resCheck(response)));
     await getTotalCost(id, productId, basket, quantity, true);
   } catch (err) {
     errorCheck(err);
@@ -262,7 +265,8 @@ async function addToStock(data) {
       },
       body: JSON.stringify(data),
       method: 'PUT',
-    });
+    })
+      .then(response => console.log(resCheck(response)));
   } catch (err) {
     errorCheck(err);
   }
@@ -399,7 +403,8 @@ async function storeShippingAddress(shippingAddress) {
       },
       body: JSON.stringify(shippingAddress),
       method: 'PUT',
-    });
+    })
+      .then(response => console.log(resCheck(response)));
   } catch (err) {
     errorCheck(err);
   }
@@ -429,7 +434,8 @@ async function updateOrderDetail(e, productId, orderId, newQuantity, newPrice) {
       },
       body: JSON.stringify(data),
       method: 'PUT',
-    });
+    })
+      .then(response => console.log(resCheck(response)));
     await getTotalCost(e, productId, orderId, newQuantity, false);
   } catch (err) {
     errorCheck(err);
