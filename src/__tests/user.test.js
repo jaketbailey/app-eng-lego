@@ -34,6 +34,26 @@ describe('User Tests', () => {
       });
   });
 
+  test('Update User', async()=> {
+    const id = 'testuser2-testuser2';
+    const expected = [{
+      address_line_1: '2 Test Street',
+      address_line_2: 'Testland',
+      city: 'Testington',
+      country: 'Testland',
+      county: 'Testshire',
+      phone: '07787654321',
+      postcode: 'TE11ST',
+    }];
+    await updateQuery.updateUser(id, '2 Test Street', 'Testland', 'Testington', 'Testland', 'Testshire', 'TE11ST', '07787654321')
+      .then(async (data) => {
+        await getQuery.getUser(id)
+          .then((data) => {
+            expect(data).toEqual(expected);
+          });
+      });
+  });
+
   test('Delete User', async () => {
     await getQuery.getBasketId('testuser2-testuser2')
       .then(async (data) => {
