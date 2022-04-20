@@ -16,7 +16,7 @@ const Query = require('../db/deleteQueries.js');
  */
 const removeBasketItem = (req, res) => {
   const { id } = req.body;
-  Logger.Express('/block/api/remove-basket-item/', 'PUT');
+  Logger.Express('/block/api/remove-basket-item/', 'DELETE');
   const deleteQuery = Query.removeBasketItem(id);
   deleteQuery.catch(err => {
     Logger.Error(err);
@@ -36,7 +36,7 @@ const removeBasketItem = (req, res) => {
  */
 const deleteUser = (req, res) => {
   const { id, orderId } = req.body;
-  Logger.Express('/block/api/delete-user/', 'PUT');
+  Logger.Express('/block/api/delete-user/', 'DELETE');
   const deleteQuery = Query.deleteUser(id, orderId);
   deleteQuery.catch(err => {
     Logger.Error(err);
