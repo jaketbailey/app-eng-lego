@@ -7,7 +7,6 @@
 
 import { createUser } from './user.mjs';
 import createBasket from './basket.mjs';
-import { callServer } from './authentication.mjs';
 
 /**
  * Charlist used to generate a random string
@@ -36,9 +35,9 @@ function generateRandomString(length) {
  * @memberof Unregistered
  */
 export default async function generateUnregistered() {
-  const userDetails = callServer();
   const check = localStorage.getItem('customerId');
-  if (userDetails.sub === undefined || check.split('-')[0] !== 'unregistered') {
+  console.log(check);
+  if (check === null || check.split('-')[0] !== 'unregistered') {
     const unregisteredId = `unregistered-${generateRandomString(20)}`;
     localStorage.setItem('customerId', unregisteredId);
     const unregistered = {

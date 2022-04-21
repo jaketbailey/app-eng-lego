@@ -30,11 +30,7 @@ const updateUser = async (id, address1, address2, city, country, county, postcod
     county = '${county}',
     postcode = '${postcode}',
     country = '${country}'
-    WHERE id = '${id}'`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE id = '${id}'`);
   Logger.Database(`User updated with ID: ${id}`);
 };
 
@@ -51,11 +47,7 @@ const updateStock = async (id, quantity) => {
   await db.Pool.query(`
     UPDATE products SET
       stock = stock - ${quantity}
-    WHERE id = '${id}'`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE id = '${id}'`);
   Logger.Database(`Stock updated for product id: ${id}`);
 };
 
@@ -71,11 +63,7 @@ const addToStock = async (productId, quantity) => {
   await db.Pool.query(`
     UPDATE products SET
       stock = stock + ${quantity}
-    WHERE id = '${productId}'`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE id = '${productId}'`);
   Logger.Database(`Stock updated for product id: ${productId}`);
 };
 
@@ -91,11 +79,7 @@ const addTotalCost = async (id, total) => {
   await db.Pool.query(`
     UPDATE orders SET
       total_cost = ${total}
-    WHERE id = '${id}'`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE id = '${id}'`);
   Logger.Database(`Order total cost updated for order id: ${id}`);
 };
 
@@ -116,11 +100,7 @@ const addShippingAddress = async (id, address1, address2, city, county, postcode
   await db.Pool.query(`
     UPDATE orders SET
       order_address = '${address1}, ${address2}, ${city}, ${county}, ${postcode}, ${country}'
-    WHERE id = '${id}'`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE id = '${id}'`);
   Logger.Database(`Shipping address updated for order id: ${id}`);
 };
 
@@ -136,11 +116,7 @@ const updateOrder = async (id, status) => {
   await db.Pool.query(`
     UPDATE orders SET
       order_status = '${status}'
-    WHERE id = '${id}'`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE id = '${id}'`);
   Logger.Database(`Order status updated to ${status} for order; ${id}`);
 };
 
@@ -159,13 +135,10 @@ const updateOrderDetail = (id, productId, price, quantity) => {
     UPDATE order_details SET
       quantity = '${quantity}',
       price = '${price}'
-    WHERE product_id = '${productId}' AND order_id = ${id}`)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
+    WHERE product_id = '${productId}' AND order_id = ${id}`);
   Logger.Database(`Order updated with orderId: ${id}, ProductId: ${productId}`);
 };
+
 
 module.exports = {
   updateUser,

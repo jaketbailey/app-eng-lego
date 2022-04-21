@@ -7,7 +7,10 @@
 const pgtools = require('pgtools');
 const generate = require('./generate.js');
 const Logger = require('../../logger.js');
-const dbConfig = require('./dbConfig.js');
+const fs = require('fs');
+
+const dbConfigJSON = fs.readFileSync('./dbConfig.json', 'utf8');
+const dbConfig = JSON.parse(dbConfigJSON);
 
 /**
  * @function Init

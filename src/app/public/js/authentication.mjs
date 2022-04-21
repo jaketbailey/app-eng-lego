@@ -56,12 +56,12 @@ async function initialiseClient() {
  * @description Updates the UI based on the current user status (logged in or out)
  */
 async function updateUI() {
-  const unregisteredId = localStorage.getItem('customerId');
   const isAuthenticated = await auth0.isAuthenticated();
   console.log(isAuthenticated);
   document.getElementById('authBtn').disabled = isAuthenticated;
   document.getElementById('authBtnLogout').disabled = !isAuthenticated;
   if (isAuthenticated) {
+    const unregisteredId = localStorage.getItem('customerId');
     const login = document.getElementById('authBtn');
     const logout = document.getElementById('authBtnLogout');
     const website = document.getElementById('website');
@@ -69,10 +69,10 @@ async function updateUI() {
     name.className = 'header';
     const user = auth0.getUser();
     user.then(async function (res) {
+      localStorage.setItem('customerId', res.sub);
       if (window.location.pathname === '/account/') {
         loadAccountPage(res);
       }
-      localStorage.setItem('customerId', res.sub);
       name.textContent = `Logged in as ${res.name}`;
       website.appendChild(name);
       await createUser(res);
@@ -85,7 +85,9 @@ async function updateUI() {
     account.style.display = 'block';
 
     const basketId = await getBasketId(unregisteredId);
-    await deleteUser(unregisteredId, basketId.id);
+    console.log(basketId);
+    console.log('this basket');
+    await deleteUser(unregisteredId, basketId);
   } else {
     generateUnregistered();
   }

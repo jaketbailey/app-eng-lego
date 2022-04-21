@@ -61,7 +61,11 @@ describe('User Tests', () => {
   test('Delete User', async () => {
     await getQuery.getBasketId('testuser2-testuser2')
       .then(async (data) => {
-        await deleteQuery.deleteUser('testuser2-testuser2', data[0].id);
+        console.log(data);
+        for (let item of data) {
+          await deleteQuery.deleteOrder(item.id);
+        }
+        await deleteQuery.deleteUser('testuser2-testuser2');
       });
     await getQuery.getUserName('testuser2-testuser2')
       .then((data) => {

@@ -29,12 +29,15 @@ The database will then be generated ready for the application to run.
 
 ## Documentation
 
+  - All documentation is in the 'docs' folder.
+  - Auto generated documentation is available in the `/docs/jsdoc` folder.
+  - This can be deleted and then re-generated using `npm run docs`.
   - Run `npm run docs` to generate the documentation.
-  - This will generate the documentation in the `jsdoc` folder.
-  - Other documentation (non jsdoc) will be in the `docs` folder.
   - See the database documentation [database.md](docs/database.md)
   - See the testing documentation [testing.md](docs/testing.md)
   
+## Design 
+
 ## References
 
 - See citations throughout the code.

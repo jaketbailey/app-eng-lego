@@ -36,24 +36,13 @@ const removeBasketItem = (req, res) => {
 const deleteUser = async (req, res) => {
   const { id, orderId } = req.body;
   Logger.Express('/block/api/delete-user/', 'DELETE');
-  await Query.deleteOrderDetails(orderId)
-    .catch(err => {
-      Logger.Error(err);
-      res.status.send(`Error: ${err}`);
-      throw err;
-    });
-  await Query.deleteOrder(id)
-    .catch(err => {
-      Logger.Error(err);
-      res.status.send(`Error: ${err}`);
-      throw err;
-    });
-  await Query.deleteUser(id)
-    .catch(err => {
-      Logger.Error(err);
-      res.status.send(`Error: ${err}`);
-      throw err;
-    });
+  const newId = [];
+  newId.push(orderId);
+  for (const item of newId) {
+    console.log(item);
+    await Query.deleteOrder(item.id);
+  }
+  await Query.deleteUser(id);
   res.status(204).send(`User deleted with ID: ${id}`);
 };
 

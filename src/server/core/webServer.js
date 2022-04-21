@@ -19,7 +19,7 @@ this starts the webserver using express and statically serves the directory for 
 web application  */
 function Init() {
   const jsonParser = bodyParser.json();
-  app.use(express.static('../app/'));
+  app.use(express.static('./src/app/'));
 
   /** Post request used to log client-side errors on the server's console. */
   app.post('/block/api/error/', jsonParser, (req, res) => {

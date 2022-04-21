@@ -9,9 +9,8 @@ const Logger = require('../logger.js');
 const fs = require('fs');
 const { Pool } = pg;
 
-const dbConfigJSON = fs.readFileSync('./db/config/dbConfig.json', 'utf8');
+const dbConfigJSON = fs.readFileSync('./src/server/db/config/dbConfig.json', 'utf8');
 const dbConfig = JSON.parse(dbConfigJSON);
-
 
 /**
  * @type {Pool}
