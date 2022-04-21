@@ -54,13 +54,13 @@ const deleteOrder = async (orderId) => {
  * @param {string} orderId - The ID of the order to delete.
  */
 const deleteUser = async (id) => {
-  Logger.Database(`Deleting temp: ${id}`);
+  Logger.Database(`Deleting user: ${id}`);
   await db.Pool.query(`
     DELETE FROM customers
     WHERE id = '${id}';
   `);
-  Logger.Database(`Temp deleted with ID: ${id}`);
-  return `Temp deleted with ID: ${id}`;
+  Logger.Database(`User deleted with ID: ${id}`);
+  return `User deleted with ID: ${id}`;
 };
 
 module.exports = {
