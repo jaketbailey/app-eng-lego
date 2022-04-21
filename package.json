@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "cd ./src/server && node .",
-    "dev": "cd ./src/server && nodemon .",
+    "start": "node ./src/server",
+    "dev": "nodemon ./src/server",
     "setup": "cd ./src/server/db/config && node .",
     "doc": "jsdoc -c jsdoc.conf.json -r ./src/ -d ./docs/jsdoc/"
   },

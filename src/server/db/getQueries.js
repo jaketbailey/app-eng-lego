@@ -426,7 +426,6 @@ const searchProduct = async (search) => {
       Logger.Error(err);
       throw err;
     });
-  console.log(data);
   return data;
 };
 
