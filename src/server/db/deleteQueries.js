@@ -34,27 +34,65 @@ const removeBasketItem = async (id) => {
  * @param {string} id - The ID of the user to delete.
  * @param {string} orderId - The ID of the order to delete.
  */
-const deleteUser = async (id, orderId) => {
-  Logger.Database(`Deleting user: ${id}`);
-  await db.Pool.query(`
-    DELETE FROM order_details
-    WHERE order_id = '${orderId}';
-    
-    DELETE FROM orders
-    WHERE customer_id = '${id}';
+const deleteOrderDetails = (orderId) => {
+  Logger.Database(`Deleting orders in order: ${orderId}`);
+  return new Promise((resolve, reject) => {
+    db.Pool.query(`
+      DELETE FROM order_details
+      WHERE order_id = '${orderId}'
+      `)
+      .then(() => {
+        Logger.Database(`Order details deleted with order ID: ${orderId}`);
+        resolve(`Order details deleted with order ID: ${orderId}`);
+      })
+      .catch((err) => {
+        Logger.Error(err);
+        reject(err);
+      });
+  });
+};
 
-    DELETE FROM customers
-    WHERE id = '${id}';
+const deleteOrder = (id) => {
+  Logger.Database(`Deleting user: ${id}`);
+  return new Promise((resolve, reject) => {
+    db.Pool.query(`
+      DELETE FROM orders
+      WHERE customer_id = '${id}'
     `)
-    .catch((err) => {
-      Logger.Error(err);
-      throw err;
-    });
-  Logger.Database(`User deleted with ID: ${id}`);
-  return `User deleted with ID: ${id}`;
+      .then(() => {
+        Logger.Database(`Order deleted with ID: ${id}`);
+        resolve(`Order deleted with ID: ${id}`);
+      })
+      .catch((err) => {
+        Logger.Error(err);
+        reject(err);
+      });
+    // Logger.Database(`Order deleted with customer ID: ${id}`);
+    // return `Order deleted with customer ID: ${id}`;
+  });
+};
+
+const deleteUser = (id) => {
+  Logger.Database(`Deleting user: ${id}`);
+  return new Promise((resolve, reject) => {
+    db.Pool.query(`
+      DELETE FROM customers
+      WHERE id = '${id}'
+    `)
+      .then(() => {
+        Logger.Database(`User deleted with ID: ${id}`);
+        resolve(`User deleted with ID: ${id}`);
+      })
+      .catch((err) => {
+        Logger.Error(err);
+        reject(err);
+      });
+  });
 };
 
 module.exports = {
   removeBasketItem,
+  deleteOrderDetails,
+  deleteOrder,
   deleteUser,
 };

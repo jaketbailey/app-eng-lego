@@ -24,7 +24,6 @@ const removeBasketItem = (req, res) => {
     throw err;
   });
   res.status(204).send(`Product removed from basket with ID: ${id}`);
-  // });
 };
 
 /**
@@ -34,15 +33,27 @@ const removeBasketItem = (req, res) => {
  * @param {*} res - Response object
  * @memberof Api
  */
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
   const { id, orderId } = req.body;
   Logger.Express('/block/api/delete-user/', 'DELETE');
-  const deleteQuery = Query.deleteUser(id, orderId);
-  deleteQuery.catch(err => {
-    Logger.Error(err);
-    res.status.send(`Error: ${err}`);
-    throw err;
-  });
+  await Query.deleteOrderDetails(orderId)
+    .catch(err => {
+      Logger.Error(err);
+      res.status.send(`Error: ${err}`);
+      throw err;
+    });
+  await Query.deleteOrder(id)
+    .catch(err => {
+      Logger.Error(err);
+      res.status.send(`Error: ${err}`);
+      throw err;
+    });
+  await Query.deleteUser(id)
+    .catch(err => {
+      Logger.Error(err);
+      res.status.send(`Error: ${err}`);
+      throw err;
+    });
   res.status(204).send(`User deleted with ID: ${id}`);
 };
 

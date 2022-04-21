@@ -5,11 +5,14 @@
  */
 
 const pg = require('pg');
-const dbConfig = require('./dbConfig.js');
 const Logger = require('../../logger.js');
 const fs = require('fs');
 
 const { Client } = pg;
+
+const dbConfigJSON = fs.readFileSync('./dbConfig.json', 'utf8');
+const dbConfig = JSON.parse(dbConfigJSON);
+
 
 /**
  * @type {Client}
@@ -34,7 +37,7 @@ const client = new Client({
  * @memberof DatabaseConfig
  * @description Connects to the psql server and creates all the tables in the database.
  */
-export default function () {
+function init() {
   const create = fs.readFileSync('./psql/create_statements.sql', 'utf8');
   client.connect();
   client.query(create, (err) => {
@@ -65,3 +68,7 @@ function insertInto(client) {
     process.exit(0);
   });
 }
+
+module.exports = {
+  Init: init,
+};

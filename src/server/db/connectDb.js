@@ -5,9 +5,13 @@
  * @namespace Database
  */
 const pg = require('pg');
-const dbConfig = require('./config/dbConfig.js');
 const Logger = require('../logger.js');
+const fs = require('fs');
 const { Pool } = pg;
+
+const dbConfigJSON = fs.readFileSync('./db/config/dbConfig.json', 'utf8');
+const dbConfig = JSON.parse(dbConfigJSON);
+
 
 /**
  * @type {Pool}

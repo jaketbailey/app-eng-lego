@@ -49,6 +49,11 @@ describe('Tests for retrieving products from the db', () => {
   });
 
   test('Get product by search', async () => {
+    let stock;
+    await getQueries.getStock(37)
+    .then(data => {
+      stock = parseInt(data[0].stock, 10);
+    })
     const expected = [{
       category: "set",
       colour_id: 8,
@@ -59,7 +64,7 @@ describe('Tests for retrieving products from the db', () => {
       product_desc: "A Lego Spiderman/Doctor Octopus Marvel Set",
       product_id: 37,
       product_name: "Lego Spiderman Set",
-      stock: 30,
+      stock,
     }]
     await getQueries.searchProduct('Spiderman')
       .then(data => {

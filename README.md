@@ -4,7 +4,7 @@
 Before running the application, you must configure the application.
 To do so, you must:
 - Have Postgres installed on your machine [Postgres Install](https://www.postgresql.org/download/)
-- You need to edit one file which is located in `/src/server/db/dbConfig.js`
+- You need to edit one file which is located in `/src/server/db/dbConfig.json`
 - You need to provide the following:
   - PostgreSQL user name
   - PostgreSQL user password
