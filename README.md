@@ -89,9 +89,9 @@ If ticked, fixed.
 
 - [x] User deletion not functioning correctly
 
-- [] Filter does work but... You cannot select 2 types e.g. 2x2 and 2x1. As the operation that is run is an AND operation rather than OR. OR is used to select products that are colour OR colour. You can also select Color AND Type. Not all combinations currently work.
+- [ ] Filter does work but... You cannot select 2 types e.g. 2x2 and 2x1. As the operation that is run is an AND operation rather than OR. OR is used to select products that are colour OR colour. You can also select Color AND Type. Not all combinations currently work.
 
-- [] Search does check for the similar match of the search term. For example, if you search '2 x 2' it will not return blocks with '2x2' type because of spaces etc. 
+- [ ] Search does check for the similar match of the search term. For example, if you search '2 x 2' it will not return blocks with '2x2' type because of spaces etc. 
 
 ## Features to be implemented
 
@@ -99,7 +99,7 @@ If ticked, done.
 
 - [x] Timer for removing items from basket
 
-- [] Store owner view
+- [ ] Store owner view
 
 - 
 
