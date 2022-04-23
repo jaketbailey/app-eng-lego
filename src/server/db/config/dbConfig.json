@@ -1,6 +1,6 @@
 {
-  "user": "postgres",
-  "password": "Outdoor23",
-  "host": "localhost",
+  "user": "<postgres-user>", 
+  "password": "<postgres-password>",
+  "host": "<postgres-host>",
   "port": 5432
 }
