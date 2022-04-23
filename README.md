@@ -58,7 +58,7 @@ The home page is a simple placeholder welcome page, with a link to the store pag
 
 The store page is the primary page of the application. This is where users can add items to their basket, search for products, filter products and enter product pages.
 
-By default, the add to basket button on the main store page will only add 1 item to the basket. This is to make the storefront as simple as possible and therefore easier to use. If you want to add more than one item to the basket, you can click the add to basket button multiple times or visit the product page where you can add multiple items to the basket. Adding items to the basket will also give a visual feedback from adding as the button updates for a period of time saying 'Added x items to basket' and the stock number changes. I made the decision to not include a quantity selection on the storefront page after taking inspiration from the [Lego Store](https://www.lego.com/en-GB/store). 
+By default, the add to basket button on the main store page will only add 1 item to the basket. This is to make the storefront as simple as possible and therefore easier to use. If you want to add more than one item to the basket, you can click the add to basket button multiple times or visit the product page where you can add multiple items to the basket. Adding items to the basket will also give a visual feedback from adding as the button updates for a period of time saying 'Added x items to basket' and the stock number changes. I made the decision to not include a quantity selection on the storefront page after taking inspiration from the Lego Store (Home | Official LEGO® Shop GB, n.d.). 
 
 The filter/search page acts similarly to the main storefront where on the storefront you can search or filter and then the relevant products will be displayed on the page based on the parameters.
 
@@ -79,6 +79,8 @@ I used Auth0 (Auth0, n.d.) to manage the user authentication and authorization. 
 Adding items to basket will update the stock live. My thoughts using this implementation was to implement a system which auto removes items from the users basket after a certain period of time and therefore add back to stock. It would essentially act as a reserve period for items added to basket until they are then removed. The user can currently manually remove x items from their basket and the system will remove the items from the basket and add the items back to the stock. 
 
 All orders, vital user details, products and basket items are stored in the database. I have chosen PostgreSQL (PostgreSQL, 2022) as the database as it is a very popular database and used at an industry level. To link the Node js (Node.js, n.d.) application to the database, I used the Node Postgres Package (node-postgres., n.d.) which allows the Node js application to connect to the database. This package is used to connect to the database and perform CRUD operations on the database. These CRUD REST operations can be seen in the [api.md](docs/api.md) file.
+
+All products (images and names) were sourced from the Brickset Database (Brickset Home Page, n.d.) and the Lego Shop (Home | Official LEGO® Shop GB, n.d.). The Brickset Database is a database of lego sets and the Lego Shop is a website where users can buy lego sets.
 
 The whole store will adjust to the screen size of the device and therefore the application will be responsive. This is done using simple SCSS (Sass: Syntactically Awesome Style Sheets, n.d.) Media Queries. The Media Queries are used to adjust the layout of the application to the screen size of the device. Making the application responsive to the screen size of the device is important for usability as this will allow the application to be used on any device including mobile devices e.g. phones and tablets.
 
@@ -111,9 +113,13 @@ If ticked, done.
 
 - Auth0: Secure access for everyone. But not just anyone. (n.d.). Auth0. Retrieved 23 April 2022, from https://auth0.com/
 
+- Brickset home page. (n.d.). Brickset.Com. Retrieved 23 April 2022, from https://brickset.com/Default.aspx
+
 - Example of Authentication with Auth0. (2021). [JavaScript]. University of Portsmouth, School of Computing. https://github.com/portsoc/auth0-example/blob/95dd25f867e4f35d9cd93728353b35b5b0997b39/stages/6/ (Original work published 2021)
 
 - Express—Node.js web application framework. (n.d.). Retrieved April 12, 2022, from https://expressjs.com/
+
+- Home | Official LEGO® Shop GB. (n.d.). Retrieved 23 April 2022, from https://www.lego.com/en-gb
 
 - Jest · 🃏 Delightful JavaScript Testing. (n.d.). Retrieved April 12, 2022, from https://jestjs.io/
 
