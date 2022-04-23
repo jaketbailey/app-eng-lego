@@ -5,7 +5,7 @@
  * @namespace Unregistered
  */
 
-import { createUser } from './user.mjs';
+import { createUser, getUser } from './user.mjs';
 import createBasket from './basket.mjs';
 
 /**
@@ -47,5 +47,16 @@ export default async function generateUnregistered() {
     };
     await createUser(unregistered);
     await createBasket(unregistered);
+  } if (check.split('-')[0] === 'unregistered') {
+    const unregistered = await getUser(check);
+    if (!unregistered) {
+      const unregisteredDetails = {
+        sub: check,
+        name: 'Unregistered Unregistered',
+        email: 'Unregistered',
+      };
+      await createUser(unregisteredDetails);
+      await createBasket(unregisteredDetails);
+    }
   }
 }
