@@ -97,11 +97,15 @@ If ticked, fixed.
 
 If ticked, done.
 
-- [x] Timer for removing items from basket
+- [ ] Timer for removing items from basket
 
 - [ ] Store owner view
 
-- 
+- [ ] Syncing unregistered basket over to registered upon login
+
+- [ ] View order history
+
+- [ ] View previous order details
 
 # Bibliography
 
