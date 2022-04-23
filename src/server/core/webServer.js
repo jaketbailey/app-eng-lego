@@ -31,7 +31,7 @@ function Init() {
      */
     const { message, stack } = req.body;
     Logger.Error(`Message: ${message}, Stack: ${stack}`);
-    res.status(201).send(req.body);
+    res.status(200).send(req.body);
   });
 
   /** Initialises Auth0 to use secure login and account management */
