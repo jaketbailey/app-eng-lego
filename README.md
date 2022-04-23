@@ -91,6 +91,8 @@ If ticked, fixed.
 
 - [x] User deletion not functioning correctly
 
+- [x] Local storage of unregistered user id stored from previous instance would prevent the db from being updated on first startup of the application. This caused database errors because of foreign key constraints.
+
 - [ ] Filter does work but... You cannot select 2 types e.g. 2x2 and 2x1. As the operation that is run is an AND operation rather than OR. OR is used to select products that are colour OR colour. You can also select Color AND Type. Not all combinations currently work.
 
 - [ ] Search does check for the similar match of the search term. For example, if you search '2 x 2' it will not return blocks with '2x2' type because of spaces etc. 
