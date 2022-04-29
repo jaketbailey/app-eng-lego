@@ -34,7 +34,7 @@
     "scss": "^0.2.4"
   },
   "devDependencies": {
-    "eslint": "^8.4.1",
+    "eslint": "^7.15.0",
     "eslint-config-portsoc": "^0.8.2",
     "jest": "^27.5.1"
   },

@@ -26,7 +26,7 @@ const pool = new Pool({
   user: dbConfig.user,
   host: dbConfig.host,
   database: 'block_shop',
-  password: 'Outdoor23',
+  password: dbConfig.password,
   port: dbConfig.port,
 });
 
